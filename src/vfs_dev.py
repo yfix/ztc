@@ -23,7 +23,7 @@ Params:
 
 import sys
 
-from system.vfs import  DiskStatsParser
+from ztc.system.vfs import  DiskStatsParser
 from ztc import notsupported
 
 if len(sys.argv) <> 3:
