@@ -15,4 +15,6 @@ setup(name='ztc',
       packages = ['ztc', 'ztc.system'],
       
       scripts = glob.glob('src/*.py'),  
+      
+      package_data={'ztc.system': ['data/*.dat']},
 )
