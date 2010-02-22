@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="17.02.10" time="18.58">
+<zabbix_export version="1.0" date="22.02.10" time="16.59">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<useip>0</useip>
@@ -11,61 +11,6 @@
 				<group>Templates</group>
 			</groups>
 			<items>
-				<item type="0" key="agent.ping" value_type="3">
-					<description>Ping to the server</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<valuemap>Service state</valuemap>
-					<applications>
-						<application>Availability</application>
-					</applications>
-				</item>
-				<item type="0" key="agent.version" value_type="1">
-					<description>Zabbix: Version of agent running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>1800</delay>
-					<history>7</history>
-					<trends>0</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Services</application>
-					</applications>
-				</item>
 				<item type="0" key="net.if.collisions[eth0]" value_type="0">
 					<description>Net: number of collisions on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -700,115 +645,6 @@
 						<application>Services</application>
 					</applications>
 				</item>
-				<item type="0" key="net.tcp.service[ssh]" value_type="3">
-					<description>SSHD: server is running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<valuemap>Service state</valuemap>
-					<applications>
-						<application>Services</application>
-					</applications>
-				</item>
-				<item type="0" key="proc.num[,,run]" value_type="3">
-					<description>Proc: number running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Processes</application>
-					</applications>
-				</item>
-				<item type="0" key="proc.num[]" value_type="3">
-					<description>Proc: total</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Processes</application>
-					</applications>
-				</item>
-				<item type="0" key="proc.num[crond]" value_type="3">
-					<description>Number of $1 running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>300</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Services</application>
-					</applications>
-				</item>
 				<item type="0" key="proc.num[denyhosts]" value_type="3">
 					<description>Denyhosts: number procs running</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -837,60 +673,6 @@
 						<application>Security</application>
 					</applications>
 				</item>
-				<item type="0" key="proc.num[fcron]" value_type="3">
-					<description>Number of $1 running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>300</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Processes</application>
-					</applications>
-				</item>
-				<item type="0" key="proc.num[sshd]" value_type="3">
-					<description>Number of $1 running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Processes</application>
-					</applications>
-				</item>
 				<item type="0" key="proc.num[syslogd]" value_type="3">
 					<description>Number of $1 running</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -917,62 +699,6 @@
 					<applications>
 						<application>Integrity</application>
 						<application>Processes</application>
-					</applications>
-				</item>
-				<item type="0" key="proc.num[zabbix_agentd]" value_type="3">
-					<description>Number of $1 running</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Processes</application>
-					</applications>
-				</item>
-				<item type="0" key="status" value_type="3">
-					<description>Host status</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<valuemap>Host status</valuemap>
-					<applications>
-						<application>General</application>
-						<application>OS</application>
 					</applications>
 				</item>
 				<item type="0" key="system.boottime" value_type="3">
@@ -1059,32 +785,33 @@
 						<application>Performance</application>
 					</applications>
 				</item>
-				<item type="0" key="system.cpu.util[,idle,avg1]" value_type="0">
-					<description>CPU: $2 time ($3)</description>
+				<item type="0" key="status" value_type="3">
+					<description>Host status</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>60</delay>
-					<history>14</history>
+					<history>7</history>
 					<trends>90</trends>
 					<status>0</status>
-					<units>%</units>
+					<units></units>
 					<multiplier>0</multiplier>
 					<delta>0</delta>
-					<formula>1</formula>
+					<formula>0</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
 					<params></params>
 					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
 					<snmp_port>161</snmp_port>
 					<snmpv3_securityname></snmpv3_securityname>
 					<snmpv3_securitylevel>0</snmpv3_securitylevel>
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<valuemap>Host status</valuemap>
 					<applications>
-						<application>CPU</application>
-						<application>Performance</application>
+						<application>General</application>
+						<application>OS</application>
 					</applications>
 				</item>
 				<item type="0" key="system.cpu.util[,interrupt,avg1]" value_type="0">
@@ -1283,34 +1010,6 @@
 						<application>Performance</application>
 					</applications>
 				</item>
-				<item type="0" key="system.hostname" value_type="1">
-					<description>Host name</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>1800</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>General</application>
-						<application>OS</application>
-					</applications>
-				</item>
 				<item type="0" key="system.localtime" value_type="3">
 					<description>Host local time</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -1335,8 +1034,8 @@
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
-						<application>General</application>
 						<application>OS</application>
+						<application>General</application>
 					</applications>
 				</item>
 				<item type="0" key="system.swap.size[,pfree]" value_type="0">
@@ -1363,13 +1062,13 @@
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
-						<application>Availability</application>
 						<application>Performance</application>
+						<application>Availability</application>
 						<application>Storage</application>
 					</applications>
 				</item>
-				<item type="0" key="system.uname" value_type="1">
-					<description>Host information</description>
+				<item type="0" key="system.hostname" value_type="1">
+					<description>Host name</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>1800</delay>
 					<history>7</history>
@@ -1392,63 +1091,8 @@
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
+						<application>OS</application>
 						<application>General</application>
-						<application>OS</application>
-					</applications>
-				</item>
-				<item type="0" key="system.uptime" value_type="3">
-					<description>Host uptime (in sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>300</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>uptime</units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>General</application>
-						<application>OS</application>
-					</applications>
-				</item>
-				<item type="0" key="system.users.num" value_type="3">
-					<description>Users: number connected</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>OS</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.cur_ios[sda]" value_type="0">
@@ -1617,6 +1261,34 @@
 					<applications>
 						<application>Performance</application>
 						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="system.uname" value_type="1">
+					<description>Host information</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>1800</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>OS</application>
+						<application>General</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.reads_merged[sda]" value_type="0">
@@ -2263,6 +1935,34 @@
 						<application>Storage</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.fs.inode[/,pfree]" value_type="0">
+					<description>Free number of inodes on $1 in %</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>120</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>%</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Filesystem</application>
+						<application>Availability</application>
+					</applications>
+				</item>
 				<item type="0" key="vfs.file.cksum[/etc/passwd]" value_type="3">
 					<description>Checksum of $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2288,116 +1988,6 @@
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
 						<application>Integrity</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.file.cksum[/usr/bin/ssh]" value_type="3">
-					<description>Checksum of $1</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>600</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Integrity</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.file.cksum[/usr/sbin/sshd]" value_type="3">
-					<description>Checksum of $1</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>600</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Integrity</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.fs.inode[/,pfree]" value_type="0">
-					<description>Free number of inodes on $1 in %</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>120</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>%</units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Availability</application>
-						<application>Filesystem</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.fs.size[/,pfree]" value_type="0">
-					<description>Free disk space on $1 in %</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>120</delay>
-					<history>7</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>%</units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Availability</application>
-						<application>Filesystem</application>
 					</applications>
 				</item>
 				<item type="0" key="vm.memory.active" value_type="3">
@@ -2539,34 +2129,6 @@
 						<application>Storage</application>
 					</applications>
 				</item>
-				<item type="0" key="vm.memory.size[free]" value_type="3">
-					<description>Free memory</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>B</units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Availability</application>
-						<application>Memory</application>
-					</applications>
-				</item>
 				<item type="0" key="vm.memory.size[shared]" value_type="3">
 					<description>Mem: shared</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2591,8 +2153,446 @@
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
-						<application>Availability</application>
 						<application>Memory</application>
+						<application>Availability</application>
+					</applications>
+				</item>
+				<item type="0" key="vm.memory.size[free]" value_type="3">
+					<description>Free memory</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Memory</application>
+						<application>Availability</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[,,run]" value_type="3">
+					<description>Proc: number running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="system.users.num" value_type="3">
+					<description>Users: number connected</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>OS</application>
+					</applications>
+				</item>
+				<item type="0" key="system.uptime" value_type="3">
+					<description>Host uptime (in sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>300</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>uptime</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>OS</application>
+						<application>General</application>
+					</applications>
+				</item>
+				<item type="0" key="net.tcp.service[ssh]" value_type="3">
+					<description>SSHD: server is running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<valuemap>Service state</valuemap>
+					<applications>
+						<application>Services</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.file.cksum[/usr/sbin/sshd]" value_type="3">
+					<description>Checksum of $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>600</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Integrity</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.file.cksum[/usr/bin/ssh]" value_type="3">
+					<description>Checksum of $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>600</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Integrity</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[sshd]" value_type="3">
+					<description>Number of $1 running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[zabbix_agentd]" value_type="3">
+					<description>Number of $1 running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="agent.version" value_type="1">
+					<description>Zabbix: Version of agent running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>1800</delay>
+					<history>7</history>
+					<trends>0</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Services</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[]" value_type="3">
+					<description>Proc: total</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="agent.ping" value_type="3">
+					<description>Ping to the server</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<valuemap>Service state</valuemap>
+					<applications>
+						<application>Availability</application>
+					</applications>
+				</item>
+				<item type="0" key="system.cpu.util[,idle,avg1]" value_type="0">
+					<description>CPU: $2 time ($3)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>%</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>CPU</application>
+						<application>Performance</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[crond]" value_type="3">
+					<description>Number of $1 running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>300</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Services</application>
+					</applications>
+				</item>
+				<item type="0" key="proc.num[fcron]" value_type="3">
+					<description>Number of $1 running</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>300</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.fs.size[/,pfree]" value_type="0">
+					<description>Free disk space on $1 in %</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>120</delay>
+					<history>7</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>%</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Filesystem</application>
+						<application>Availability</application>
 					</applications>
 				</item>
 			</items>
@@ -2839,7 +2839,7 @@
 					</graph_elements>
 				</graph>
 				<graph name="CPU: usage" width="900" height="200">
-					<yaxistype>1</yaxistype>
+					<yaxistype>2</yaxistype>
 					<show_work_period>1</show_work_period>
 					<show_triggers>1</show_triggers>
 					<graphtype>1</graphtype>
@@ -2859,28 +2859,55 @@
 							<type>0</type>
 							<periods_cnt>5</periods_cnt>
 						</graph_element>
-						<graph_element item="Template_Linux_Generic:system.cpu.util[,nice,avg1]">
-							<drawtype>1</drawtype>
-							<sortorder>0</sortorder>
-							<color>009900</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
 						<graph_element item="Template_Linux_Generic:system.cpu.util[,user,avg1]">
 							<drawtype>1</drawtype>
-							<sortorder>0</sortorder>
+							<sortorder>1</sortorder>
 							<color>0000FF</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
 							<periods_cnt>5</periods_cnt>
 						</graph_element>
-						<graph_element item="Template_Linux_Generic:system.cpu.util[,idle,avg1]">
+						<graph_element item="Template_Linux_Generic:system.cpu.util[,nice,avg1]">
 							<drawtype>1</drawtype>
-							<sortorder>0</sortorder>
-							<color>66FFFF</color>
+							<sortorder>2</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:system.cpu.util[,softirq,avg1]">
+							<drawtype>1</drawtype>
+							<sortorder>3</sortorder>
+							<color>DDDD00</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:system.cpu.util[,steal,avg1]">
+							<drawtype>1</drawtype>
+							<sortorder>4</sortorder>
+							<color>880088</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:system.cpu.util[,interrupt,avg1]">
+							<drawtype>1</drawtype>
+							<sortorder>5</sortorder>
+							<color>999999</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:system.cpu.util[,iowait,avg1]">
+							<drawtype>1</drawtype>
+							<sortorder>6</sortorder>
+							<color>CC00CC</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
