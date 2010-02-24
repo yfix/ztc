@@ -35,15 +35,20 @@ class ApacheStatus(object):
             ret = False
         return ret
     
-    def get_accesses(self):
+    def _get_info(self, name):
+        """ Extracts info from status """
         self._read_status()
         ret = None
         for l in self._page_data.split("\n"):
-            if l.find("Total Accesses: ") == 0:
+            if l.find(name + ": ") == 0:
                 ret = int(l.split()[-1])
                 break
-        return ret
-            
+        return ret        
+    
+    def get_accesses(self):
+        return self._get_info('Total Accesses')
+    def get_bytes(self):
+        return self._get_info('Total kBytes') * 1024
 
 if __name__ == '__main__':
     st = ApacheStatus()
