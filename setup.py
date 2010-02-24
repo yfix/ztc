@@ -24,6 +24,6 @@ setup(
       scripts = glob.glob('src/*.py'),  
       
       data_files=[
-            ('/etc/zabbix-agent.d/', ['conf/zabbix-agent.d/linux.conf', ]),
+            ('/etc/zabbix-agent.d/', ['./conf/zabbix-agent.d/linux.conf', ]),
       ],
 )

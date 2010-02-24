@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import urllib
+import urllib2
 
 import ztc.commons
 
@@ -22,9 +22,18 @@ class ApacheStatus(object):
                                               self.config.get('port', '80'),
                                               self.config.get('resource', '/server-status')
                                               )
-        u = urllib.urlopen(url) 
+        u = urllib2.urlopen(url, None, 1)
         self._page_data = u.read()
         u.close()
+    
+    def alive(self):
+        """ Check if apache is alive """
+        ret = True
+        try:
+            self._read_status()
+        except:
+            ret = False
+        return ret
     
     def get_accesses(self):
         self._read_status()
