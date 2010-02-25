@@ -33,6 +33,18 @@ class ApacheStatus(object):
         self._page_data = u.read()
         u.close()
     
+    def _get_info(self, name):
+        """ Extracts info from status """
+        self._read_status()
+        ret = None
+        for l in self._page_data.split("\n"):
+            if l.find(name + ": ") == 0:
+                ret = l.split()[-1]
+                break
+        return ret
+    
+    ####################################################################
+    ## Properties ######################################################            
     def get_alive(self):
         """ Check if apache is alive """
         ret = True
@@ -42,24 +54,18 @@ class ApacheStatus(object):
             ret = False
         return ret
     alive = property(get_alive)
-    
-    def _get_info(self, name):
-        """ Extracts info from status """
-        self._read_status()
-        ret = None
-        for l in self._page_data.split("\n"):
-            if l.find(name + ": ") == 0:
-                ret = int(l.split()[-1])
-                break
-        return ret        
-    
+
     def get_accesses(self):
-        return self._get_info('Total Accesses')
+        return int(self._get_info('Total Accesses'))
     accesses = property(get_accesses)
     
     def get_bytes(self):
-        return self._get_info('Total kBytes') * 1024
+        return int(self._get_info('Total kBytes')) * 1024
     bytes = property(get_bytes)
+    
+    def get_workers_busy(self):
+        return int(self._get_info('BusyWorkers'))
+    workers_busy = property(get_workers_busy)
 
 if __name__ == '__main__':
     st = ApacheStatus()

@@ -4,6 +4,9 @@ apache.* scripts item
 
 Params:
     $1 - metric name. Supported:
+        accesses - number of accesses since server start
+        traffic - number of bytes sent since server start
+        workers_busy - current number of busy workers
 """
 
 import sys
