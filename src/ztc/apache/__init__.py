@@ -26,7 +26,7 @@ class ApacheStatus(object):
         self._page_data = u.read()
         u.close()
     
-    def alive(self):
+    def get_alive(self):
         """ Check if apache is alive """
         ret = True
         try:
@@ -34,6 +34,7 @@ class ApacheStatus(object):
         except:
             ret = False
         return ret
+    alive = property(get_alive)
     
     def _get_info(self, name):
         """ Extracts info from status """

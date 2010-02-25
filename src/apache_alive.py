@@ -15,7 +15,7 @@ from ztc import notsupported
 
 try:
     st = ApacheStatus()
-    ret = st.alive()
+    ret = st.alive
     print int(ret)
 except Exception, e:
     notsupported(e)
