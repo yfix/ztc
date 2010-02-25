@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+"""
+    ztc.apache package
+    Used in ztc Apache template
+    
+    Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+    Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+"""
 
 import urllib2
 
@@ -49,6 +56,7 @@ class ApacheStatus(object):
     def get_accesses(self):
         return self._get_info('Total Accesses')
     accesses = property(get_accesses)
+    
     def get_bytes(self):
         return self._get_info('Total kBytes') * 1024
     bytes = property(get_bytes)
