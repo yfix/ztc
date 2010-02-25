@@ -48,8 +48,10 @@ class ApacheStatus(object):
     
     def get_accesses(self):
         return self._get_info('Total Accesses')
+    accesses = property(get_accesses)
     def get_bytes(self):
         return self._get_info('Total kBytes') * 1024
+    bytes = property(get_bytes)
 
 if __name__ == '__main__':
     st = ApacheStatus()

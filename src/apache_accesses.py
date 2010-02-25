@@ -8,9 +8,9 @@ from ztc import notsupported
 
 try:
     st = ApacheStatus()
-    ret = st.get_accesses()
+    ret = st.accesses
     if ret is None:
-        notsupported("There is no info about accesses on apacge status page")
+        notsupported("There is no info about accesses on apache status page")
     else:
         print ret
 except Exception, e:
