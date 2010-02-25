@@ -73,6 +73,10 @@ class ApacheStatus(object):
     def get_workers_closingconn(self):
         return self.get_scoreboard().count('C')
     workers_closingconn = property(get_workers_closingconn)
+    
+    def get_workers_dns(self):
+        return self.get_scoreboard().count('D')
+    workers_dns = property(get_workers_dns)    
 
 if __name__ == '__main__':
     st = ApacheStatus()

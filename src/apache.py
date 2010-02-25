@@ -10,6 +10,8 @@ Params:
         accesses - number of accesses since server start
         traffic - number of bytes sent since server start
         workers_busy - current number of busy workers
+        workers_closingconn - current number of workers closing connection
+        workers_dns - current number of workers doing dns query
 """
 
 import sys
