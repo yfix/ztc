@@ -2,6 +2,10 @@
 """
 vfs_dev_* scripts item
 
+
+This file is part of ZTC and distributed under GNU GPL v.3
+Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+
 Params:
     $1 - metric name. Supported:
         major: major number
