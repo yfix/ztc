@@ -69,6 +69,14 @@ class PgCluster(object):
         self.dbs = [x[0] for x in dbs]
     
     def query_eachdb(self, sql, exclude=[]):
+        """ execure query on each database of the cluster
+        Params:
+            sql (string): query text
+            exclude (list of strings): database names to exclude
+        Out:
+            { dbname: query_result, ...  }
+        """
+        
         ret = {}
         if not self.dbs: self.get_dblist()
         for db in self.dbs:

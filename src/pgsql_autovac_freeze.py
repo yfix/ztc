@@ -1,32 +1,33 @@
 #!/usr/bin/env python
-#
-# Checks how close each database is to the Postgres autovacuum_freeze_max_age setting.
-# This action will only work for databases version 8.2 or higher. The --warning and
-# --critical options should be expressed as percentages. The 'age' of the transactions
-# in each database is compared to the autovacuum_freeze_max_age setting (200 million by
-# default) to generate a rounded percentage.
-#
-# From PostgreSQL 8.3 docs:
-# autovacuum_freeze_max_age (integer)
-#
-#    Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can
-# attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table.
-# Note that the system will launch autovacuum processes to prevent wraparound even when
-# autovacuum is otherwise disabled. The default is 200 million transactions. This
-# parameter can only be set at server start, but the setting can be reduced
-# for individual tables by changing storage parameters. For more information see Section 23.1.4. 
-#
-# Output: float, %
-#
-# Rewrite of check_postgres.pl function (originaly written on perl)
-# http://www.bucardo.org/check_postgres/
-# Copyright (c) Greg Sabino Mullane <greg@endpoint.com>
-# Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
-#
-# License: GNU GPL v.3
-#
-# TODO:
-# * support for output of db name (when running manually by DBA)
+"""
+Checks how close each database is to the Postgres autovacuum_freeze_max_age setting.
+This action will only work for databases version 8.2 or higher. The --warning and
+--critical options should be expressed as percentages. The 'age' of the transactions
+in each database is compared to the autovacuum_freeze_max_age setting (200 million by
+default) to generate a rounded percentage.
+
+From PostgreSQL 8.3 docs:
+autovacuum_freeze_max_age (integer)
+
+   Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can
+attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table.
+Note that the system will launch autovacuum processes to prevent wraparound even when
+autovacuum is otherwise disabled. The default is 200 million transactions. This
+parameter can only be set at server start, but the setting can be reduced
+for individual tables by changing storage parameters. For more information see Section 23.1.4. 
+
+Output: float, %
+
+Rewrite of check_postgres.pl function (originaly written on perl)
+http://www.bucardo.org/check_postgres/
+Copyright (c) Greg Sabino Mullane <greg@endpoint.com>
+Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
+
+License: GNU GPL v.3
+
+TODO:
+* support for output of db name (when running manually by DBA)
+"""
 
 import ztc.pgsql
 import ztc
