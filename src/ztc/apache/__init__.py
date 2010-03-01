@@ -5,6 +5,7 @@
     
     Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
     Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+    License: GNU GPL v.3
 """
 
 import urllib2
@@ -76,7 +77,11 @@ class ApacheStatus(object):
     
     def get_workers_dns(self):
         return self.get_scoreboard().count('D')
-    workers_dns = property(get_workers_dns)    
+    workers_dns = property(get_workers_dns)
+                
+    def get_workers_finishing(self):
+        return self.get_scoreboard().count('G')
+    workers_finishing = property(get_workers_dns)
 
 if __name__ == '__main__':
     st = ApacheStatus()

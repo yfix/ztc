@@ -12,6 +12,7 @@ Params:
         workers_busy - current number of busy workers
         workers_closingconn - current number of workers closing connection
         workers_dns - current number of workers doing dns query
+        workers_finishing - cunnrent number of workers finishing
 """
 
 import sys
