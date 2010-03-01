@@ -4,6 +4,7 @@ Pgsql buffers metrics for ztc
 Params:
     $1 - name of metric. Supported:
         'clear' - number of clear buffers
+        'dirty' - number of dirty buffers
 '''
 
 import sys
@@ -18,8 +19,10 @@ metric = sys.argv[1]
 
 if metric == 'clear':
     q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'"
+elif metric == 'dirty':
+    q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'"
 else:
-    notsupported("uncknown buffers type")
+    notsupported("unknown buffers type")
 
 p = PgDB()
 r = p.query(q)
