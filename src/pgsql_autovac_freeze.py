@@ -28,7 +28,7 @@
 # TODO:
 # * support for output of db name (when running manually by DBA)
 
-import pgsql
+import ztc.pgsql
 import ztc
 
 q = """
@@ -53,7 +53,7 @@ FROM
 ORDER BY 3 DESC, 4 ASC
 """
 
-p = pgsql.PgSQL()
+p = ztc.pgsql.PgDB()
 
 max_percent = 0
 ret = p.query(q)

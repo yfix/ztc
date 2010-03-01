@@ -11,9 +11,9 @@ Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 Licensed under GNU GPL v.3
 '''
 
-from pgsql import PgSQL
+from ztc.pgsql import PgDB
 
-p = PgSQL()
+p = PgDB()
 if p.query('SELECT 1'):
     print("1")
 else:

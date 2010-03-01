@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 '''
-Created on 17.12.2009
+ZTC commons classes
 
-@author: vrusinov
+Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
 '''
 
 import sys
