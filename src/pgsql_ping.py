@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 '''
-PgSQL ping script
+PgSQL ping script for ztc (pgsql.ping item)
 Connects to db and executes trivial query
 
-Copyright (c) 2009 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2009-2010 Vladimir Rusinov <vladimir@greenmice.info>
 Licensed under GNU GPL v.3
 '''
 
