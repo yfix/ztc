@@ -15,7 +15,8 @@ Params:
         workers_dns - current number of workers doing dns query
         workers_finishing - current number of workers finishing
         workers_idle - current number of idle workers
-        workers_idlecleanup - current number of idle workers in cleanup state 
+        workers_idlecleanup - current number of idle workers in cleanup state
+        workers_keepalive - current number of workers in keepalive state 
 """
 
 import sys

@@ -90,7 +90,12 @@ class ApacheStatus(object):
                 
     def get_workers_idlecleanup(self):
         return self.get_scoreboard().count('I')
-    workers_idlecleanup = property(get_workers_idlecleanup)    
+    workers_idlecleanup = property(get_workers_idlecleanup)
+    
+                        
+    def get_workers_keepalive(self):
+        return self.get_scoreboard().count('K')
+    workers_keepalive = property(get_workers_keepalive)
 
 if __name__ == '__main__':
     st = ApacheStatus()
