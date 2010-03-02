@@ -70,6 +70,11 @@ class ApacheStatus(object):
     def get_workers_busy(self):
         return int(self._get_info('BusyWorkers'))
     workers_busy = property(get_workers_busy)
+
+    
+    def get_workers_idle(self):
+        return int(self._get_info('IdleWorkers'))
+    workers_idle = property(get_workers_idle)    
     
     def get_workers_closingconn(self):
         return self.get_scoreboard().count('C')

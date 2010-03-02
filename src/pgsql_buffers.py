@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 '''
-Pgsql buffers metrics for ztc
+PostgreSQL buffers metrics for ZTC
+
+Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
+
 Params:
     $1 - name of metric. Supported:
         'clear' - number of clear buffers
