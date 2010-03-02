@@ -87,6 +87,10 @@ class ApacheStatus(object):
     def get_workers_finishing(self):
         return self.get_scoreboard().count('G')
     workers_finishing = property(get_workers_finishing)
+                
+    def get_workers_idlecleanup(self):
+        return self.get_scoreboard().count('I')
+    workers_idlecleanup = property(get_workers_idlecleanup)    
 
 if __name__ == '__main__':
     st = ApacheStatus()

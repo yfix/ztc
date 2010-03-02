@@ -14,7 +14,8 @@ Params:
         workers_closingconn - current number of workers closing connection
         workers_dns - current number of workers doing dns query
         workers_finishing - current number of workers finishing
-        workers_idle - current number of idle workers 
+        workers_idle - current number of idle workers
+        workers_idlecleanup - current number of idle workers in cleanup state 
 """
 
 import sys
