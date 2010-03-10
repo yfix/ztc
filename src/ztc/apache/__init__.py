@@ -13,7 +13,7 @@ import urllib2
 import ztc.commons
 
 class ApacheStatus(object):
-    """ Process apache status page """
+    """ Apache status page reader and parser """
     
     _page_data = None # data from status page
     
@@ -23,6 +23,7 @@ class ApacheStatus(object):
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
         if self._page_data is not None:
+            # we've already retrieved it
             return 1
         url = self.config = "%s://%s:%s%s?auto" % (
                                               self.config.get('proto', 'http'),
@@ -102,7 +103,12 @@ class ApacheStatus(object):
     
     def get_workers_openslot(self):
         return self.get_scoreboard().count('.')
-    workers_openslot = property(get_workers_openslot)    
+    workers_openslot = property(get_workers_openslot)
+    
+            
+    def get_workers_reading(self):
+        return self.get_scoreboard().count('R')
+    workers_openslot = property(get_workers_reading)
 
 if __name__ == '__main__':
     st = ApacheStatus()
