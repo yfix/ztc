@@ -17,7 +17,8 @@ Params:
         workers_idle - current number of idle workers
         workers_idlecleanup - current number of idle workers in cleanup state
         workers_keepalive - current number of workers in keepalive state 
-        worker_logging - current number of workers in logging state
+        workers_logging - current number of workers in logging state
+        workers_openslot - current number of open slots for workers
 """
 
 import sys

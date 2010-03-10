@@ -99,6 +99,10 @@ class ApacheStatus(object):
     def get_workers_logging(self):
         return self.get_scoreboard().count('L')
     workers_logging = property(get_workers_logging)
+    
+    def get_workers_openslot(self):
+        return self.get_scoreboard().count('.')
+    workers_openslot = property(get_workers_openslot)    
 
 if __name__ == '__main__':
     st = ApacheStatus()
