@@ -20,6 +20,7 @@ Params:
         workers_logging - current number of workers in logging state
         workers_openslot - current number of open slots for workers
         workers_reading - current number of workers in reading state
+        workers_starting - current number of workers starting
 """
 
 import sys
