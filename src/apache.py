@@ -21,6 +21,7 @@ Params:
         workers_openslot - current number of open slots for workers
         workers_reading - current number of workers in reading state
         workers_starting - current number of workers starting
+        workers_waitingconn - current number of workers ready to accept connection
 """
 
 import sys

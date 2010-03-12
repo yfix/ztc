@@ -108,11 +108,14 @@ class ApacheStatus(object):
     def get_workers_reading(self):
         return self.get_scoreboard().count('R')
     workers_openslot = property(get_workers_reading)
-
             
     def get_workers_starting(self):
         return self.get_scoreboard().count('S')
     workers_starting = property(get_workers_starting)
+            
+    def get_workers_waitingconn(self):
+        return self.get_scoreboard().count('_')
+    workers_waitingconn = property(get_workers_waitingconn)
 
 
 if __name__ == '__main__':
