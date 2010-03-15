@@ -116,7 +116,10 @@ class ApacheStatus(object):
     def get_workers_waitingconn(self):
         return self.get_scoreboard().count('_')
     workers_waitingconn = property(get_workers_waitingconn)
-
+            
+    def get_workers_writing(self):
+        return self.get_scoreboard().count('_')
+    workers_writing = property(get_workers_writing)
 
 if __name__ == '__main__':
     st = ApacheStatus()
