@@ -9,6 +9,7 @@ Params:
     $1 - metric name. Supported:
         accepts - number of connection accepted by nginx (since server start)
         connections_active - current number of active connections
+        connections_reading - current number of connections reading request
 """
 
 import sys
