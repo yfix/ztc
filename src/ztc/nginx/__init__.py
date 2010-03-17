@@ -51,6 +51,16 @@ class NginxStatus(object):
         return my_line.split()[0]
     accepts = property(get_accepts)
     
+    def get_connections_active(self):
+        """
+        first line:
+        Active connections: 123
+        """
+        self._read_status()
+        my = self._page_data[0].split()[-1]
+        return int(my)
+    connections_active = property(get_connections_active)
+    
 if __name__ == '__main__':
     st = NginxStatus()
     print "accepts:", st.get_accepts()

@@ -8,6 +8,7 @@ Copyright (c) 2010 Vladimir Rusinov
 Params:
     $1 - metric name. Supported:
         accepts - number of connection accepted by nginx (since server start)
+        connections_active - current number of active connections
 """
 
 import sys
