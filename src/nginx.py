@@ -11,6 +11,7 @@ Params:
         connections_active - current number of active connections
         connections_reading - current number of connections reading request
         connections_writing - current number of connections writing response
+        connectionw_waiting - current number of connections on waiting state
 """
 
 import sys
