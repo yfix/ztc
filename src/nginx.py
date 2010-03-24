@@ -8,6 +8,7 @@ Copyright (c) 2010 Vladimir Rusinov
 Params:
     $1 - metric name. Supported:
         accepts - number of connection accepted by nginx (since server start)
+        handled - number of connections handled by nginx ( = accepts - rejected )
         connections_active - current number of active connections
         connections_reading - current number of connections reading request
         connections_writing - current number of connections writing response
