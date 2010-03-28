@@ -57,6 +57,13 @@ class NginxStatus(object):
         return int(my_line.split()[1])
     handled = property(get_handled)
     
+    def get_requests(self):
+        self._read_status()
+        my_line= self._page_data[2]
+        return int(my_line.split()[2])
+    requests = property(get_requests)
+        
+    
     def get_connections_active(self):
         """
         first line:
