@@ -8,6 +8,7 @@ Params:
     $1 - name of metric. Supported:
         'clear' - number of clear buffers
         'dirty' - number of dirty buffers
+        'used' - number of used buffers
 '''
 
 import sys
@@ -24,6 +25,8 @@ if metric == 'clear':
     q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'"
 elif metric == 'dirty':
     q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'"
+elif metric == 'used':
+    q = "SELECT COUNT(*) FROM pg_buffercache WHERE reldatabase IS NOT NULL;"
 else:
     notsupported("unknown buffers type")
 
