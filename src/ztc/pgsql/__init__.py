@@ -13,7 +13,7 @@ class PgDB(object):
     database='postgres'
     host='localhost'
     user='postgres'
-    password=''
+    password=None
     
     my_name='pgsql'
     
@@ -38,7 +38,17 @@ class PgDB(object):
     def _connect(self):
         """ Connect to database """
         try:
-            self.dbh = pg.connect(database=self.database, host=self.host, user=self.user, password=self.password)
+            if self.host == None or self.host == 'localhost':
+                if self.password:
+                     self.dbh = pg.connect(database=self.database, user=self.user, password=self.password)
+                else:
+                     self.dbh = pg.connect(database=self.database, user=self.user)
+            else:
+                if self.password:
+                     self.dbh = pg.connect(database=self.database, host=self.host, user=self.user, password=self.password)
+                else:
+                     self.dbh = pg.connect(database=self.database, host=self.host, user=self.user)
+            # ^^^ I hate myself, TODO: rewrite this please
             self.cur = self.dbh.cursor()
         except  Exception, e:
             self.lasterr = e
