@@ -27,6 +27,8 @@ elif metric == 'dirty':
     q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'"
 elif metric == 'used':
     q = "SELECT COUNT(*) FROM pg_buffercache WHERE reldatabase IS NOT NULL;"
+elif metric == 'total':
+    q = "SELECT count(*) FROM pg_buffercache"
 else:
     notsupported("unknown buffers type")
 
