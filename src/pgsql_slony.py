@@ -2,7 +2,7 @@
 '''
 PostgreSQL slony item script
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010 Murano Software [http://muranosoft.com]
 
 Params:
     $1 - name of metric. Supported:

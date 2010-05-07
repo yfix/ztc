@@ -7,7 +7,7 @@ import sys
 
 setup(
       name='ztc',
-      version = '10.4',
+      version = '10.5',
       description = 'Zabbix Template Collection',
       author = 'Vladimir Rusinov',
       author_email = 'vladimir@greenmice.info',
@@ -22,6 +22,8 @@ setup(
       
       data_files=[
             ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf')),
-            ('/etc/ztc',  glob.glob('./conf/etc/*.conf'))
+            ('/etc/ztc',  glob.glob('./conf/etc/*.conf')),
+            ('/opt/ztc/templates', glob.glob('templates/*.xml')),
+            ('/opt/ztc/doc/', ('README', 'REQUIREMENTS'))
       ],
 )
