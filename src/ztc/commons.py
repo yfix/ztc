@@ -13,7 +13,7 @@ import ConfigParser
 class MyConfigParser(ConfigParser.ConfigParser):
     def get(self, option, default):
         try:
-            return self.ConfigParser.get(None, option)
+            return self.ConfigParser.get('main', option)
         except:
             return default
 
@@ -24,10 +24,12 @@ parser.add_option("-v", "--version",
 parser.add_option("-t", "--tmpdir",
                   action="store", type="str", dest="tmpdir", default="/tmp/ztc/",
                   help="Temp direcroty path")
-parser.add_option("-c", "--condir",
+parser.add_option("-c", "--confdir",
                   action="store", type="str", dest="confdir", default="/etc/ztc/",
                   help="ZTC Config dir")
 (options, args) = parser.parse_args()
+
+# TODO: version() function
 
 def get_config(name):
     """
@@ -36,7 +38,6 @@ def get_config(name):
     config = MyConfigParser()
     config.read(os.path.join(options.confdir, name+".conf"))
     return config
-
 
 def get_tmpdir():
     s = options.tmpdir
