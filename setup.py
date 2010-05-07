@@ -5,9 +5,6 @@ import os
 import glob
 import sys
 
-#sys.prefix='/opt/ztc/'
-#sys.exec_prefix='/opt/ztc/'
-
 setup(
       name='ztc',
       version = '10.4',

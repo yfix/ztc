@@ -5,7 +5,6 @@ ZTC commons classes
 Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
 '''
 
-import sys
 import os
 import optparse
 import ConfigParser
