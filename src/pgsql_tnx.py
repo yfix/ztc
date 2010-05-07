@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-PostgreSQL buffers metrics for ZTC
+PostgreSQL transaction metrics for ZTC
 
 Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
 
@@ -21,16 +21,14 @@ if len(sys.argv) <> 2:
 
 metric = sys.argv[1]
 
-if metric == 'clear':
-    q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'"
-elif metric == 'dirty':
-    q = "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'"
-elif metric == 'used':
-    q = "SELECT COUNT(*) FROM pg_buffercache WHERE reldatabase IS NOT NULL;"
-elif metric == 'total':
-    q = "SELECT count(*) FROM pg_buffercache"
+if metric == 'idle_time':
+    q = """SELECT max(COALESCE(ROUND(EXTRACT(epoch FROM now()-query_start)),0))
+        FROM pg_stat_activity WHERE current_query = '<IDLE> in transaction'"""
+elif metric == 'max_time':
+    q = """SELECT max(COALESCE(ROUND(EXTRACT(epoch FROM now()-query_start)),0))
+        FROM pg_stat_activity WHERE xact_start IS NOT NULL"""
 else:
-    notsupported("unknown buffers type")
+    notsupported("unknown metric")
 
 p = PgDB()
 r = p.query(q)

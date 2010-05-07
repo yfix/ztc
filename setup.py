@@ -19,11 +19,12 @@ setup(
       home = '/opt/ztc/',
       
       package_dir = {'': 'src'},
-      packages = ['ztc', 'ztc.system', 'ztc.pgsql'],
+      packages = ['ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx'],
       
       scripts = glob.glob('src/*.py'),  
       
       data_files=[
-            ('/etc/zabbix-agent.d/', ['./conf/zabbix-agent.d/linux.conf', ]),
+            ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf')),
+            ('/etc/ztc',  glob.glob('./conf/etc/*.conf'))
       ],
 )
