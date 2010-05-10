@@ -12,7 +12,7 @@ import ConfigParser
 class MyConfigParser(ConfigParser.ConfigParser):
     def get(self, option, default):
         try:
-            return self.ConfigParser.get('main', option)
+            return ConfigParser.ConfigParser.get(self, 'main', option)
         except:
             return default
 
@@ -43,3 +43,8 @@ def get_tmpdir():
     if not os.path.isdir(s):
         os.makedirs(s)
     return s
+
+if __name__ == '__main__':
+    # test
+    c = get_config('nginx')
+    print c.get('port', 123)
