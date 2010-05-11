@@ -25,12 +25,12 @@ class ApacheStatus(object):
         if self._page_data is not None:
             # we've already retrieved it
             return 1
-        url = self.config = "%s://%s:%s%s?auto" % (
-                                              self.config.get('proto', 'http'),
-                                              self.config.get('host', 'localhost'),
-                                              self.config.get('port', '80'),
-                                              self.config.get('resource', '/server-status')
-                                              )
+        url  = "%s://%s:%s%s?auto" % (
+                                      self.config.get('proto', 'http'),
+                                      self.config.get('host', 'localhost'),
+                                      self.config.get('port', '80'),
+                                      self.config.get('resource', '/server-status')
+                                      )
         u = urllib2.urlopen(url, None, 1)
         self._page_data = u.read()
         u.close()
@@ -107,7 +107,7 @@ class ApacheStatus(object):
                 
     def get_workers_reading(self):
         return self.get_scoreboard().count('R')
-    workers_openslot = property(get_workers_reading)
+    workers_reading = property(get_workers_reading)
             
     def get_workers_starting(self):
         return self.get_scoreboard().count('S')

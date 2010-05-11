@@ -2,7 +2,9 @@
 """
 ZTC pgsql package
 
-Used in PostgreSQL-releated templates
+Used in PostgreSQL-related templates
+
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
 import psycopg2 as pg
@@ -40,14 +42,14 @@ class PgDB(object):
         try:
             if self.host == None or self.host == 'localhost':
                 if self.password:
-                     self.dbh = pg.connect(database=self.database, user=self.user, password=self.password)
+                    self.dbh = pg.connect(database=self.database, user=self.user, password=self.password)
                 else:
-                     self.dbh = pg.connect(database=self.database, user=self.user)
+                    self.dbh = pg.connect(database=self.database, user=self.user)
             else:
                 if self.password:
-                     self.dbh = pg.connect(database=self.database, host=self.host, user=self.user, password=self.password)
+                    self.dbh = pg.connect(database=self.database, host=self.host, user=self.user, password=self.password)
                 else:
-                     self.dbh = pg.connect(database=self.database, host=self.host, user=self.user)
+                    self.dbh = pg.connect(database=self.database, host=self.host, user=self.user)
             # ^^^ I hate myself, TODO: rewrite this please
             self.cur = self.dbh.cursor()
         except  Exception, e:
