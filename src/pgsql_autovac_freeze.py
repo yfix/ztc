@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 """
+ZTC PostgreSQL autovacuum freeze item script.
+
+Copyright (c) 2009-2010 Vladimir Rusinov <vladimir@greenmice.info>
+
+License: GPL v3
+
 Checks how close each database is to the Postgres autovacuum_freeze_max_age setting.
 This action will only work for databases version 8.2 or higher. The --warning and
 --critical options should be expressed as percentages. The 'age' of the transactions

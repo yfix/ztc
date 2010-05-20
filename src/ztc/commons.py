@@ -2,7 +2,8 @@
 '''
 ZTC commons classes
 
-Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Licensed under GPL v.3
 '''
 
 import os

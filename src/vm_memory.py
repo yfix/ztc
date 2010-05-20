@@ -9,6 +9,7 @@ Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 Params:
     $1 - metric name. Supported:
         active - amount of active (recently accessed) memory
+        inavtive - amount of inactive (not accessed recently) memory
 """
 
 import sys

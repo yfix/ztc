@@ -3,6 +3,7 @@
 PostgreSQL database stats
 
 Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
+Licensed under GPL v.3
 
 Params:
     $1 - name of metric. Supported:

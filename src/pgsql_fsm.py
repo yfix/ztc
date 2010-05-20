@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 '''
-PostgreSQL fsm monitors
+PostgreSQL fsm items.
+Requires pg_freespacemap contrib to be installed on configured database.
+Does not supports PostgreSQL >= 8.4, as it manages fsm automatically,
 
 Copyright (c) Murano Software [http://muranosoft.com]
 
 Params:
     $1 - name of metric. Supported:
+        pages - percent of used fsm_pages
+        relations - percent of used fsm_relations
 '''
 
 import sys

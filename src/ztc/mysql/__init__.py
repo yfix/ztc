@@ -44,6 +44,9 @@ class MyDB(object):
         except Exception, e:
             self.lasterr = e
             return None
+    
+    def escape(self, str):
+        return MySQLdb.escape_string(str)
 
 if __name__ == '__main__':
     m = MyDB()

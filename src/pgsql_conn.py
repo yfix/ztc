@@ -2,7 +2,8 @@
 '''
 PostgreSQL connections metrics for ZTC
 
-Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Licensed under GPL v. 3
 
 Params:
     $1 - name of metric. Supported:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-pgsql.bloat.max
+pgsql.bloat
 
 Checks the maximum amount of bloat in all tables and indexes in all databases. (Bloat is
 generally the amount of dead unused space taken up in a table or index. This space is
