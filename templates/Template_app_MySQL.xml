@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="20.05.10" time="20.29">
+<zabbix_export version="1.0" date="24.05.10" time="16.23">
 	<hosts>
 		<host name="Template_app_MySQL">
 			<useip>0</useip>
@@ -201,6 +201,60 @@
 						<application>MySQL</application>
 					</applications>
 				</item>
+				<item type="0" key="mysql.status.aborted_clients" value_type="0">
+					<description>Mysql: aborted clients / sec</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>MySQL</application>
+					</applications>
+				</item>
+				<item type="0" key="mysql.status.aborted_connects" value_type="0">
+					<description>Mysql: aborted connects / sec</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>MySQL</application>
+					</applications>
+				</item>
 			</items>
 			<triggers>
 				<trigger>
@@ -210,6 +264,24 @@
 					<url></url>
 					<status>0</status>
 					<priority>5</priority>
+					<comments></comments>
+				</trigger>
+				<trigger>
+					<description>There were aborted clients on {HOSTNAME}</description>
+					<type>0</type>
+					<expression>{{HOSTNAME}:mysql.status.aborted_clients.change(0)}#0</expression>
+					<url></url>
+					<status>0</status>
+					<priority>2</priority>
+					<comments></comments>
+				</trigger>
+				<trigger>
+					<description>There were aborted connects on {HOSTNAME}</description>
+					<type>0</type>
+					<expression>{{HOSTNAME}:mysql.status.aborted_connects.change(0)}#0</expression>
+					<url></url>
+					<status>0</status>
+					<priority>2</priority>
 					<comments></comments>
 				</trigger>
 			</triggers>
@@ -303,6 +375,38 @@
 							<drawtype>0</drawtype>
 							<sortorder>0</sortorder>
 							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Mysql: aborted..." width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_app_MySQL:mysql.status.aborted_clients">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>CC0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_MySQL:mysql.status.aborted_connects">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>CC00CC</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
