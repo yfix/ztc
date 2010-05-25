@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="24.05.10" time="20.43">
+<zabbix_export version="1.0" date="24.05.10" time="20.47">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<useip>0</useip>
@@ -2631,15 +2631,6 @@
 					<url></url>
 					<status>0</status>
 					<priority>3</priority>
-					<comments></comments>
-				</trigger>
-				<trigger>
-					<description>Low free disk space (&lt;20%) on {HOSTNAME} volume /</description>
-					<type>0</type>
-					<expression>{{HOSTNAME}:vfs.fs.size[/,pfree].last(0)}&lt;100</expression>
-					<url></url>
-					<status>0</status>
-					<priority>2</priority>
 					<comments></comments>
 				</trigger>
 				<trigger>
