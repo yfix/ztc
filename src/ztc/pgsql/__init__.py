@@ -7,6 +7,8 @@ Used in PostgreSQL-related templates
 Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
+import sys
+
 import psycopg2 as pg
 import ztc.commons
 
@@ -53,6 +55,7 @@ class PgDB(object):
             # ^^^ I hate myself, TODO: rewrite this please
             self.cur = self.dbh.cursor()
         except  Exception, e:
+            raise
             self.lasterr = e
             self.dbh = None
             self.cur = None
@@ -65,6 +68,13 @@ class PgDB(object):
         except Exception, e:
             self.lasterr = e
             return None
+        
+    def fineprint_results(self, rets):
+        """ Fine print query results """
+        for row in rets:
+            for cell in row:
+                sys.stdout.write(str(cell) + ' | ')
+            sys.stdout.write("\n")
     
     def close(self):
         self.cur.close()
@@ -97,3 +107,9 @@ class PgCluster(object):
             pdb = PgDB(database=db)
             ret[db] = pdb.query(sql)
         return ret
+
+if __name__ == '__main__':
+    # some test
+    p = PgDB()
+    ret = p.query("SELECT * FROM pg_tables")
+    p.fineprint_results(ret)
