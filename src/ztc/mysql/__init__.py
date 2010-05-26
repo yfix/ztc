@@ -3,6 +3,7 @@
 MySQL module for ZTC
 
 Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Licensed under GNU GPL v.3
 """
 
 import MySQLdb
