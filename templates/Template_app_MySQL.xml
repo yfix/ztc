@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="26.05.10" time="22.24">
+<zabbix_export version="1.0" date="17.06.10" time="10.42">
 	<hosts>
 		<host name="Template_app_MySQL">
 			<useip>0</useip>
@@ -552,20 +552,29 @@
 					<percent_left>0.0000</percent_left>
 					<percent_right>0.0000</percent_right>
 					<graph_elements>
-						<graph_element item="Template_app_MySQL:mysql.status[Connections]">
-							<drawtype>0</drawtype>
-							<sortorder>0</sortorder>
-							<color>EE0000</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
 						<graph_element item="Template_app_MySQL:mysql.status[Threads_connected]">
 							<drawtype>2</drawtype>
 							<sortorder>0</sortorder>
 							<color>009900</color>
 							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_MySQL:mysql.status[Connections]">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>EE0000</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_MySQL:mysql.status[aborted_connects]">
+							<drawtype>2</drawtype>
+							<sortorder>0</sortorder>
+							<color>CC00CC</color>
+							<yaxisside>1</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
 							<periods_cnt>5</periods_cnt>
