@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="18.06.10" time="18.42">
+<zabbix_export version="1.0" date="18.06.10" time="19.01">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<useip>0</useip>
@@ -4187,7 +4187,7 @@
 					<percent_left>0.0000</percent_left>
 					<percent_right>0.0000</percent_right>
 					<graph_elements>
-						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sda]">
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdc]">
 							<drawtype>1</drawtype>
 							<sortorder>0</sortorder>
 							<color>009900</color>
