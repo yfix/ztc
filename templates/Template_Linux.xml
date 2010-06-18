@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="02.06.10" time="15.36">
+<zabbix_export version="1.0" date="18.06.10" time="18.42">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<useip>0</useip>
@@ -701,6 +701,34 @@
 						<application>Processes</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.cur_ios[sdd]" value_type="0">
+					<description>Disk: $1: I/Os currently in progress</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="system.boottime" value_type="3">
 					<description>Host boot time</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -1104,34 +1132,6 @@
 					<units></units>
 					<multiplier>0</multiplier>
 					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Performance</application>
-						<application>Storage</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.dev.reads[sda]" value_type="0">
-					<description>Disk: $1: reads completed (per sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
 					<formula>1</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
@@ -2017,6 +2017,34 @@
 						<application>Availability</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.reads[sdd]" value_type="0">
+					<description>Disk: $1: reads completed (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="vm.memory.size[free]" value_type="3">
 					<description>Free memory</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2595,6 +2623,34 @@
 						<application>Processes</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.reads[sda]" value_type="0">
+					<description>Disk: $1: reads completed (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="proc.num[cron]" value_type="3">
 					<description>Number of $1 running</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2620,6 +2676,258 @@
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
 						<application>Services</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.reads_merged[sdd]" value_type="0">
+					<description>Disk: $1: reads merged (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.sectors_read[sda]" value_type="0">
+					<description>Disk: $1: sectors read (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.sectors_read[sdd]" value_type="0">
+					<description>Disk: $1: sectors read (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.sectors_written[sdd]" value_type="0">
+					<description>Disk: $1: sectors written (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.time_io[sdd]" value_type="0">
+					<description>Disk: $1: time spent doing I/Os (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>ms</units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.time_read[sdd]" value_type="0">
+					<description>Disk: $1: time spent reading (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>ms</units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.time_write[sdd]" value_type="0">
+					<description>Disk: $1: time spent writing (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>ms</units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.writes[sdd]" value_type="0">
+					<description>Disk: $1: writes completed (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.writes_merged[sdd]" value_type="0">
+					<description>Disk: $1: writes merged (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
 					</applications>
 				</item>
 			</items>
@@ -3651,6 +3959,376 @@
 							<sortorder>0</sortorder>
 							<color>DD0000</color>
 							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdd: overview" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>1</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>0</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>100.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.cur_ios[sdd]">
+							<drawtype>2</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.time_io[sdd]">
+							<drawtype>2</drawtype>
+							<sortorder>0</sortorder>
+							<color>DD0000</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdd: reads" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>1</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>0</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>100.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads_merged[sdd]">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>00DDDD</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdd]">
+							<drawtype>2</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.time_read[sdd]">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>DD0000</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdd: writes" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>1</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>0</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>100.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.time_write[sdd]">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>DD0000</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdd]">
+							<drawtype>2</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes_merged[sdd]">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>00DDDD</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sda: sectors" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_read[sda]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_written[sda]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sda: operations" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sda]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sda]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdb: operations" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdc: operations" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sda]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdc]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdd: operations" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdd]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdd]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdb: sectors" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_read[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_written[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdc: sectors" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_read[sdc]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_written[sdc]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdd: sectors" width="900" height="200">
+					<yaxistype>2</yaxistype>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_read[sdd]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.sectors_written[sdd]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
 							<periods_cnt>5</periods_cnt>
