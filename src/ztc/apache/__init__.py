@@ -8,6 +8,7 @@
     License: GNU GPL v.3
 """
 
+import os
 import urllib2
 
 import ztc.commons
@@ -15,8 +16,7 @@ import ztc.commons
 class ApacheStatus(object):
     """ Apache status page reader and parser """
     
-    _page_data = None # data from status page
-    
+    _page_data = None # data from sta 
     def __init__(self):
         self.config = ztc.commons.get_config('apache')
     
@@ -71,7 +71,6 @@ class ApacheStatus(object):
     def get_workers_busy(self):
         return int(self._get_info('BusyWorkers'))
     workers_busy = property(get_workers_busy)
-
     
     def get_workers_idle(self):
         return int(self._get_info('IdleWorkers'))
@@ -121,6 +120,42 @@ class ApacheStatus(object):
         return self.get_scoreboard().count('_')
     workers_writing = property(get_workers_writing)
 
+class ApacheTimeLog(object):
+    """ Processes Apache time log (LogFormat %T) """
+    
+    def __init__(self):
+        self.config = ztc.commons.get_config('apache')
+        
+    def _openlog(self):
+        """ Open Log File and save it as self.log file object """
+        logdir = self.config.get('logdir', '/var/log/apache2/')
+        logfile = self.config.get('timelog', 'time.log')    
+        fn = os.path.join(logdir, logfile)
+        self.log = open(fn, 'r')
+    
+    def _closelog(self):
+        self.log.close()
+    
+    def get_avg(self):
+        """ Calculates average request processing time """
+        total_time = 0
+        total_lines = 0
+        self._openlog()
+        for l in self.log.readlines():
+            if not l.strip():
+                continue
+            time= l.split()[0]
+            total_time += int(time)
+            total_lines += 1
+        self._closelog()
+        if total_lines == 0:
+            return 0
+        else:
+            return float(total_time) / total_lines
+    average_request_time = property(get_avg)        
+
 if __name__ == '__main__':
     st = ApacheStatus()
     print "accesses:", st.get_accesses()
+    tl = ApacheTimeLog()
+    print "average time: ", tl.get_avg()    
