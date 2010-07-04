@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<zabbix_export version="1.0" date="18.06.10" time="19.01">
+<zabbix_export version="1.0" date="04.07.10" time="09.57">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<useip>0</useip>
@@ -120,34 +120,6 @@
 						<application>Performance</application>
 					</applications>
 				</item>
-				<item type="0" key="net.if.in[eth0,bytes]" value_type="3">
-					<description>Net: bps recieved on $1</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>Bps</units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Network</application>
-						<application>Performance</application>
-					</applications>
-				</item>
 				<item type="0" key="net.if.in[eth0,packets]" value_type="3">
 					<description>Net: packets/sec recieved on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -211,34 +183,6 @@
 					<trends>90</trends>
 					<status>0</status>
 					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Network</application>
-						<application>Performance</application>
-					</applications>
-				</item>
-				<item type="0" key="net.if.in[eth1,bytes]" value_type="3">
-					<description>Net: bps recieved on $1</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>Bps</units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>0</formula>
@@ -398,33 +342,6 @@
 						<application>Performance</application>
 					</applications>
 				</item>
-				<item type="0" key="net.if.out[eth0,bytes]" value_type="0">
-					<description>Net: bytes/sec sent on $1</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>60</delay>
-					<history>14</history>
-					<trends>90</trends>
-					<status>0</status>
-					<units>Bps</units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>0</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community></snmp_community>
-					<snmp_oid></snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Network</application>
-					</applications>
-				</item>
 				<item type="0" key="net.if.out[eth0,packets]" value_type="3">
 					<description>Net: packets/sec send on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -508,14 +425,14 @@
 						<application>Performance</application>
 					</applications>
 				</item>
-				<item type="0" key="net.if.out[eth1,bytes]" value_type="3">
-					<description>Net: bps on $1</description>
+				<item type="0" key="net.if.out[eth1,packets]" value_type="3">
+					<description>Net: packets/sec send on $1</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>60</delay>
 					<history>14</history>
 					<trends>90</trends>
 					<status>0</status>
-					<units>Bps</units>
+					<units></units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>0</formula>
@@ -535,14 +452,14 @@
 						<application>Network</application>
 					</applications>
 				</item>
-				<item type="0" key="net.if.out[eth1,packets]" value_type="3">
-					<description>Net: packets/sec send on $1</description>
+				<item type="0" key="net.if.out[eth1,bytes]" value_type="3">
+					<description>Net: bps on $1</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>60</delay>
 					<history>14</history>
 					<trends>90</trends>
 					<status>0</status>
-					<units></units>
+					<units>Bps</units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>0</formula>
@@ -598,6 +515,33 @@
 					<trends>90</trends>
 					<status>0</status>
 					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
+				<item type="0" key="net.if.out[eth0,bytes]" value_type="3">
+					<description>Net: bps out on $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>Bps</units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>0</formula>
@@ -1066,6 +1010,34 @@
 						<application>Storage</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.sectors_read[sdb]" value_type="0">
+					<description>Disk: $1: sectors read (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>1</multiplier>
+					<delta>1</delta>
+					<formula>512</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="vfs.dev.cur_ios[sda]" value_type="0">
 					<description>Disk: $1: I/Os currently in progress</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -1206,6 +1178,34 @@
 						<application>Storage</application>
 					</applications>
 				</item>
+				<item type="0" key="net.if.in[eth0,bytes]" value_type="3">
+					<description>Net: bps recieved on $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
+					<status>0</status>
+					<units>Bps</units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>0</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+						<application>Performance</application>
+					</applications>
+				</item>
 				<item type="0" key="vfs.dev.reads_merged[sda]" value_type="0">
 					<description>Disk: $1: reads merged (per sec)</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -1290,144 +1290,32 @@
 						<application>Storage</application>
 					</applications>
 				</item>
-				<item type="0" key="vfs.dev.sectors_read[sdb]" value_type="0">
-					<description>Disk: $1: sectors read (per sec)</description>
+				<item type="0" key="net.if.in[eth1,bytes]" value_type="3">
+					<description>Net: bps recieved on $1</description>
 					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
+					<delay>60</delay>
+					<history>14</history>
+					<trends>90</trends>
 					<status>0</status>
-					<units></units>
+					<units>Bps</units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
-					<formula>1</formula>
+					<formula>0</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<params></params>
 					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_community></snmp_community>
+					<snmp_oid></snmp_oid>
 					<snmp_port>161</snmp_port>
 					<snmpv3_securityname></snmpv3_securityname>
 					<snmpv3_securitylevel>0</snmpv3_securitylevel>
 					<snmpv3_authpassphrase></snmpv3_authpassphrase>
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
+						<application>Network</application>
 						<application>Performance</application>
-						<application>Storage</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.dev.sectors_read[sdc]" value_type="0">
-					<description>Disk: $1: sectors read (per sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Performance</application>
-						<application>Storage</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.dev.sectors_written[sda]" value_type="0">
-					<description>Disk: $1: sectors written (per sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Performance</application>
-						<application>Storage</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.dev.sectors_written[sdb]" value_type="0">
-					<description>Disk: $1: sectors written (per sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Performance</application>
-						<application>Storage</application>
-					</applications>
-				</item>
-				<item type="0" key="vfs.dev.sectors_written[sdc]" value_type="0">
-					<description>Disk: $1: sectors written (per sec)</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Performance</application>
-						<application>Storage</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.time_io[sda]" value_type="0">
@@ -1637,6 +1525,34 @@
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.sectors_read[sdc]" value_type="0">
+					<description>Disk: $1: sectors read (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>1</multiplier>
+					<delta>1</delta>
+					<formula>512</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
@@ -2017,6 +1933,34 @@
 						<application>Availability</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.sectors_written[sda]" value_type="0">
+					<description>Disk: $1: sectors written (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>1</multiplier>
+					<delta>1</delta>
+					<formula>512</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="vfs.dev.reads[sdd]" value_type="0">
 					<description>Disk: $1: reads completed (per sec)</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2028,6 +1972,34 @@
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="vfs.dev.sectors_written[sdb]" value_type="0">
+					<description>Disk: $1: sectors written (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>1</multiplier>
+					<delta>1</delta>
+					<formula>512</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
@@ -2458,6 +2430,34 @@
 						<application>OS</application>
 					</applications>
 				</item>
+				<item type="0" key="vfs.dev.sectors_written[sdc]" value_type="0">
+					<description>Disk: $1: sectors written (per sec)</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units>B</units>
+					<multiplier>1</multiplier>
+					<delta>1</delta>
+					<formula>512</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Performance</application>
+						<application>Storage</application>
+					</applications>
+				</item>
 				<item type="0" key="agent.ping" value_type="3">
 					<description>Ping to the server</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2713,10 +2713,10 @@
 					<history>7</history>
 					<trends>365</trends>
 					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
+					<units>B</units>
+					<multiplier>1</multiplier>
 					<delta>1</delta>
-					<formula>1</formula>
+					<formula>512</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
@@ -2741,10 +2741,10 @@
 					<history>7</history>
 					<trends>365</trends>
 					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
+					<units>B</units>
+					<multiplier>1</multiplier>
 					<delta>1</delta>
-					<formula>1</formula>
+					<formula>512</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
@@ -2769,10 +2769,10 @@
 					<history>7</history>
 					<trends>365</trends>
 					<status>0</status>
-					<units></units>
-					<multiplier>0</multiplier>
+					<units>B</units>
+					<multiplier>1</multiplier>
 					<delta>1</delta>
-					<formula>1</formula>
+					<formula>512</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
 					<delay_flex></delay_flex>
@@ -3699,7 +3699,7 @@
 					<percent_left>0.0000</percent_left>
 					<percent_right>100.0000</percent_right>
 					<graph_elements>
-						<graph_element item="Template_Linux_Generic:vfs.dev.time_io[sdc]">
+						<graph_element item="Template_Linux_Generic:vfs.dev.cur_ios[sdc]">
 							<drawtype>2</drawtype>
 							<sortorder>0</sortorder>
 							<color>009900</color>
