@@ -131,10 +131,13 @@ class ApacheTimeLog(object):
         logdir = self.config.get('logdir', '/var/log/apache2/')
         logfile = self.config.get('timelog', 'time.log')    
         fn = os.path.join(logdir, logfile)
-        self.log = open(fn, 'r')
+        self.log = open(fn, 'a+')
     
     def _closelog(self):
         self.log.close()
+    
+    def _truncatelog(self):
+        self.log.truncate(0)
     
     def get_avg(self):
         """ Calculates average request processing time """
@@ -147,6 +150,7 @@ class ApacheTimeLog(object):
             time= l.split()[0]
             total_time += int(time)
             total_lines += 1
+        self._truncatelog()
         self._closelog()
         if total_lines == 0:
             return 0
