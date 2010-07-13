@@ -37,7 +37,7 @@ elif metric == 'tup_fetched':
 elif metric == 'tup_updated':
     q = "SELECT SUM(tup_updates) FROM pg_stat_database"
 elif metric == 'tup_returned':
-    q = "SELECT SUM(tup_teturned) FROM pg_stat_database"
+    q = "SELECT SUM(tup_returned) FROM pg_stat_database"
 else:
     notsupported("unknown metric")
 
