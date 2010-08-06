@@ -8,7 +8,10 @@ License: GNU GPL v3
 Requirements:
     * Linux 2.6
     * proc filesystem mounted on /proc/
+    * smartmontools (for smart checks)
 '''
+
+import os
 
 class DiskStats(object):
     major = 0
@@ -107,8 +110,22 @@ class DiskStatsParser(object):
             map(int, t[:2]) + [t[2], ] + map(int, t[3:])
         
         return r
+    
+class SmartStatus(object):
+    """ Disk smart status, using smartmontools """
+    def __init__(self, dev):
+        self.device = dev
+    
+    def get_health(self):
+        cmd = 'smartctl -H /dev/%s' % (self.device, )
+        #print cmd
+        c = os.popen(cmd)        
+        return c.readlines()[-2].split()[-1]
+    health = property(get_health)
 
 if __name__ == '__main__':
     st = DiskStatsParser('sda')
     print st.parse()
+    ss = SmartStatus('sda')
+    print ss.health
     pass

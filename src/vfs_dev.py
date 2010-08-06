@@ -22,12 +22,14 @@ Params:
         cur_ios: I/Os currently in progress
         time_io: time spent doing I/Os (ms)
         time_io_weidged: weighted time spent doing I/Os (ms)
+        
+        health - smart disk health
     $2 - device name, e.g. 'sda'
 """
 
 import sys
 
-from ztc.system.vfs import  DiskStatsParser
+from ztc.system.vfs import  DiskStatsParser, SmartStatus
 from ztc import notsupported
 
 if len(sys.argv) <> 3:
@@ -35,6 +37,14 @@ if len(sys.argv) <> 3:
 
 metric = sys.argv[1]
 dev = sys.argv[2]
+
+if metric == 'health':
+    try:
+        s = SmartStatus(dev)
+        return s.health
+    except Exception, e:
+        notsupported(e)
+        
 
 try:
     p = DiskStatsParser(dev)
