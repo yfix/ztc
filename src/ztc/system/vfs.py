@@ -12,6 +12,7 @@ Requirements:
 '''
 
 import os
+import stat
 
 class DiskStats(object):
     major = 0
@@ -117,7 +118,10 @@ class SmartStatus(object):
         self.device = dev
     
     def get_health(self):
-        cmd = 'smartctl -H /dev/%s' % (self.device, )
+        dev = '/dev/%s' % (self.device, )
+        if not os.path.exists(dev):
+            return 'NO_DEVICE'
+        cmd = 'smartctl -H %s' % (dev, )
         #print cmd
         c = os.popen(cmd)        
         return c.readlines()[-2].split()[-1]
@@ -128,4 +132,8 @@ if __name__ == '__main__':
     print st.parse()
     ss = SmartStatus('sda')
     print ss.health
+
+    ss = SmartStatus('sdq')
+    print ss.health    
+    
     pass
