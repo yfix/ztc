@@ -41,15 +41,14 @@ dev = sys.argv[2]
 if metric == 'health':
     try:
         s = SmartStatus(dev)
-        return s.health
+        print  s.health
     except Exception, e:
         notsupported(e)
-        
+else:
+    try:
+        p = DiskStatsParser(dev)
+        stats = p.parse()
 
-try:
-    p = DiskStatsParser(dev)
-    stats = p.parse()
-
-    print stats.__getattribute__(metric)
-except Exception, e:
-    notsupported(e)
+        print stats.__getattribute__(metric)
+    except Exception, e:
+        notsupported(e)
