@@ -151,9 +151,7 @@ class MDStatus(object):
         md_re = re.compile('^(md\d+)+\s*:') # pattern to detect md1: bla-bla-bla lines
         dev_re = re.compile('(\w+)\[\d+\](\(.\))*') # pattern to detect sda1[1] (F) in bla-bla-bla md descriptions
         
-        #f = open('/proc/mdstat', 'r')
-        # for debug:
-        f = open('/home/users/vrusinov/tmp/mdstat', 'r')
+        f = open('/proc/mdstat', 'r')
         for l in f.readlines():
             if not md_re.match(l):
                 continue # skipping lines which are not md status
