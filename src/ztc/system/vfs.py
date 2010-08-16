@@ -3,6 +3,7 @@
 VFS Device metrics module for ZTC
 
 Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Parts of mdstat parsing copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
 License: GNU GPL v3
 
 Requirements:
@@ -13,6 +14,7 @@ Requirements:
 
 import os
 import stat
+import re
 
 class DiskStats(object):
     major = 0
@@ -62,8 +64,7 @@ class DiskStatsParser(object):
     """ Class to read and parse /proc/diskstats """
     
     def __init__(self, device):
-        """
-        IN:
+        """ IN:
             device (string) - device name, e.g. 'sda'
         """
         self.device = device
@@ -127,13 +128,62 @@ class SmartStatus(object):
         return c.readlines()[-2].split()[-1]
     health = property(get_health)
 
-if __name__ == '__main__':
-    st = DiskStatsParser('sda')
-    print st.parse()
-    ss = SmartStatus('sda')
-    print ss.health
+class MDStatus(object):
+    """ Staus of linux software RAID
+    Sample /proc/mdstat output:
+    
+    Personalities : [raid1] [raid5]
+    md0 : active (read-only) raid1 sdc1[1]
+          2096384 blocks [2/1] [_U]
+    
+    md1 : active raid5 sdb3[2] sdb4[3] sdb2[4](F) sdb1[0] sdb5[5](S)
+          995712 blocks level 5, 64k chunk, algorithm 2 [3/2] [U_U]
+          [=================>...]  recovery = 86.0% (429796/497856) finish=0.0min speed=23877K/sec
+    
+    unused devices: <none>
+    """
+    
+    def get_failed_devs(self):
+        failed_devs = []
+        active_devs = []
+        spare_devs = []
+        
+        md_re = re.compile('^(md\d+)+\s*:') # pattern to detect md1: bla-bla-bla lines
+        dev_re = re.compile('(\w+)\[\d+\](\(.\))*') # pattern to detect sda1[1] (F) in bla-bla-bla md descriptions
+        
+        f = open('/proc/mdstat', 'r')
+        for l in f.readlines():
+            if not md_re.match(l):
+                continue # skipping lines which are not md status
+            #print l
+            for d in l.split():
+                st = dev_re.match(d)
+                if not st:
+                    continue # skip 'active', ':' and other
+                (dev, status) = st.groups()
+                if status == "(F)":
+                    failed_devs.append(dev)
+                elif status == "(S)":
+                    spare_devs.append(dev)
+                else:
+                    active_devs.append(dev)
+        return failed_devs
+    failed_devs = property(get_failed_devs)
+            
+            
+            
 
-    ss = SmartStatus('sdq')
-    print ss.health    
+if __name__ == '__main__':
+    #st = DiskStatsParser('sda')
+    #print st.parse()
+    
+    #ss = SmartStatus('sda')
+    #print ss.health
+
+    #ss = SmartStatus('sdq')
+    #print ss.health
+    
+    md = MDStatus()
+    print md.failed_devs    
     
     pass

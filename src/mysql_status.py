@@ -21,7 +21,7 @@ if len(sys.argv) <> 2:
 metric = sys.argv[1]
 
 m = MyDB()
-r = m.query('SHOW STATUS LIKE "%s"' % (m.escape(metric)))
+r = m.query('SHOW GLOBAL STATUS LIKE "%s"' % (m.escape(metric)))
 if r:
     print r[0][1]
 else:
