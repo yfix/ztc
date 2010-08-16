@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="16.08.10" time="18.30">
+<zabbix_export version="1.0" date="16.08.10" time="22.05">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<proxy_hostid>0</proxy_hostid>
@@ -3979,41 +3979,6 @@
 			</items>
 			<templates/>
 			<graphs>
-				<graph name="Disk: sdb: operations" width="900" height="200">
-					<ymin_type>2</ymin_type>
-					<ymax_type>2</ymax_type>
-					<ymin_item_key></ymin_item_key>
-					<ymax_item_key></ymax_item_key>
-					<show_work_period>0</show_work_period>
-					<show_triggers>0</show_triggers>
-					<graphtype>1</graphtype>
-					<yaxismin>0.0000</yaxismin>
-					<yaxismax>100.0000</yaxismax>
-					<show_legend>0</show_legend>
-					<show_3d>0</show_3d>
-					<percent_left>0.0000</percent_left>
-					<percent_right>0.0000</percent_right>
-					<graph_elements>
-						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdb]">
-							<drawtype>1</drawtype>
-							<sortorder>0</sortorder>
-							<color>009900</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
-						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdb]">
-							<drawtype>1</drawtype>
-							<sortorder>1</sortorder>
-							<color>EE0000</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
-					</graph_elements>
-				</graph>
 				<graph name="Disk: sdd: reads" width="900" height="200">
 					<ymin_type>2</ymin_type>
 					<ymax_type>2</ymax_type>
@@ -4799,6 +4764,41 @@
 							<drawtype>0</drawtype>
 							<sortorder>0</sortorder>
 							<color>00BBBB</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Disk: sdb: operations" width="900" height="200">
+					<ymin_type>1</ymin_type>
+					<ymax_type>0</ymax_type>
+					<ymin_item_key></ymin_item_key>
+					<ymax_item_key></ymax_item_key>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:vfs.dev.writes[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>EE0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:vfs.dev.reads[sdb]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>009900</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
