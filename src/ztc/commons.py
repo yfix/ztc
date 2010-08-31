@@ -45,6 +45,11 @@ def get_tmpdir():
         os.makedirs(s)
     return s
 
+def mypopen(cmd):
+    # TODO: use subprocess on 2.6+
+    os.putenv('LC_ALL', 'POSIX')
+    return os.popen(cmd)
+
 if __name__ == '__main__':
     # test
     c = get_config('nginx')
