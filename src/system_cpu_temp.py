@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 """
 system_cpu_temp - get cpu temperature
+
+This file is part of ztc, http://greenmice.info/trac/ztc/
+Licensed under GPL v.3
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
 import sys
-import os
 import re
 
 from ztc import notsupported
