@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="19.08.10" time="16.09">
+<zabbix_export version="1.0" date="02.09.10" time="16.18">
 	<hosts>
 		<host name="Template_app_apache2">
 			<proxy_hostid>0</proxy_hostid>
@@ -172,17 +172,83 @@ Probably you should tune your mpm settings.</comments>
 						<application>Apache2</application>
 					</applications>
 				</item>
-				<item type="0" key="apache.accesses" value_type="0">
-					<description>Number of requests per second</description>
+				<item type="0" key="apache.workers.idle" value_type="3">
+					<description>Number of idle workers</description>
 					<ipmi_sensor></ipmi_sensor>
-					<delay>120</delay>
+					<delay>90</delay>
 					<history>90</history>
 					<trends>365</trends>
 					<status>0</status>
 					<data_type>0</data_type>
 					<units></units>
 					<multiplier>0</multiplier>
-					<delta>1</delta>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache.workers.reqtime" value_type="0">
+					<description>Apache: average request processing time</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units>ms</units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache.workers.reading" value_type="3">
+					<description>Number of workers reading request</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
 					<formula>1</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
@@ -216,6 +282,39 @@ Probably you should tune your mpm settings.</comments>
 					<units></units>
 					<multiplier>0</multiplier>
 					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache.accesses" value_type="0">
+					<description>Number of requests per second</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>120</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
 					<formula>1</formula>
 					<lastlogsize>0</lastlogsize>
 					<logtimefmt></logtimefmt>
@@ -305,43 +404,10 @@ Probably you should tune your mpm settings.</comments>
 					</applications>
 				</item>
 				<item type="0" key="apache.alive" value_type="3">
-					<description>Apache is accessible</description>
+					<description>Apache: accessible</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>90</delay>
 					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<data_type>0</data_type>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<authtype>0</authtype>
-					<username></username>
-					<password></password>
-					<publickey></publickey>
-					<privatekey></privatekey>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Apache2</application>
-					</applications>
-				</item>
-				<item type="0" key="apache.workers.idle" value_type="3">
-					<description>Number of idle workers</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>90</history>
 					<trends>365</trends>
 					<status>0</status>
 					<data_type>0</data_type>
@@ -436,39 +502,6 @@ Probably you should tune your mpm settings.</comments>
 						<application>Apache2</application>
 					</applications>
 				</item>
-				<item type="0" key="apache.workers.reqtime" value_type="0">
-					<description>Apache: average request processing time</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<data_type>0</data_type>
-					<units>us</units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<authtype>0</authtype>
-					<username></username>
-					<password></password>
-					<publickey></publickey>
-					<privatekey></privatekey>
-					<params></params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Apache2</application>
-					</applications>
-				</item>
 				<item type="0" key="apache.workers.starting" value_type="3">
 					<description>Number of starting workers</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -503,7 +536,7 @@ Probably you should tune your mpm settings.</comments>
 					</applications>
 				</item>
 				<item type="0" key="apache.workers.waitingconn" value_type="3">
-					<description>Number of workers waiting for connection</description>
+					<description>Apache: workers waiting for connection</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>90</delay>
 					<history>90</history>
@@ -537,39 +570,6 @@ Probably you should tune your mpm settings.</comments>
 				</item>
 				<item type="0" key="apache.workers.keepalive" value_type="3">
 					<description>Number of workers in keepalive waiting</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>90</history>
-					<trends>365</trends>
-					<status>0</status>
-					<data_type>0</data_type>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>0</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<authtype>0</authtype>
-					<username></username>
-					<password></password>
-					<publickey></publickey>
-					<privatekey></privatekey>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>Apache2</application>
-					</applications>
-				</item>
-				<item type="0" key="apache.workers.reading" value_type="3">
-					<description>Number of workers reading request</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>90</delay>
 					<history>90</history>
