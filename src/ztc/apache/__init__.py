@@ -140,7 +140,7 @@ class ApacheTimeLog(object):
         self.log.truncate(0)
     
     def get_avg(self):
-        """ Calculates average request processing time """
+        """ Calculates average request processing time, it milliseconds """
         total_time = 0
         total_lines = 0
         self._openlog()
@@ -155,7 +155,7 @@ class ApacheTimeLog(object):
         if total_lines == 0:
             return 0
         else:
-            return float(total_time) / total_lines
+            return float(total_time) / total_lines / 1000 # convert to ms 
     average_request_time = property(get_avg)        
 
 if __name__ == '__main__':
