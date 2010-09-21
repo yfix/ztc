@@ -1,0 +1,40 @@
+###################
+# Authors:
+* Vladimir Rusinov - Maitainer, primary developer
+  <vladimir@greenmice.info>
+  http://greenmice.info/ http://muranosoft.com/ http://muranosoft.ru/
+###################
+# 3rd parties:
+* Greg Sabino Mullane - check_postgres plugin for Nagios and others (used in PostgreSQL template)
+  <greg@endpoint.com>
+  http://www.bucardo.org/check_postgres/
+* Mucknet - parts of Linux template (some disk stats items)
+  http://www.muck.net/?p=19
+###################
+# Other coyright holders:
+* Murano Software
+  Big portion of work done for Murano Software and Murano Software customers and paid by Murano Software
+  http://muranosoft.com/ http://muraosoft.ru/
+
+##########################################################
+# License:
+GPLv3
+
+##########################################################
+# Installation, docs, etc
+http://trac.greenmice.info/ztc/
+
+##########################################################
+# Become an author/contributor/tester!
+
+hg repo: http://bitbucket.org/rvs/ztc/
+
+Please, send your bugreports, comments, patches and fixes to:
+* http://bitbucket.org/rvs/ztc/
+* http://trac.greenmice.info/ztc/
+* http://greenmice.info/
+* mailto:vladimir@greenmice.info
+* Jabber/GTalk/MSN: vladimir@greenmice.info
+* Skype/Yahoo: v.rusinov
+
+Thanks!

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<zabbix_export version="1.0" date="22.07.09" time="11.00">
+	<hosts>
+		<host name="Template_Zabbix_Server">
+			<useip>0</useip>
+			<dns></dns>
+			<ip>0.0.0.0</ip>
+			<port>10050</port>
+			<status>3</status>
+			<groups>
+				<group>Templates</group>
+			</groups>
+			<items>
+				<item type="5" key="zabbix[items_unsupported]" value_type="3">
+					<description>Number of unsupported items</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>300</delay>
+					<history>3</history>
+					<trends>365</trends>
+					<status>0</status>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Zabbix Server</application>
+					</applications>
+				</item>
+			</items>
+			<triggers>
+				<trigger>
+					<description>Number of unsupported items has changed</description>
+					<type>0</type>
+					<expression>{{HOSTNAME}:zabbix[items_unsupported].abschange(0)}#0</expression>
+					<url></url>
+					<status>0</status>
+					<priority>2</priority>
+					<comments>You should check your custom items.</comments>
+				</trigger>
+			</triggers>
+		</host>
+	</hosts>
+	<dependencies>
+	</dependencies>
+</zabbix_export>
