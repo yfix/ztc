@@ -121,7 +121,7 @@ class ApacheStatus(object):
     workers_writing = property(get_workers_writing)
 
 class ApacheTimeLog(object):
-    """ Processes Apache time log (LogFormat %T) """
+    """ Processes Apache time log (LogFormat %D) """
     
     def __init__(self):
         self.config = ztc.commons.get_config('apache')
