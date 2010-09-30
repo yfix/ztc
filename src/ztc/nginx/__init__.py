@@ -30,7 +30,10 @@ class NginxStatus(object):
                                               self.config.get('port', '8080'),
                                               self.config.get('resource', '/server-status')
                                               )
-        u = urllib2.urlopen(url, None, 1)
+        try:
+            u = urllib2.urlopen(url, None, 1)
+        except TypeError:
+            u = urllib2.urlopen(url, None)
         self._page_data = u.readlines()
         u.close()
         #print self._page_data
