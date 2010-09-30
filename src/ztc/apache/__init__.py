@@ -31,7 +31,10 @@ class ApacheStatus(object):
                                       self.config.get('port', '80'),
                                       self.config.get('resource', '/server-status')
                                       )
-        u = urllib2.urlopen(url, None, 1)
+        try:
+            u = urllib2.urlopen(url, None, 1)
+        except TypeError:
+            u = urllib2.urlopen(url, None)
         self._page_data = u.read()
         u.close()
     
