@@ -8,6 +8,7 @@
 """
 
 import urllib2
+import time
 
 import ztc.commons
 
@@ -15,6 +16,7 @@ class NginxStatus(object):
     """ Nginx status page reader and parser """
     
     _page_data = None # data from status page
+    ping_time = 0
     
     def __init__(self):
         self.config = ztc.commons.get_config('nginx')
@@ -24,6 +26,7 @@ class NginxStatus(object):
         if self._page_data is not None:
             # we've already retrieved it
             return 1
+        read_start = time.time()
         url = "%s://%s:%s%s?auto" % (
                                      self.config.get('proto', 'http'),
                                      self.config.get('host', 'localhost'),
@@ -36,7 +39,7 @@ class NginxStatus(object):
             u = urllib2.urlopen(url, None)
         self._page_data = u.readlines()
         u.close()
-        #print self._page_data
+        self.ping_time = time.time() - read_start # calulate how many time was required
     
     def _get_info(self, name):
         """ Extracts info from status """
@@ -90,7 +93,6 @@ class NginxStatus(object):
             except: raise e 
         return a        
     requests = property(get_requests)
-        
     
     def get_connections_active(self):
         """
@@ -130,8 +132,17 @@ class NginxStatus(object):
             return int(my)
         except:
             return 0
-    connections_writing = property(get_connections_writing)    
+    connections_writing = property(get_connections_writing)
+    
+    def get_ping(self):
+        try:
+            self._read_status()
+        finally:
+            return self.ping_time
+    ping = property(get_ping)
+                
     
 if __name__ == '__main__':
     st = NginxStatus()
+    print "ping:", st.ping
     print "accepts:", st.get_accepts()
