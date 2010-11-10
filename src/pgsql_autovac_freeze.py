@@ -30,13 +30,12 @@ Copyright (c) Greg Sabino Mullane <greg@endpoint.com>
 Copyright (c) Vladimir Rusinov <vladimir@greenmice.info>
 
 License: GNU GPL v.3
-
-TODO:
-* support for output of db name (when running manually by DBA)
 """
 
-import ztc.pgsql
+import sys
+
 import ztc
+import ztc.pgsql
 
 q = """
 SELECT
@@ -60,14 +59,21 @@ FROM
 ORDER BY 3 DESC, 4 ASC
 """
 
+list = False
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'list':
+        list = True
+
 p = ztc.pgsql.PgDB()
 
 max_percent = 0
 ret = p.query(q)
 if not ret:
-	# some kind of error
-	ztc.notsupported()
+    # some kind of error
+    ztc.notsupported()
 for (freeze, age, percent, dbname) in ret:
-	max_percent = max(max_percent, percent)
+    if list:
+        print "%s: %i%%" % (dbname, percent)
+    max_percent = max(max_percent, percent)
 
 print max_percent
