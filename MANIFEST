@@ -3,11 +3,13 @@ REQUIREMENTS
 setup.cfg
 setup.py
 conf/etc/apache.conf
+conf/etc/hw_raid_3ware.conf
 conf/etc/mysql.conf
 conf/etc/nginx.conf
 conf/etc/pgsql.conf
 conf/etc/slony.conf
 conf/zabbix-agent.d/apache.conf
+conf/zabbix-agent.d/hw.conf
 conf/zabbix-agent.d/linux.conf
 conf/zabbix-agent.d/mysql.conf
 conf/zabbix-agent.d/nginx.conf
@@ -17,9 +19,11 @@ conf/zabbix-agent.d/slony.conf
 src/apache.py
 src/apache_alive.py
 src/apache_reqtime.py
+src/hw_raid_3ware.py
 src/mysql_ping.py
 src/mysql_status.py
 src/nginx.py
+src/ntp_jitter.py
 src/pgsql_autovac_freeze.py
 src/pgsql_bloat.py
 src/pgsql_buffers.py
@@ -42,6 +46,7 @@ src/ztc/mysql/__init__.py
 src/ztc/nginx/__init__.py
 src/ztc/pgsql/__init__.py
 src/ztc/system/__init__.py
+src/ztc/system/ntp.py
 src/ztc/system/vfs.py
 src/ztc/vm/__init__.py
 src/ztc/vm/memory.py
@@ -57,3 +62,4 @@ templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
 templates/Template_app_Slony.xml
 templates/Template_app_nginx.xml
+templates/Template_hw_raid_3ware.xml
