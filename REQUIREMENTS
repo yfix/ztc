@@ -8,6 +8,8 @@
 # Linux Template:
 * Linux kernel 2.6
 * proc filesystem mounted to /proc/
+* smartmontools
+* zabbix allowed to run sudo
 
 ################################################
 # PostgreSQL Template:
