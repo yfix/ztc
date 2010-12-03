@@ -4,7 +4,11 @@ PostgreSQL fsm items.
 Requires pg_freespacemap contrib to be installed on configured database.
 Does not supports PostgreSQL >= 8.4, as it manages fsm automatically,
 
-Copyright (c) Murano Software [http://muranosoft.com]
+Copyright (c) 2010 Murano Software [http://muranosoft.com]
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+
+Thanks to:
+    * sn00p - reporting typos in SQL
 
 Params:
     $1 - name of metric. Supported:
@@ -44,7 +48,7 @@ elif metric == 'relations':
         SELECT
             maxx,
             cur,
-            ROUND(100*(cur/maxx))\n}.
+            ROUND(100*(cur/maxx))\n
         FROM (SELECT
               (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
               (SELECT setting::NUMERIC FROM pg_settings WHERE name='max_fsm_relations') AS maxx) x    
