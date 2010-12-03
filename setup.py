@@ -7,7 +7,7 @@ import sys
 
 setup(
       name='ztc',
-      version = '10.10.1',
+      version = '10.10.2',
       description = 'Zabbix Template Collection',
       author = 'Vladimir Rusinov',
       author_email = 'vladimir@greenmice.info',
