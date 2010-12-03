@@ -48,7 +48,7 @@ elif metric == 'relations':
         SELECT
             maxx,
             cur,
-            ROUND(100*(cur/maxx))\n
+            ROUND(100*(cur/maxx))
         FROM (SELECT
               (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
               (SELECT setting::NUMERIC FROM pg_settings WHERE name='max_fsm_relations') AS maxx) x    
