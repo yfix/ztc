@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="16.11.10" time="14.38">
+<zabbix_export version="1.0" date="08.12.10" time="16.07">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<proxy_hostid>0</proxy_hostid>
@@ -83,9 +83,27 @@
 					<comments></comments>
 				</trigger>
 				<trigger>
+					<description>Lack of free memory (&lt;16%) on server {HOSTNAME}</description>
+					<type>0</type>
+					<expression>({Template_Linux_Generic:vm.memory.size[free].last(0)}+{Template_Linux_Generic:vm.memory.size[cached].last(0)})*5&lt;{Template_Linux_Generic:vm.memory.used.last(0)}</expression>
+					<url></url>
+					<status>0</status>
+					<priority>4</priority>
+					<comments></comments>
+				</trigger>
+				<trigger>
 					<description>Zabbix_agentd is not running on {HOSTNAME}</description>
 					<type>0</type>
 					<expression>{Template_Linux_Generic:proc.num[zabbix_agentd].last(0)}&lt;1</expression>
+					<url></url>
+					<status>0</status>
+					<priority>3</priority>
+					<comments></comments>
+				</trigger>
+				<trigger>
+					<description>Lack of free memory (&lt;30%) on server {HOSTNAME}</description>
+					<type>0</type>
+					<expression>({Template_Linux_Generic:vm.memory.size[free].last(0)}+{Template_Linux_Generic:vm.memory.size[cached].last(0)})*3&lt;{Template_Linux_Generic:vm.memory.used.last(0)}</expression>
 					<url></url>
 					<status>0</status>
 					<priority>3</priority>
@@ -161,15 +179,6 @@
 					<url></url>
 					<status>0</status>
 					<priority>2</priority>
-					<comments></comments>
-				</trigger>
-				<trigger>
-					<description>Lack of free memory on server {HOSTNAME}</description>
-					<type>0</type>
-					<expression>{Template_Linux_Generic:vm.memory.size[free].last(0)}&lt;10000</expression>
-					<url></url>
-					<status>0</status>
-					<priority>3</priority>
 					<comments></comments>
 				</trigger>
 				<trigger>
