@@ -9,6 +9,7 @@ conf/etc/nginx.conf
 conf/etc/pgsql.conf
 conf/etc/slony.conf
 conf/zabbix-agent.d/apache.conf
+conf/zabbix-agent.d/common.conf
 conf/zabbix-agent.d/hw.conf
 conf/zabbix-agent.d/linux.conf
 conf/zabbix-agent.d/mysql.conf
@@ -22,6 +23,7 @@ src/apache_reqtime.py
 src/hw_raid_3ware.py
 src/mysql_ping.py
 src/mysql_status.py
+src/net_conn.py
 src/nginx.py
 src/ntp_jitter.py
 src/pgsql_autovac_freeze.py
@@ -35,12 +37,14 @@ src/pgsql_slony.py
 src/pgsql_tnx.py
 src/pgsql_wal.py
 src/system_cpu_temp.py
+src/url_ping.py
 src/vfs_dev.py
 src/vfs_mdstat.py
 src/vm_memory.py
 src/ztc/__init__.py
 src/ztc/cache.py
 src/ztc/commons.py
+src/ztc/url.py
 src/ztc/apache/__init__.py
 src/ztc/mysql/__init__.py
 src/ztc/nginx/__init__.py
@@ -62,4 +66,5 @@ templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
 templates/Template_app_Slony.xml
 templates/Template_app_nginx.xml
+templates/Template_app_snmp_Jboss.xml
 templates/Template_hw_raid_3ware.xml
