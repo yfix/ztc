@@ -3,6 +3,8 @@
 net module for ZTC - contains additional network metrics 
 
 Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010 Murano Software [http://muranosoft.com]
+Copyright (c) 2010 Wrike, Inc. [http://wrike.com]
 Licensed under GNU GPL v.3
 """
 
@@ -58,20 +60,11 @@ class Conn(object):
         f.close()
         return cnt
     
-    
     def __getattr__(self, attr):
         attr = attr.upper()
         if attr == 'ALL':
             attr = None
         return self._get_num_sockets('tcp', attr) + self._get_num_sockets('udp', attr) + self._get_num_sockets('raw', attr)
-        
-    # public
-    def get_conn_total(self, status = None):
-        return self._read_socket_status()
-    def get_conn_established(self):
-        return self._read_socket_status('tcp', 'ESTABLISHED')
-    def get_conn_syn_sent(self):
-        return self._read_socket_status('tcp', 'ESTABLISHED')
 
 
 # test
@@ -80,6 +73,3 @@ if __name__ == '__main__':
     print c.all
     print c.established
     print c.syn_sent
-    #print c.__getattribute__('t')
-    #print c.get_conn_total()
-    #print c.get_conn_established()
