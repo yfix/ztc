@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="08.12.10" time="16.07">
+<zabbix_export version="1.0" date="16.12.10" time="16.25">
 	<hosts>
 		<host name="Template_Linux_Generic">
 			<proxy_hostid>0</proxy_hostid>
@@ -720,6 +720,39 @@
 						<application>Network</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[listen]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="net.if.collisions[eth1]" value_type="0">
 					<description>Net: number of collisions on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -952,6 +985,39 @@
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
 						<application>Availability</application>
+					</applications>
+				</item>
+				<item type="0" key="net.conn[established]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.writes[sdc]" value_type="0">
@@ -1801,6 +1867,39 @@
 						<application>Memory</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[syn_sent]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="net.tcp.service[smtp]" value_type="3">
 					<description>Email (SMTP) server is running</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -1832,6 +1931,39 @@
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
 						<application>Services</application>
+					</applications>
+				</item>
+				<item type="0" key="net.conn[last_ack]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.sectors_read[sdb]" value_type="0">
@@ -2205,6 +2337,39 @@
 						<application>Memory</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[close]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="net.if.out[eth1, dropped]" value_type="0">
 					<description>Net: out. packets dropped on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2270,6 +2435,39 @@
 					<applications>
 						<application>Performance</application>
 						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="net.conn[fin_wait1]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
 					</applications>
 				</item>
 				<item type="0" key="system.hostname" value_type="1">
@@ -2543,6 +2741,39 @@
 						<application>Filesystem</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[close_wait]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="net.if.in[eth0,packets]" value_type="3">
 					<description>Net: packets/sec recieved on $1</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2779,6 +3010,39 @@
 						<application>Network</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[closing]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="system.cpu.load[,avg5]" value_type="0">
 					<description>CPU: load5</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -2912,6 +3176,39 @@
 					<snmpv3_privpassphrase></snmpv3_privpassphrase>
 					<applications>
 						<application>Processes</application>
+					</applications>
+				</item>
+				<item type="0" key="net.conn[syn_recv]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
 					</applications>
 				</item>
 				<item type="0" key="vfs.dev.sectors_read[sdd]" value_type="0">
@@ -3385,6 +3682,39 @@
 						<application>General</application>
 					</applications>
 				</item>
+				<item type="0" key="net.conn[time_wait]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
+					</applications>
+				</item>
 				<item type="0" key="vfs.dev.writes_merged[sdb]" value_type="0">
 					<description>Disk: $1: writes merged (per sec)</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -3651,6 +3981,39 @@
 					<applications>
 						<application>Performance</application>
 						<application>Storage</application>
+					</applications>
+				</item>
+				<item type="0" key="net.conn[fin_wait2]" value_type="3">
+					<description>Net conn: $1</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>0</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>Network</application>
 					</applications>
 				</item>
 				<item type="0" key="net.if.out[eth1, errors]" value_type="0">
@@ -4241,6 +4604,122 @@
 							<drawtype>2</drawtype>
 							<sortorder>1</sortorder>
 							<color>009900</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Network connections" width="900" height="200">
+					<ymin_type>1</ymin_type>
+					<ymax_type>0</ymax_type>
+					<ymin_item_key></ymin_item_key>
+					<ymax_item_key></ymax_item_key>
+					<show_work_period>1</show_work_period>
+					<show_triggers>1</show_triggers>
+					<graphtype>1</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_Linux_Generic:net.conn[syn_recv]">
+							<drawtype>1</drawtype>
+							<sortorder>3</sortorder>
+							<color>006600</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[fin_wait2]">
+							<drawtype>1</drawtype>
+							<sortorder>5</sortorder>
+							<color>007777</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[fin_wait1]">
+							<drawtype>1</drawtype>
+							<sortorder>4</sortorder>
+							<color>770000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[close]">
+							<drawtype>1</drawtype>
+							<sortorder>7</sortorder>
+							<color>777700</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[syn_sent]">
+							<drawtype>1</drawtype>
+							<sortorder>2</sortorder>
+							<color>33FFFF</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[listen]">
+							<drawtype>1</drawtype>
+							<sortorder>0</sortorder>
+							<color>33FF33</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[last_ack]">
+							<drawtype>1</drawtype>
+							<sortorder>9</sortorder>
+							<color>0000EE</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[close_wait]">
+							<drawtype>1</drawtype>
+							<sortorder>8</sortorder>
+							<color>999999</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[established]">
+							<drawtype>1</drawtype>
+							<sortorder>1</sortorder>
+							<color>000000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[closing]">
+							<drawtype>1</drawtype>
+							<sortorder>11</sortorder>
+							<color>FF6666</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_Linux_Generic:net.conn[time_wait]">
+							<drawtype>1</drawtype>
+							<sortorder>6</sortorder>
+							<color>FFFF33</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
