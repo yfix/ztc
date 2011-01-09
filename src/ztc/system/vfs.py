@@ -2,7 +2,7 @@
 '''
 VFS Device metrics module for ZTC
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
 Parts of mdstat parsing copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
 License: GNU GPL v3
 
@@ -13,7 +13,7 @@ Requirements:
 '''
 
 import os
-import stat
+#import stat
 import re
 
 class DiskStats(object):
@@ -70,7 +70,21 @@ class DiskStatsParser(object):
         self.device = device
     
     def parse(self):
-        return self._read_diskstats()
+        """ Parse /proc/diskstats file and return DiskStats object """
+        
+        # check if device exists
+        if os.path.exists('/sys/block/%s' % (self.device)):
+            return self._read_diskstats()
+        # ...and if it does not exists, look for 1st device partion
+        # some installations may have for example /dev/sda1, but not /dev/sda
+        # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
+        elif os.path.exists('/sys/block/%s' % (self.device + '1')):
+            self.device = self.device + '1'
+            return self._read_diskstats()
+        else:
+            # there is no such device
+            return None
+            
     
     def _read_diskstats(self):
         f = open('/proc/diskstats', 'r')
