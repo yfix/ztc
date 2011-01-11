@@ -8,6 +8,8 @@ apache.alive item from Apache2 template
 Out:
     0 if apache is failed
     1 if apache is alive
+
+TODO: convert to ping item
 '''
 
 from ztc.apache import ApacheStatus

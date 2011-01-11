@@ -41,8 +41,8 @@ class Conn(object):
             8: timeout - unused
             9: inode  
         """
-        cnt = 0
-        status_num = 0
+        cnt = 0 # number of connections in requested state
+        status_num = 0 # index of requested state
         if status:
             # get numeric representation of status text
             status_num = self._tcp_conn_states.index(status) + 1

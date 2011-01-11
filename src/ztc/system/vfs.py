@@ -9,6 +9,7 @@ License: GNU GPL v3
 Requirements:
     * Linux 2.6
     * proc filesystem mounted on /proc/
+    * /sys/ filesystem
     * smartmontools (for smart checks)
 '''
 
