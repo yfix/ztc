@@ -8,6 +8,7 @@
 # Linux Template:
 * Linux kernel 2.6
 * proc filesystem mounted to /proc/
+* sys filesystem mounted to /sys/
 * smartmontools
 * zabbix allowed to run sudo
 
@@ -20,9 +21,5 @@
 * python-psycopg2
 
 ################################################
-# nginx Template:
-* wget
-
-################################################
-# Apache2 Template:
-* curl
+# 3Ware raid template
+* tw_cli
