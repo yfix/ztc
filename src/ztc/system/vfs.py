@@ -3,6 +3,8 @@
 VFS Device metrics module for ZTC
 
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Murano Software [http://muranosoft.com]
+Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 Parts of mdstat parsing copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
 License: GNU GPL v3
 
@@ -16,6 +18,8 @@ Requirements:
 import os
 #import stat
 import re
+
+import ztc
 
 class DiskStats(object):
     major = 0
@@ -185,8 +189,35 @@ class MDStatus(object):
         return failed_devs
     failed_devs = property(get_failed_devs)
             
-            
-            
+class MountStatus(object):
+    """ class for checing mount points and mounted filesystems """
+    
+    def __init__(self, mount):
+        """
+            Params: mount - path to mount point
+        """
+        self.mount = mount
+    
+    def checkmount(self, required_fs=None):
+        """ Chechs if required_fs mounted to mountpoint """
+        if (required_fs is None):
+            # simple check - no need to check filesystem name
+            return os.path.ismount(self.mount)
+        # else:
+        ret = False
+        f = open('/proc/mounts', 'r')
+        mounts = f.readlines()
+        for m in mounts:
+            (dev, mountpoint, fs, flags, dump, pas) = m.split()
+            try:
+                if os.path.samefile(self.mount, mountpoint):
+                    if fs.lower() == required_fs.lower():
+                        ret = True
+                        break
+            except OSError:
+                pass
+        f.close()
+        return ret
 
 if __name__ == '__main__':
     #st = DiskStatsParser('sda')
@@ -198,7 +229,13 @@ if __name__ == '__main__':
     #ss = SmartStatus('sdq')
     #print ss.health
     
-    md = MDStatus()
-    print md.failed_devs    
+    #md = MDStatus()
+    #print md.failed_devs
+    
+    print "== MountStatus =="
+    ms = MountStatus('/home/data')
+    print ms.checkmount()
+    print ms.checkmount('ext3')
+    print ms.checkmount('xfs')
     
     pass
