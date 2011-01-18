@@ -3,9 +3,10 @@
 VFS Device metrics module for ZTC
 
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
 Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
-Parts of mdstat parsing copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
+Copyright (c) 2011 Artem Silenkov
 License: GNU GPL v3
 
 Requirements:
@@ -80,10 +81,10 @@ class DiskStatsParser(object):
         # check if device exists
         if os.path.exists('/sys/block/%s' % (self.device)):
             return self._read_diskstats()
-        # ...and if it does not exists, look for 1st device partion
-        # some installations may have for example /dev/sda1, but not /dev/sda
-        # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
         elif os.path.exists('/sys/block/%s' % (self.device + '1')):
+            # ...and if it does not exists, look for 1st device partion
+            # some installations may have for example /dev/sda1, but not /dev/sda
+            # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
             self.device = self.device + '1'
             return self._read_diskstats()
         else:
@@ -125,6 +126,10 @@ class DiskStatsParser(object):
         """
         r = DiskStats()
         t = l.split()
+        # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
+        # fix by Artem Silenkov - not best, but working
+        if len(t) == 7:
+            t = t + ['0','0','0','0','0','0','0']
         (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
             r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
             r.cur_ios, r.time_io, r.time_io_weidged) = \
