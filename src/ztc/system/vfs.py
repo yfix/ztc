@@ -129,7 +129,13 @@ class DiskStatsParser(object):
         # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
         # fix by Artem Silenkov - not best, but working
         if len(t) == 7:
-            t = t + ['0','0','0','0','0','0','0']
+            #t = t + [0, 0, 0, 0, 0, 0, 0]
+            # different format:
+            # Field  1 -- # of reads issued
+            # Field  2 -- # of sectors read
+            # Field  3 -- # of writes issued
+            # Field  4 -- # of sectors written
+            t = t[:2] + [t[2], t[3], 0, t[4], 0, t[5], 0, t[6], 0, 0, 0, 0] 
         (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
             r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
             r.cur_ios, r.time_io, r.time_io_weidged) = \
