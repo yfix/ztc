@@ -126,9 +126,9 @@ class DiskStatsParser(object):
         """
         r = DiskStats()
         t = l.split()
-        # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
-        # fix by Artem Silenkov - not best, but working
         if len(t) == 7:
+            # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
+            # fix by Artem Silenkov - not best, but working
             #t = t + [0, 0, 0, 0, 0, 0, 0]
             # different format:
             # Field  1 -- # of reads issued
@@ -153,7 +153,7 @@ class SmartStatus(object):
         if not os.path.exists(dev):
             return 'NO_DEVICE'
         cmd = 'smartctl -H %s' % (dev, )
-        #print cmd
+        # TODO: unversal ztc.popen funcion, which will use recommended method for each python version
         c = os.popen(cmd)        
         return c.readlines()[-2].split()[-1]
     health = property(get_health)
