@@ -2,7 +2,8 @@
 """
 MySQL module for ZTC
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Licensed under GNU GPL v.3
 """
 
@@ -15,6 +16,7 @@ class MyDB(object):
     host='localhost'
     user='root'
     password=''
+    unix_socket = None
     
     lasterr = None
     
@@ -24,6 +26,7 @@ class MyDB(object):
         self.host = self.config.get('host', self.host)
         self.user = self.config.get('user', self.user)
         self.password = self.config.get('password', self.password)
+        self.unix_socket = self.config.get('unix_socket', self.unix_socket)
         
         self._connect()        
         
@@ -32,7 +35,10 @@ class MyDB(object):
             self.conn =  MySQLdb.connect (host = self.host,
                            user = self.user,
                            passwd = self.password,
-                           db = self.database)
+                           db = self.database,
+                           unix_socket = self.unix_socket,
+                           connect_timeout = 2
+                           )
             self.cursor = self.conn.cursor();
         except:
             self.conn = None
