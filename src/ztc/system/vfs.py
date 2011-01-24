@@ -7,6 +7,7 @@ Copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/n
 Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 Copyright (c) 2011 Artem Silenkov
+Copyright (c) 2010 Alex Lov
 License: GNU GPL v3
 
 Requirements:
@@ -103,7 +104,7 @@ class DiskStatsParser(object):
         return ret
     
     def _parse_diskstats_line(self, l):
-        """ Parse line from /proc/disktats
+        """ Parse line from /proc/diskstats
                 The /proc/diskstats file displays the I/O statistics
                 of block devices. Each line contains the following 14
                 fields:
