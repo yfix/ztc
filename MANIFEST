@@ -5,6 +5,7 @@ setup.py
 conf/etc/apache.conf
 conf/etc/hw_raid_3ware.conf
 conf/etc/mysql.conf
+conf/etc/nfs.conf
 conf/etc/nginx.conf
 conf/etc/pgsql.conf
 conf/etc/slony.conf
@@ -13,9 +14,9 @@ conf/zabbix-agent.d/common.conf
 conf/zabbix-agent.d/hw.conf
 conf/zabbix-agent.d/linux.conf
 conf/zabbix-agent.d/mysql.conf
+conf/zabbix-agent.d/nfs.conf
 conf/zabbix-agent.d/nginx.conf
 conf/zabbix-agent.d/pgsql.conf
-conf/zabbix-agent.d/postgresql.conf
 conf/zabbix-agent.d/slony.conf
 src/apache.py
 src/apache_alive.py
@@ -40,6 +41,7 @@ src/system_cpu_temp.py
 src/url_ping.py
 src/vfs_dev.py
 src/vfs_mdstat.py
+src/vfs_nfs_mounted.py
 src/vm_memory.py
 src/ztc/__init__.py
 src/ztc/cache.py
@@ -62,10 +64,12 @@ templates/Template_Linux_partition_usr.xml
 templates/Template_Linux_partition_var.xml
 templates/Template_Linux_with_snmpd.xml
 templates/Template_Zabbix_Server.xml
+templates/Template_app_ActiveMQ.xml
 templates/Template_app_Apache2.xml
 templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
 templates/Template_app_Slony.xml
 templates/Template_app_nginx.xml
 templates/Template_app_snmp_Jboss.xml
+templates/Template_fs_nfs.xml
 templates/Template_hw_raid_3ware.xml
