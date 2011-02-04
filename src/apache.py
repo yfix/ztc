@@ -3,11 +3,12 @@
 apache.* scripts item
 
 This file is part of ZTC and distributed under GNU GPL v.3
-Copyright (c) 2010 Vladimir Rusinov
+Copyright (c) 2010-2011 Vladimir Rusinov
 Copyright (c) 2010 Murano Software [http://muranosoft.com/]
 
 Params:
     $1 - metric name. Supported:
+        ping - ping to apache (time of test page load)
         accesses - number of accesses since server start
         traffic - number of bytes sent since server start
         workers_busy - current number of busy workers
