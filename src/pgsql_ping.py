@@ -3,14 +3,17 @@
 PgSQL ping script for ztc (pgsql.ping item)
 Connects to db and executes trivial query
 
-Copyright (c) 2009-2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2009-2011 Vladimir Rusinov <vladimir@greenmice.info>
 Licensed under GNU GPL v.3
 '''
 
+import time
+
 from ztc.pgsql import PgDB
 
+st = time.time()
 p = PgDB()
 if p.query('SELECT 1'):
-    print("1")
+    time.time() - st
 else:
     print("0")
