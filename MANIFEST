@@ -14,7 +14,6 @@ conf/zabbix-agent.d/linux.conf
 conf/zabbix-agent.d/mysql.conf
 conf/zabbix-agent.d/nginx.conf
 conf/zabbix-agent.d/pgsql.conf
-conf/zabbix-agent.d/postgresql.conf
 conf/zabbix-agent.d/slony.conf
 src/apache.py
 src/apache_alive.py
@@ -42,6 +41,7 @@ src/ztc/__init__.py
 src/ztc/cache.py
 src/ztc/commons.py
 src/ztc/apache/__init__.py
+src/ztc/hw/__init__.py
 src/ztc/mysql/__init__.py
 src/ztc/nginx/__init__.py
 src/ztc/pgsql/__init__.py
