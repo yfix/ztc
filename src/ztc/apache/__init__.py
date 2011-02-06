@@ -3,12 +3,13 @@
     ztc.apache package
     Used in ztc Apache template
     
-    Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+    Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
     Copyright (c) 2010 Murano Software [http://muranosoft.com/]
     License: GNU GPL v.3
 """
 
 import os
+import time
 import urllib2
 
 import ztc.commons
@@ -16,12 +17,15 @@ import ztc.commons
 class ApacheStatus(object):
     """ Apache status page reader and parser """
     
+    ping = 0
+    
     _page_data = None # data from sta 
     def __init__(self):
         self.config = ztc.commons.get_config('apache')
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
+        st = time.time()
         if self._page_data is not None:
             # we've already retrieved it
             return 1
@@ -37,6 +41,7 @@ class ApacheStatus(object):
             u = urllib2.urlopen(url, None)
         self._page_data = u.read()
         u.close()
+        self.ping = time.time() - st
     
     def _get_info(self, name):
         """ Extracts info from status """
@@ -53,15 +58,14 @@ class ApacheStatus(object):
     
     ####################################################################
     ## Properties ######################################################            
-    def get_alive(self):
+    def get_ping(self):
         """ Check if apache is alive """
-        ret = True
         try:
             self._read_status()
         except:
-            ret = False
-        return ret
-    alive = property(get_alive)
+            pass
+        return self.ping
+    prig = property(get_ping)
 
     def get_accesses(self):
         return int(self._get_info('Total Accesses'))
