@@ -3,7 +3,11 @@
 VFS Device metrics module for ZTC
 
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
-Parts of mdstat parsing copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
+Copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
+Copyright (c) 2011 Murano Software [http://muranosoft.com]
+Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
+Copyright (c) 2011 Artem Silenkov
+Copyright (c) 2010 Alex Lov
 License: GNU GPL v3
 
 Requirements:
@@ -16,6 +20,8 @@ Requirements:
 import os
 #import stat
 import re
+
+import ztc
 
 class DiskStats(object):
     major = 0
@@ -76,10 +82,10 @@ class DiskStatsParser(object):
         # check if device exists
         if os.path.exists('/sys/block/%s' % (self.device)):
             return self._read_diskstats()
-        # ...and if it does not exists, look for 1st device partion
-        # some installations may have for example /dev/sda1, but not /dev/sda
-        # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
         elif os.path.exists('/sys/block/%s' % (self.device + '1')):
+            # ...and if it does not exists, look for 1st device partion
+            # some installations may have for example /dev/sda1, but not /dev/sda
+            # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
             self.device = self.device + '1'
             return self._read_diskstats()
         else:
@@ -98,7 +104,7 @@ class DiskStatsParser(object):
         return ret
     
     def _parse_diskstats_line(self, l):
-        """ Parse line from /proc/disktats
+        """ Parse line from /proc/diskstats
                 The /proc/diskstats file displays the I/O statistics
                 of block devices. Each line contains the following 14
                 fields:
@@ -121,6 +127,16 @@ class DiskStatsParser(object):
         """
         r = DiskStats()
         t = l.split()
+        if len(t) == 7:
+            # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
+            # fix by Artem Silenkov - not best, but working
+            #t = t + [0, 0, 0, 0, 0, 0, 0]
+            # different format:
+            # Field  1 -- # of reads issued
+            # Field  2 -- # of sectors read
+            # Field  3 -- # of writes issued
+            # Field  4 -- # of sectors written
+            t = t[:2] + [t[2], t[3], 0, t[4], 0, t[5], 0, t[6], 0, 0, 0, 0] 
         (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
             r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
             r.cur_ios, r.time_io, r.time_io_weidged) = \
@@ -138,7 +154,7 @@ class SmartStatus(object):
         if not os.path.exists(dev):
             return 'NO_DEVICE'
         cmd = 'smartctl -H %s' % (dev, )
-        #print cmd
+        # TODO: unversal ztc.popen funcion, which will use recommended method for each python version
         c = os.popen(cmd)        
         return c.readlines()[-2].split()[-1]
     health = property(get_health)
@@ -185,8 +201,35 @@ class MDStatus(object):
         return failed_devs
     failed_devs = property(get_failed_devs)
             
-            
-            
+class MountStatus(object):
+    """ class for checing mount points and mounted filesystems """
+    
+    def __init__(self, mount):
+        """
+            Params: mount - path to mount point
+        """
+        self.mount = mount
+    
+    def checkmount(self, required_fs=None):
+        """ Chechs if required_fs mounted to mountpoint """
+        if (required_fs is None):
+            # simple check - no need to check filesystem name
+            return os.path.ismount(self.mount)
+        # else:
+        ret = False
+        f = open('/proc/mounts', 'r')
+        mounts = f.readlines()
+        for m in mounts:
+            (dev, mountpoint, fs, flags, dump, pas) = m.split()
+            try:
+                if os.path.samefile(self.mount, mountpoint):
+                    if fs.lower() == required_fs.lower():
+                        ret = True
+                        break
+            except OSError:
+                pass
+        f.close()
+        return ret
 
 if __name__ == '__main__':
     #st = DiskStatsParser('sda')
@@ -198,7 +241,13 @@ if __name__ == '__main__':
     #ss = SmartStatus('sdq')
     #print ss.health
     
-    md = MDStatus()
-    print md.failed_devs    
+    #md = MDStatus()
+    #print md.failed_devs
+    
+    print "== MountStatus =="
+    ms = MountStatus('/home/data')
+    print ms.checkmount()
+    print ms.checkmount('ext3')
+    print ms.checkmount('xfs')
     
     pass
