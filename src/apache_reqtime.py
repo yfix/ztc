@@ -2,7 +2,10 @@
 '''
 Gets average apache request time
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+
+Params:
+    $1 - metric name. Supported: avg, min, max. Defaults to avg
 
 Usage:
 
@@ -12,12 +15,19 @@ Usage:
 
 '''
 
+import sys
+
 from ztc.apache import ApacheTimeLog
 from ztc import notsupported
 
+if len(sys.argv) == 1:
+    m = 'avg'
+else:
+    m = sys.argv[1]
+
 try:
     tl = ApacheTimeLog()
-    ret = tl.average_request_time
+    ret = tl.__getattribute__('%s_request_time' % (m, ))
     print ret
 except Exception, e:
     notsupported(e)    

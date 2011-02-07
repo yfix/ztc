@@ -146,27 +146,66 @@ class ApacheTimeLog(object):
     def _truncatelog(self):
         self.log.truncate(0)
     
-    def get_avg(self):
-        """ Calculates average request processing time, in seconds """
+    def _get_metrics(self):
+        """ Calculates average, max & min request processing time, in seconds """
         total_time = 0
+        max_time = 0
+        min_time = -1
         total_lines = 0
         self._openlog()
+        ret = {'avg': 0, 'min': 0, 'max': 0 }
         for l in self.log.readlines():
             if not l.strip():
+                # skip empty lines
                 continue
-            time= l.split()[0]
-            total_time += int(time)
+            time = int(l.split()[0])
+            total_time += time
+            if max_time < time:
+                max_time = time
+            if min_time == -1 or min_time > time:
+                min_time = time 
             total_lines += 1
         self._truncatelog()
         self._closelog()
-        if total_lines == 0:
-            return 0
-        else:
-            return float(total_time) / total_lines * 0.000001 # convert to seconds 
-    average_request_time = property(get_avg)        
+        if total_lines != 0:
+            ret = {
+                   'avg': float(total_time) / total_lines * 0.000001, # convert to seconds
+                   'min': float(min_time) * 0.000001,
+                   'max': float(max_time) * 0.000001,
+                   }
+        self._save_metrics_to_cache(ret)
+        return ret
+
+    def _get_metrics_from_cache(self):
+        st = ztc.commons.MyStore('apache_reqtime')
+        return st.get()
+    
+    def _save_metrics_to_cache(self, data):
+        st = ztc.commons.MyStore('apache_reqtime')
+        st.set(data)        
+    
+    def get_avg(self):
+        """ returns average request processing time """
+        metrics = self._get_metrics()
+        return metrics['avg']
+    avg_request_time = property(get_avg)
+    
+    def get_min(self):
+        metrics = self._get_metrics_from_cache()
+        return metrics['min']
+    min_request_time = property(get_min)
+    
+    def get_max(self):
+        metrics = self._get_metrics_from_cache()
+        return metrics['max']
+    max_request_time = property(get_max)    
+     
+            
 
 if __name__ == '__main__':
-    st = ApacheStatus()
-    print "accesses:", st.get_accesses()
+    #st = ApacheStatus()
+    #print "accesses:", st.get_accesses()
     tl = ApacheTimeLog()
-    print "average time: ", tl.get_avg()    
+    print "average time: ", tl.avg_request_time
+    print "max time", tl.max_request_time
+    print 'min time', tl.min_request_time
