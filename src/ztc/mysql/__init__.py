@@ -32,13 +32,21 @@ class MyDB(object):
         
     def _connect(self):
         try:
-            self.conn =  MySQLdb.connect (host = self.host,
+            if self.unix_cocket:
+                self.conn =  MySQLdb.connect (host = self.host,
                            user = self.user,
                            passwd = self.password,
                            db = self.database,
                            unix_socket = self.unix_socket,
                            connect_timeout = 2
                            )
+            else:
+                self.conn =  MySQLdb.connect (host = self.host,
+                           user = self.user,
+                           passwd = self.password,
+                           db = self.database,
+                           connect_timeout = 2
+                           )                
             self.cursor = self.conn.cursor();
         except:
             self.conn = None
