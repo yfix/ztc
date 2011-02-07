@@ -32,7 +32,7 @@ class MyDB(object):
         
     def _connect(self):
         try:
-            if self.unix_cocket:
+            if self.unix_socket:
                 self.conn =  MySQLdb.connect (host = self.host,
                            user = self.user,
                            passwd = self.password,
