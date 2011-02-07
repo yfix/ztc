@@ -17,7 +17,7 @@ import ztc.commons
 class ApacheStatus(object):
     """ Apache status page reader and parser """
     
-    ping = 0
+    ping_t = 0
     
     _page_data = None # data from sta 
     def __init__(self):
@@ -41,7 +41,7 @@ class ApacheStatus(object):
             u = urllib2.urlopen(url, None)
         self._page_data = u.read()
         u.close()
-        self.ping = time.time() - st
+        self.ping_t = time.time() - st
     
     def _get_info(self, name):
         """ Extracts info from status """
@@ -64,8 +64,8 @@ class ApacheStatus(object):
             self._read_status()
         except:
             pass
-        return self.ping
-    prig = property(get_ping)
+        return self.ping_t
+    ping = property(get_ping)
 
     def get_accesses(self):
         return int(self._get_info('Total Accesses'))
