@@ -32,6 +32,7 @@ class MyDB(object):
         
     def _connect(self):
         try:
+            # TODO: remove this if, filter arguments instead
             if self.unix_socket:
                 self.conn =  MySQLdb.connect (host = self.host,
                            user = self.user,

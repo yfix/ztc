@@ -12,7 +12,7 @@ Usage:
 1. Configure apache:
    `LogFormat "%D <whatever>" timelog` in modules.d/00_mod_log_config.conf (or enywhere else, this is distro-specific)
    `CustomLog /var/log/apache2/time.log timelog` there and in every vhost
-
+    TODO
 '''
 
 import sys

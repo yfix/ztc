@@ -21,7 +21,7 @@ setup(
       scripts = glob.glob('src/*.py'),  
       
       data_files=[
-            ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf')),
+            ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf') + glob.glob('./conf/zabbix-agent.d/*.ini')),
             ('/etc/ztc',  glob.glob('./conf/etc/*.conf')),
             ('/opt/ztc/templates', glob.glob('templates/*.xml')),
             ('/opt/ztc/doc/', ('README', 'REQUIREMENTS'))

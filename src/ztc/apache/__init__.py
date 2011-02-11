@@ -59,7 +59,7 @@ class ApacheStatus(object):
     ####################################################################
     ## Properties ######################################################            
     def get_ping(self):
-        """ Check if apache is alive """
+        """ Returns time required to load test page """
         try:
             self._read_status()
         except:
@@ -154,6 +154,11 @@ class ApacheTimeLog(object):
         total_lines = 0
         self._openlog()
         ret = {'avg': 0, 'min': 0, 'max': 0 }
+        slowlog_time = int(self.config.get('slowlog', 0))
+        slowlog_path = os.path.join(
+                                    self.config.get('logdir', '/var/log/apache2/'),
+                                    self.config.get('slowlog_file', 'slow.log')
+                                    )
         for l in self.log.readlines():
             if not l.strip():
                 # skip empty lines
@@ -163,7 +168,12 @@ class ApacheTimeLog(object):
             if max_time < time:
                 max_time = time
             if min_time == -1 or min_time > time:
-                min_time = time 
+                min_time = time
+            if slowlog_time and (time > slowlog_time):
+                # log slow queries
+                f = open(slowlog_path, 'a')
+                f.write(l)
+                f.close()
             total_lines += 1
         self._truncatelog()
         self._closelog()
