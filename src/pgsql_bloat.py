@@ -7,9 +7,9 @@ generally the amount of dead unused space taken up in a table or index. This spa
 usually reclaimed by use of the VACUUM command.) This action requires that stats
 collection be enabled on the target databases, and requires that ANALYZE is run
 frequently.
-
-TODO: generating report of bloatest tables
 '''
+
+import sys
 
 from ztc.pgsql import PgCluster
 
@@ -71,6 +71,9 @@ FROM (
 pages = 0
 otta = 0
 print_report = False
+if len(sys.argv > 1):
+    if sys.argv[1] == 'list':
+        print_report = True
 bloatest = []
 
 ret = p.query_eachdb(q, exclude=['template0'])
