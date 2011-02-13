@@ -7,6 +7,10 @@ generally the amount of dead unused space taken up in a table or index. This spa
 usually reclaimed by use of the VACUUM command.) This action requires that stats
 collection be enabled on the target databases, and requires that ANALYZE is run
 frequently.
+
+Copyright (c) pg_check.pl authors
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 '''
 
 import sys

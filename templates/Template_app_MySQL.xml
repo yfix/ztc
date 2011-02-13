@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="04.02.11" time="17.33">
+<zabbix_export version="1.0" date="13.02.11" time="16.16">
 	<hosts>
 		<host name="Template_app_MySQL">
 			<proxy_hostid>0</proxy_hostid>
@@ -48,8 +48,41 @@
 				</trigger>
 			</triggers>
 			<items>
+				<item type="0" key="mysql.status[select_scan]" value_type="0">
+					<description>MySQL: select scans / sec</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>90</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>MySQL</application>
+					</applications>
+				</item>
 				<item type="0" key="mysql.status[Binlog_cache_disk_use]" value_type="0">
-					<description>Mysql: Binlog cache disk use / sec</description>
+					<description>MySQL: Binlog cache disk use / sec</description>
 					<ipmi_sensor></ipmi_sensor>
 					<delay>90</delay>
 					<history>7</history>
@@ -147,6 +180,39 @@
 						<application>MySQL</application>
 					</applications>
 				</item>
+				<item type="0" key="mysql.status[Com_alter_db]" value_type="3">
+					<description>MySQL: comm: alter db / sec</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>120</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>MySQL</application>
+					</applications>
+				</item>
 				<item type="0" key="mysql.status[Connections]" value_type="0">
 					<description>Mysql: new connections / sec</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -189,6 +255,39 @@
 					<status>0</status>
 					<data_type>0</data_type>
 					<units>Bps</units>
+					<multiplier>0</multiplier>
+					<delta>1</delta>
+					<formula>1</formula>
+					<lastlogsize>0</lastlogsize>
+					<logtimefmt></logtimefmt>
+					<delay_flex></delay_flex>
+					<authtype>0</authtype>
+					<username></username>
+					<password></password>
+					<publickey></publickey>
+					<privatekey></privatekey>
+					<params></params>
+					<trapper_hosts></trapper_hosts>
+					<snmp_community>public</snmp_community>
+					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+					<snmp_port>161</snmp_port>
+					<snmpv3_securityname></snmpv3_securityname>
+					<snmpv3_securitylevel>0</snmpv3_securitylevel>
+					<snmpv3_authpassphrase></snmpv3_authpassphrase>
+					<snmpv3_privpassphrase></snmpv3_privpassphrase>
+					<applications>
+						<application>MySQL</application>
+					</applications>
+				</item>
+				<item type="0" key="mysql.status[Com_alter_event ]" value_type="3">
+					<description>MySQL: comm: alter event / sec</description>
+					<ipmi_sensor></ipmi_sensor>
+					<delay>120</delay>
+					<history>7</history>
+					<trends>365</trends>
+					<status>0</status>
+					<data_type>0</data_type>
+					<units></units>
 					<multiplier>0</multiplier>
 					<delta>1</delta>
 					<formula>1</formula>
@@ -279,39 +378,6 @@
 						<application>MySQL</application>
 					</applications>
 				</item>
-				<item type="0" key="mysql.status[select_scan]" value_type="0">
-					<description>Mysql: select scans / sec</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<data_type>0</data_type>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<authtype>0</authtype>
-					<username></username>
-					<password></password>
-					<publickey></publickey>
-					<privatekey></privatekey>
-					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>MySQL</application>
-					</applications>
-				</item>
 				<item type="0" key="mysql.status[Threads_connected]" value_type="3">
 					<description>Mysql: current number of connections</description>
 					<ipmi_sensor></ipmi_sensor>
@@ -333,39 +399,6 @@
 					<publickey></publickey>
 					<privatekey></privatekey>
 					<params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
-					<trapper_hosts></trapper_hosts>
-					<snmp_community>public</snmp_community>
-					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-					<snmp_port>161</snmp_port>
-					<snmpv3_securityname></snmpv3_securityname>
-					<snmpv3_securitylevel>0</snmpv3_securitylevel>
-					<snmpv3_authpassphrase></snmpv3_authpassphrase>
-					<snmpv3_privpassphrase></snmpv3_privpassphrase>
-					<applications>
-						<application>MySQL</application>
-					</applications>
-				</item>
-				<item type="0" key="mysql.status[Com_alter_db]" value_type="3">
-					<description>Mysql: comm: alter db / sec</description>
-					<ipmi_sensor></ipmi_sensor>
-					<delay>90</delay>
-					<history>7</history>
-					<trends>365</trends>
-					<status>0</status>
-					<data_type>0</data_type>
-					<units></units>
-					<multiplier>0</multiplier>
-					<delta>1</delta>
-					<formula>1</formula>
-					<lastlogsize>0</lastlogsize>
-					<logtimefmt></logtimefmt>
-					<delay_flex></delay_flex>
-					<authtype>0</authtype>
-					<username></username>
-					<password></password>
-					<publickey></publickey>
-					<privatekey></privatekey>
-					<params></params>
 					<trapper_hosts></trapper_hosts>
 					<snmp_community>public</snmp_community>
 					<snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
@@ -889,32 +922,6 @@
 						</graph_element>
 					</graph_elements>
 				</graph>
-				<graph name="Mysql: commands" width="900" height="200">
-					<ymin_type>1</ymin_type>
-					<ymax_type>0</ymax_type>
-					<ymin_item_key></ymin_item_key>
-					<ymax_item_key></ymax_item_key>
-					<show_work_period>0</show_work_period>
-					<show_triggers>0</show_triggers>
-					<graphtype>0</graphtype>
-					<yaxismin>0.0000</yaxismin>
-					<yaxismax>100.0000</yaxismax>
-					<show_legend>0</show_legend>
-					<show_3d>0</show_3d>
-					<percent_left>0.0000</percent_left>
-					<percent_right>0.0000</percent_right>
-					<graph_elements>
-						<graph_element item="Template_app_MySQL:mysql.status[Com_admin_commands]">
-							<drawtype>4</drawtype>
-							<sortorder>0</sortorder>
-							<color>AAAAAA</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
-					</graph_elements>
-				</graph>
 				<graph name="Mysql: binlog cache" width="900" height="200">
 					<ymin_type>1</ymin_type>
 					<ymax_type>0</ymax_type>
@@ -1057,6 +1064,50 @@
 							<drawtype>0</drawtype>
 							<sortorder>1</sortorder>
 							<color>DDDDDD</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="MySQL: commands" width="900" height="200">
+					<ymin_type>1</ymin_type>
+					<ymax_type>0</ymax_type>
+					<ymin_item_key></ymin_item_key>
+					<ymax_item_key></ymax_item_key>
+					<show_work_period>0</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>0</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_app_MySQL:mysql.status[Com_alter_event ]">
+							<drawtype>0</drawtype>
+							<sortorder>1</sortorder>
+							<color>FFFFFF</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_MySQL:mysql.status[Com_alter_db]">
+							<drawtype>0</drawtype>
+							<sortorder>2</sortorder>
+							<color>EEEEEE</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_MySQL:mysql.status[Com_admin_commands]">
+							<drawtype>4</drawtype>
+							<sortorder>0</sortorder>
+							<color>AAAAAA</color>
 							<yaxisside>0</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
