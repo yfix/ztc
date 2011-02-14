@@ -172,7 +172,7 @@ class ApacheTimeLog(object):
             if slowlog_time and (time > slowlog_time):
                 # log slow queries
                 f = open(slowlog_path, 'a')
-                f.write(str(time*0.000001) + ' ' + l)
+                f.write(str(int(time*0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
                 f.close()
             total_lines += 1
         self._truncatelog()
