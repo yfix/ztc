@@ -12,8 +12,11 @@ import time
 from ztc.pgsql import PgDB
 
 st = time.time()
-p = PgDB()
-if p.query('SELECT 1'):
-    time.time() - st
-else:
-    print("0")
+try:
+    p = PgDB()
+    if p.query('SELECT 1'):
+        time.time() - st
+    else:
+        print("0")
+except:
+    print 0
