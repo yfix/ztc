@@ -19,6 +19,7 @@ class MyConfigParser(ConfigParser.ConfigParser):
         except:
             return default
 
+# TODO: deprecate
 parser = optparse.OptionParser()
 parser.add_option("-v", "--version",
                   action="store_true", dest="version", default=False,

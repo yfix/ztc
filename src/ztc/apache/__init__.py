@@ -13,15 +13,14 @@ import time
 import urllib2
 
 import ztc.commons
+from ztc.check import ZTCCheck, CheckFail
 
 class ApacheStatus(object):
-    """ Apache status page reader and parser """
+    """ Apache status paged r """
     
     ping_t = 0
     
-    _page_data = None # data from sta 
-    def __init__(self):
-        self.config = ztc.commons.get_config('apache')
+    _page_data = None # ta froache')
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
@@ -127,11 +126,10 @@ class ApacheStatus(object):
         return self.get_scoreboard().count('_')
     workers_writing = property(get_workers_writing)
 
-class ApacheTimeLog(object):
+class ApacheTimeLog(ZTCCheck):
     """ Processes Apache time log (LogFormat %D) """
     
-    def __init__(self):
-        self.config = ztc.commons.get_config('apache')
+    name = 'apache'
         
     def _openlog(self):
         """ Open Log File and save it as self.log file object """
@@ -192,7 +190,18 @@ class ApacheTimeLog(object):
     
     def _save_metrics_to_cache(self, data):
         st = ztc.commons.MyStore('apache_reqtime')
-        st.set(data)        
+        st.set(data)
+        
+    def _get(self, metric=None, *args, **kwargs):
+        """ get some metric """
+        if metric == 'avg':
+            return self.get_avg()
+        elif metric == 'min':
+            return self.get_min()
+        elif metric == 'max':
+            return self.get_max()
+        else:
+            raise CheckFail("Uncknown metric: %s" % (metric, ))    
     
     def get_avg(self):
         """ returns average request processing time """

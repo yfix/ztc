@@ -18,16 +18,12 @@ Usage:
 import sys
 
 from ztc.apache import ApacheTimeLog
-from ztc import notsupported
+#from ztc import notsupported
 
 if len(sys.argv) == 1:
     m = 'avg'
 else:
     m = sys.argv[1]
 
-try:
-    tl = ApacheTimeLog()
-    ret = tl.__getattribute__('%s_request_time' % (m, ))
-    print ret
-except Exception, e:
-    notsupported(e)    
+tl = ApacheTimeLog()
+tl.get(m)
