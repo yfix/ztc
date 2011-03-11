@@ -12,8 +12,8 @@ import os
 import time
 import urllib2
 
-import ztc.commons
 from ztc.check import ZTCCheck, CheckFail
+from ztc.store import ZTCStore
 
 class ApacheStatus(object):
     """ Apache status paged r """
@@ -185,11 +185,11 @@ class ApacheTimeLog(ZTCCheck):
         return ret
 
     def _get_metrics_from_cache(self):
-        st = ztc.commons.MyStore('apache_reqtime')
+        st = ZTCStore('apache_reqtime', self.options)
         return st.get()
     
     def _save_metrics_to_cache(self, data):
-        st = ztc.commons.MyStore('apache_reqtime')
+        st = ZTCStore('apache_reqtime', self.options)
         st.set(data)
         
     def _get(self, metric=None, *args, **kwargs):

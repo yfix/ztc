@@ -14,8 +14,10 @@ import sys
 import traceback
 import optparse
 import ConfigParser
+import logging
+import logging.handlers
 
-import ztc.commons
+#import ztc.commons
 
 class CheckFail(Exception):
     """Exception that should be raised to notify zabbix about failed check."""
@@ -38,10 +40,11 @@ class ZTCCheck(object):
     # shortened name of the class
     # being used for getting config
     name = 'ztccheck'
-    version = "11.03"
-    args = None # parsed command-line args 
+    ver = "11.03"
+    args = [] # parsed command-line args 
     
     debug = False
+    logger = None
     
     def __init__(self, name=None):
         if name:
@@ -54,6 +57,29 @@ class ZTCCheck(object):
         # checking if we are running in debug mode
         if self.config.get('debug', False):
             self.debug = True
+        
+        # setup logger
+        self.logger = logging.getLogger(self.__class__.__name__)
+        formatter = logging.Formatter("[%(name)s] %(asctime)s - %(levelname)s: %(message)s")
+        # setting file handler
+        h = logging.handlers.RotatingFileHandler(                                                                                                            
+                                                 self.options.logfile,                                                            
+                                                 "a",                                                                                                        
+                                                 1*1024*1024, # max 1 M                                                                                                
+                                                 10) # max 10 files
+        if self.debug:
+            # setting stream handler                                                                                                        
+            sh = logging.StreamHandler()       
+            sh.setLevel(logging.DEBUG)                                                                                                                  
+            self.logger.setLevel(logging.DEBUG)
+            sh.setFormatter(formatter)
+            self.logger.addHandler(sh)
+            h.setLevel(logging.DEBUG)                                                                                                                  
+        else:
+            self.logger.setLevel(logging.WARN)
+            h.setLevel(logging.WARN)
+        self.logger.addHandler(h)
+        self.logger.debug("created")                                                                                                                                                                                                                                                                                                                                       
     
     def _parse_argv(self):
         parser = optparse.OptionParser()
@@ -66,6 +92,9 @@ class ZTCCheck(object):
         parser.add_option("-t", "--tmpdir",
                   action="store", type="str", dest="tmpdir", default="/tmp/ztc/",
                   help="Temp direcroty path")
+        parser.add_option("-l", "--logfile",
+                  action="store", type="str", dest="logfile",
+                  default="/var/log/zabbix/ztc.log")
         parser.add_option("-c", "--confdir",
                   action="store", type="str", dest="confdir", default="/etc/ztc/",
                   help="ZTC Config dir")
@@ -82,7 +111,7 @@ class ZTCCheck(object):
         self.args = args
     
     def version(self):
-        print "ZTC version %s" % self.version
+        print "ZTC version %s" % self.ver
         print "http://trac.greenmice.info/ztc/"
     
     def _get_config(self):
@@ -103,6 +132,8 @@ class ZTCCheck(object):
         method call, so SomeFancyCheck.process(arg1, arg2, ...) line should
         be last in userparameter script. Exit codes are defined in enum
         ZBX_SYSINFO_RET (include/sysinfo.h)"""
+        self.logger.debug("executed get metric '%s', args '%s', kwargs '%s'" %
+                   (str(metric), str(args), str(kwargs)))
         try:
             # TODO: run _get in another thread, terminate it when it's running
             # for too long.
@@ -111,12 +142,14 @@ class ZTCCheck(object):
             print(ret)
             sys.exit(0)
         except CheckFail, e:
+            self.logger.exception('Check fail, getting %s' % (metric, ))
             if self.debug:
                 traceback.print_stack()
             for arg in e.args:
                 print(arg)
             sys.exit(1)
         except CheckTimeout, e:
+            self.logger.exception('Check timeout, getting %s' % (metric, ))
             if self.debug:
                 traceback.print_stack()
             for arg in e.args:
@@ -124,6 +157,7 @@ class ZTCCheck(object):
             sys.exit(2)
         except Exception, e:
             # totally unexpected fail: dump all data we know
+            self.logger.exception('Check unexpected error, getting %s' % (metric, ))
             traceback.print_stack()
             sys.exit(1)
             
