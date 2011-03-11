@@ -39,6 +39,7 @@ class ZTCCheck(object):
     # being used for getting config
     name = 'ztccheck'
     version = "11.03"
+    args = None # parsed command-line args 
     
     debug = False
     

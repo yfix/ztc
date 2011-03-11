@@ -15,15 +15,11 @@ Usage:
     TODO
 '''
 
-import sys
-
 from ztc.apache import ApacheTimeLog
-#from ztc import notsupported
-
-if len(sys.argv) == 1:
-    m = 'avg'
-else:
-    m = sys.argv[1]
 
 tl = ApacheTimeLog()
+if len(tl.args) == 0:
+    m = 'avg'
+else:
+    m = tl.args[0]
 tl.get(m)

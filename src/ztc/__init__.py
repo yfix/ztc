@@ -3,7 +3,10 @@
 import sys
 
 def notsupported(err=None):
-    """ Executed when item is not supported
+    """
+    DEPRECATED, will be removed!
+    
+    Executed when item is not supported
     Params:
      * err: Exception - reason exception object
     """
