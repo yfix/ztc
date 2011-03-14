@@ -26,19 +26,8 @@ Params:
         workers_writing - current number of workers writing response
 """
 
-import sys
-
 from ztc.apache import ApacheStatus
-from ztc import notsupported
 
-if len(sys.argv) <> 2:
-    notsupported("not enough arguments")
-
-metric = sys.argv[1]
-
-try:
-    st = ApacheStatus()
-
-    print st.__getattribute__(metric)
-except Exception, e:
-    notsupported(e)
+st = ApacheStatus()
+m = st.args[0]
+st.get(m)

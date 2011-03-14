@@ -15,12 +15,15 @@ import urllib2
 from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
 
-class ApacheStatus(object):
+class ApacheStatus(ZTCCheck):
     """ Apache status paged r """
     
     ping_t = 0
     
-    _page_data = None # ta froache')
+    _page_data = None
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
@@ -129,6 +132,8 @@ class ApacheStatus(object):
 class ApacheTimeLog(ZTCCheck):
     """ Processes Apache time log (LogFormat %D) """
     
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+    
     name = 'apache'
         
     def _openlog(self):
@@ -207,7 +212,7 @@ class ApacheTimeLog(ZTCCheck):
         """ returns average request processing time """
         metrics = self._get_metrics()
         return metrics['avg']
-    avg_request_time = property(get_avg)
+    #avg_request_time = property(get_avg)
     
     def get_min(self):
         metrics = self._get_metrics_from_cache()

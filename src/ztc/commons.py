@@ -30,7 +30,7 @@ parser.add_option("-t", "--tmpdir",
 parser.add_option("-c", "--confdir",
                   action="store", type="str", dest="confdir", default="/etc/ztc/",
                   help="ZTC Config dir")
-#(options, args) = parser.parse_args()
+(options, args) = parser.parse_args()
 
 class MyStore(object):
     """ class for storing data in key files """

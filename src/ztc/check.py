@@ -41,7 +41,10 @@ class ZTCCheck(object):
     # being used for getting config
     name = 'ztccheck'
     ver = "11.03"
-    args = [] # parsed command-line args 
+    args = [] # parsed command-line args
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 0
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 0
     
     debug = False
     logger = None
@@ -109,6 +112,10 @@ class ZTCCheck(object):
         
         self.options = options
         self.args = args
+        if len(self.args) < self.OPTPARSE_MIN_NUMBER_OF_ARGS:
+            raise CheckFail("Not enough arguments")
+        if len(self.args) > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
+            raise CheckFail("Too many arguments")
     
     def version(self):
         print "ZTC version %s" % self.ver
