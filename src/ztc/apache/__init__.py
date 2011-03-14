@@ -18,12 +18,15 @@ from ztc.store import ZTCStore
 class ApacheStatus(ZTCCheck):
     """ Apache status paged r """
     
+    name = 'apache'
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
+    
     ping_t = 0
     
     _page_data = None
-    
-    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
@@ -56,7 +59,22 @@ class ApacheStatus(ZTCCheck):
         return ret
     
     def get_scoreboard(self):
-        return self._get_info('Scoreboard')
+        """ Return apache workers scoreboard """
+        ret = self._get_info('Scoreboard')
+        self.logger.debug("get_scoreboard: %s" % (ret, ))
+        return ret
+    
+    def _get(self, metric=None, *args, **kwargs):
+        """ get some metric """
+        allowed_metrics = ('ping', 'accesses', 'bytes', 'workers_busy',
+            'workers_closingconn', 'workers_dns', 'workers_finishing',
+            'workers_idle', 'workers_idlecleanup', 'workers_keepalive',
+            'workers_logging', 'workers_openslot', 'workers_reading',
+            'workers_starting', 'workers_waitingconn', 'workers_writing')
+        if metric in allowed_metrics:
+            return self.__getattribute__('get_' + metric)()
+        else:
+            raise CheckFail("Requested not allowed metric")   
     
     ####################################################################
     ## Properties ######################################################            
@@ -126,8 +144,7 @@ class ApacheStatus(ZTCCheck):
     workers_waitingconn = property(get_workers_waitingconn)
             
     def get_workers_writing(self):
-        return self.get_scoreboard().count('_')
-    workers_writing = property(get_workers_writing)
+        return self.get_scoreboard().count('W')
 
 class ApacheTimeLog(ZTCCheck):
     """ Processes Apache time log (LogFormat %D) """
