@@ -16,7 +16,7 @@ from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
 
 class ApacheStatus(ZTCCheck):
-    """ Apache status paged r """
+    """ Apache status page reader & parser """
     
     name = 'apache'
     

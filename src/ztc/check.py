@@ -43,6 +43,7 @@ class ZTCCheck(object):
     ver = "11.03"
     args = [] # parsed command-line args
     
+    # minimum & maximum number of command-line arguments
     OPTPARSE_MIN_NUMBER_OF_ARGS = 0
     OPTPARSE_MAX_NUMBER_OF_ARGS = 0
     

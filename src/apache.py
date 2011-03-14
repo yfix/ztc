@@ -24,6 +24,9 @@ Params:
         workers_starting - current number of workers starting
         workers_waitingconn - current number of workers ready to accept connection
         workers_writing - current number of workers writing response
+Returns:
+    for ping: float (seconds)
+    for others: int (bytes or number of)
 """
 
 from ztc.apache import ApacheStatus
