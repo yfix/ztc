@@ -19,7 +19,6 @@ conf/zabbix-agent.d/nginx.conf
 conf/zabbix-agent.d/pgsql.conf
 conf/zabbix-agent.d/slony.conf
 src/apache.py
-src/apache_alive.py
 src/apache_reqtime.py
 src/hw_raid_3ware.py
 src/mysql_ping.py
@@ -33,6 +32,7 @@ src/pgsql_buffers.py
 src/pgsql_conn.py
 src/pgsql_dbstat.py
 src/pgsql_fsm.py
+src/pgsql_locks.py
 src/pgsql_ping.py
 src/pgsql_slony.py
 src/pgsql_tnx.py
@@ -45,7 +45,9 @@ src/vfs_nfs_mounted.py
 src/vm_memory.py
 src/ztc/__init__.py
 src/ztc/cache.py
+src/ztc/check.py
 src/ztc/commons.py
+src/ztc/store.py
 src/ztc/url.py
 src/ztc/apache/__init__.py
 src/ztc/hw/__init__.py
@@ -70,6 +72,7 @@ templates/Template_app_Apache2.xml
 templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
 templates/Template_app_Slony.xml
+templates/Template_app_Terracotta.xml
 templates/Template_app_nginx.xml
 templates/Template_app_snmp_Jboss.xml
 templates/Template_fs_nfs.xml
