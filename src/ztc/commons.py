@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 '''
+!!! This file is DEPRECATED !!!!
+
 ZTC commons classes
 
 Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>

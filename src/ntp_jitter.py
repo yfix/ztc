@@ -9,10 +9,6 @@ License: GNU GPL v3
 """
 
 from ztc.system.ntp import Ntpq
-from ztc import notsupported
     
-try:
-    n = Ntpq()
-    print n.jitter
-except Exception, e:
-    notsupported(e)
+n = Ntpq()
+n.get('jitter')
