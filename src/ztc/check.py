@@ -61,7 +61,7 @@ class ZTCCheck(object):
         # checking if we are running in debug mode
         if self.config.get('debug', False):
             self.debug = True
-        
+    
         # setup logger
         self.logger = logging.getLogger(self.__class__.__name__)
         formatter = logging.Formatter("[%(name)s] %(asctime)s - %(levelname)s: %(message)s")

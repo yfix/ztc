@@ -5,9 +5,14 @@ Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 """
 
 import os
+import sys
 
 def mypopen(cmd):
-    # TODO: use subprocess on 2.6+
     # TODO: catch stderr
     os.putenv('LC_ALL', 'POSIX')
-    return os.popen(cmd)
+    if sys.version_info >= (2, 6):
+        # TODO: use subprocess on 2.6+
+        ret = os.popen(cmd)
+    else:
+        ret = os.popen(cmd)
+    return ret

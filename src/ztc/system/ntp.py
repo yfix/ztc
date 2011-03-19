@@ -10,7 +10,7 @@ License: GNU GPL v3
 
 Requirements:
     * ntp
-    * run as root or have permissions to 'ntpq -c readvar localhost'
+    * have permissions to 'ntpq -c readvar localhost'
 '''
 
 from ztc.check import ZTCCheck, CheckFail

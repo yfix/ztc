@@ -85,7 +85,6 @@ class ApacheStatus(ZTCCheck):
         except:
             pass
         return self.ping_t
-    ping = property(get_ping)
 
     def get_accesses(self):
         return int(self._get_info('Total Accesses'))
