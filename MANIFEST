@@ -47,6 +47,7 @@ src/ztc/__init__.py
 src/ztc/cache.py
 src/ztc/check.py
 src/ztc/commons.py
+src/ztc/myos.py
 src/ztc/store.py
 src/ztc/url.py
 src/ztc/apache/__init__.py
