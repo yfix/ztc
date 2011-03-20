@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="07.02.11" time="14.33">
+<zabbix_export version="1.0" date="20.03.11" time="10.19">
 	<hosts>
 		<host name="Template_app_apache2">
 			<proxy_hostid>0</proxy_hostid>
@@ -696,41 +696,6 @@ Probably you should tune your mpm settings.</comments>
 						</graph_element>
 					</graph_elements>
 				</graph>
-				<graph name="Apache load" width="900" height="200">
-					<ymin_type>0</ymin_type>
-					<ymax_type>0</ymax_type>
-					<ymin_item_key></ymin_item_key>
-					<ymax_item_key></ymax_item_key>
-					<show_work_period>1</show_work_period>
-					<show_triggers>0</show_triggers>
-					<graphtype>0</graphtype>
-					<yaxismin>0.0000</yaxismin>
-					<yaxismax>100.0000</yaxismax>
-					<show_legend>0</show_legend>
-					<show_3d>0</show_3d>
-					<percent_left>0.0000</percent_left>
-					<percent_right>0.0000</percent_right>
-					<graph_elements>
-						<graph_element item="Template_app_apache2:apache.accesses">
-							<drawtype>0</drawtype>
-							<sortorder>0</sortorder>
-							<color>CC0000</color>
-							<yaxisside>0</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
-						<graph_element item="Template_app_apache2:apache.traffic">
-							<drawtype>0</drawtype>
-							<sortorder>0</sortorder>
-							<color>009900</color>
-							<yaxisside>1</yaxisside>
-							<calc_fnc>2</calc_fnc>
-							<type>0</type>
-							<periods_cnt>5</periods_cnt>
-						</graph_element>
-					</graph_elements>
-				</graph>
 				<graph name="Apache workers" width="900" height="200">
 					<ymin_type>0</ymin_type>
 					<ymax_type>0</ymax_type>
@@ -903,6 +868,41 @@ Probably you should tune your mpm settings.</comments>
 							<sortorder>0</sortorder>
 							<color>009900</color>
 							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Apache load" width="900" height="200">
+					<ymin_type>1</ymin_type>
+					<ymax_type>0</ymax_type>
+					<ymin_item_key></ymin_item_key>
+					<ymax_item_key></ymax_item_key>
+					<show_work_period>1</show_work_period>
+					<show_triggers>0</show_triggers>
+					<graphtype>0</graphtype>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<show_legend>0</show_legend>
+					<show_3d>0</show_3d>
+					<percent_left>0.0000</percent_left>
+					<percent_right>0.0000</percent_right>
+					<graph_elements>
+						<graph_element item="Template_app_apache2:apache.accesses">
+							<drawtype>0</drawtype>
+							<sortorder>0</sortorder>
+							<color>CC0000</color>
+							<yaxisside>0</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<type>0</type>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="Template_app_apache2:apache.traffic">
+							<drawtype>0</drawtype>
+							<sortorder>1</sortorder>
+							<color>009900</color>
+							<yaxisside>1</yaxisside>
 							<calc_fnc>2</calc_fnc>
 							<type>0</type>
 							<periods_cnt>5</periods_cnt>
