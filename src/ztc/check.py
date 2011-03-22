@@ -163,6 +163,9 @@ class ZTCCheck(object):
             for arg in e.args:
                 print(arg)
             sys.exit(2)
+        except SystemExit, e:
+            # that's ok
+            sys.exit(0)
         except Exception, e:
             # totally unexpected fail: dump all data we know
             self.logger.exception('Check unexpected error, getting %s' % (metric, ))
