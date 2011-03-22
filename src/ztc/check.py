@@ -148,7 +148,6 @@ class ZTCCheck(object):
             # This is required for zabbix agent not to hang
             ret = self._get(metric, *args, **kwargs)
             print(ret)
-            sys.exit(0)
         except CheckFail, e:
             self.logger.exception('Check fail, getting %s' % (metric, ))
             if self.debug:
@@ -163,12 +162,10 @@ class ZTCCheck(object):
             for arg in e.args:
                 print(arg)
             sys.exit(2)
-        except SystemExit, e:
-            # that's ok
-            sys.exit(0)
         except Exception, e:
             # totally unexpected fail: dump all data we know
             self.logger.exception('Check unexpected error, getting %s' % (metric, ))
             traceback.print_stack()
             sys.exit(1)
+        sys.exit(0)
             
