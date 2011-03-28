@@ -15,7 +15,7 @@ st = time.time()
 try:
     p = PgDB()
     if p.query('SELECT 1'):
-        time.time() - st
+        print time.time() - st
     else:
         print("0")
 except:

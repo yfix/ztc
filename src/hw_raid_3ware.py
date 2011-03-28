@@ -7,11 +7,8 @@
     Copyright (c) 2010 Murano Software [http://muranosoft.com]
 """
 
-import ztc
+#import ztc
 import ztc.hw
 
-try:
-    tw = ztc.hw.RAID_3Ware()
-    print tw.get_status()
-except Exception, e:
-    ztc.notsupported(e)
+tw = ztc.hw.RAID_3Ware()
+tw.get('status')
