@@ -7,11 +7,19 @@ Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Licensed under GNU GPL v.3
 """
 
+import time
+
 import MySQLdb
 
-import ztc.commons
+#import ztc.commons
+from ztc.check import ZTCCheck, CheckFail
 
-class MyDB(object):
+class MyDB(ZTCCheck):    
+    name = 'mysql'
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
+    
     database='mysql'
     host='localhost'
     user='root'
@@ -19,18 +27,21 @@ class MyDB(object):
     unix_socket = None
     
     lasterr = None
+    connected = None
     
-    def __init__(self):
-        self.config = ztc.commons.get_config('mysql')
-        self.database = self.config.get('database', self.database)
-        self.host = self.config.get('host', self.host)
-        self.user = self.config.get('user', self.user)
-        self.password = self.config.get('password', self.password)
-        self.unix_socket = self.config.get('unix_socket', self.unix_socket)
-        
-        self._connect()        
+    #def __init__(self):
+    #    self.config = ztc.commons.get_config('mysql')
+    #    self.database = self.config.get('database', self.database)
+    #    self.host = self.config.get('host', self.host)
+    #    self.user = self.config.get('user', self.user)
+    #    self.password = self.config.get('password', self.password)
+    #    self.unix_socket = self.config.get('unix_socket', self.unix_socket)
+    #    
+    #    self._connect()        
         
     def _connect(self):
+        if self.connected:
+            return True
         try:
             # TODO: remove this if, filter arguments instead
             if self.unix_socket:
@@ -49,17 +60,30 @@ class MyDB(object):
                            connect_timeout = 2
                            )                
             self.cursor = self.conn.cursor();
-        except:
+            return True
+        except MySQLdb.OperationalError:
+            self.logger.error("Failed to connect to mysql")
             self.conn = None
             self.cursor = None
+            return False
     
+    def _get(self, metric, *args, **kwargs):
+        if metric == 'ping':
+            return self._get_ping()
+    
+    def _get_ping(self):
+        """ calculate ping by executing very simple select """
+        st = time.time()
+        if not self._connect():
+            return 0
+        else:
+            self.query('SELECT 1')
+            return time.time() - st
+            
     def query(self, query):
-        try:
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
-        except Exception, e:
-            self.lasterr = e
-            return None
+        self.logger.debug("running query '%s'" % (query, ))
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
     
     def escape(self, str):
         return MySQLdb.escape_string(str)
