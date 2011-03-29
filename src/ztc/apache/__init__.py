@@ -26,7 +26,6 @@ class ApacheStatus(ZTCCheck):
     ping_t = 0
     
     _page_data = None
-
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
