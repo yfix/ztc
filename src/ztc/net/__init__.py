@@ -10,8 +10,15 @@ Licensed under GNU GPL v.3
 
 import os
 
-class Conn(object):
+from ztc.check import ZTCCheck
+
+class Conn(ZTCCheck):
     """ Conn class - allows calculate number of connections in various states from netstat """
+    
+    name = 'net_conn'
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 0
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
     
     _tcp_conn_states = ( 'ESTABLISHED', # = 1
         'SYN_SENT',
@@ -60,12 +67,11 @@ class Conn(object):
         f.close()
         return cnt
     
-    def __getattr__(self, attr):
+    def _get(self, attr):
         attr = attr.upper()
         if attr == 'ALL':
             attr = None
         return self._get_num_sockets('tcp', attr) + self._get_num_sockets('udp', attr) + self._get_num_sockets('raw', attr)
-
 
 # test
 if __name__ == '__main__':

@@ -79,7 +79,8 @@ class MyDB(ZTCCheck):
             try:
                 return self._get_status(args[0])
             except IndexError:
-                raise CheckFail("not enough arguments - pass global status metric name as 2nd arg")
+                raise CheckFail("not enough arguments - pass global status "
+                                "metric name as 2nd arg")
     
     def _get_ping(self):
         """ calculate ping by executing very simple select """

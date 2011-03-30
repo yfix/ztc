@@ -8,6 +8,8 @@ Licensed under GNU GPL v.3
 Currently supported metrics:
     * ping (float) - return number of seconds required to run simple query.
         Return 0 if failed
+    * status (mostly int) - returns value of $2 metric from mysql's SHOW GLOBAL
+        STATUS
 '''
 
 from ztc.mysql import MyDB

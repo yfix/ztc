@@ -25,19 +25,11 @@ Params:
         stdout: int, number of items in specified state 
 """
 
-import sys
-
 from ztc.net import Conn
-from ztc import notsupported
 
-if len(sys.argv) <> 2:
-    notsupported("not enough arguments")
-
-metric = sys.argv[1]
-
-try:
-    c = Conn()
-
-    print c.__getattr__(metric)
-except Exception, e:
-    notsupported(e)
+c = Conn()
+if len(c.args) == 0:
+    m = 'ALL'
+else:
+    m = c.args[0]
+c.get(m)
