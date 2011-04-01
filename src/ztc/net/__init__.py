@@ -2,7 +2,7 @@
 """
 net module for ZTC - contains additional network metrics 
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
 Copyright (c) 2010 Murano Software [http://muranosoft.com]
 Copyright (c) 2010 Wrike, Inc. [http://wrike.com]
 Licensed under GNU GPL v.3
