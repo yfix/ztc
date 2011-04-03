@@ -7,7 +7,7 @@ Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 import os
 import sys
 
-def mypopen(cmd):
+def mypopen(cmd, input=None):
     # TODO: catch stderr
     os.putenv('LC_ALL', 'POSIX')
     if sys.version_info >= (2, 6):

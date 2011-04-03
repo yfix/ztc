@@ -114,6 +114,8 @@ class ZTCCheck(object):
         
         self.options = options
         self.args = args
+        if self.OPTPARSE_MIN_NUMBER_OF_ARGS > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
+            self.OPTPARSE_MAX_NUMBER_OF_ARGS = self.OPTPARSE_MIN_NUMBER_OF_ARGS 
         if len(self.args) < self.OPTPARSE_MIN_NUMBER_OF_ARGS:
             raise CheckFail("Not enough arguments")
         if len(self.args) > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
