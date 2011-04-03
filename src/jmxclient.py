@@ -1,4 +1,4 @@
-#!/usr/bin/env jython
+#!/usr/bin/jython -Dpython.path=/opt/ztc/lib/jmxremote_optional.jar
 """
     JMX Client wrapper script. Part of ZTC
     
@@ -18,9 +18,14 @@
 
 #Java Dependencies
 import javax.management.remote.JMXConnector;
+import javax.management.remote.jmxmp.JMXMPConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import java.lang.management.ManagementFactory;
+import javax.management.Attribute;
+import javax.management.MBeanServerConnection;
+import javax.management.MBeanServerInvocationHandler;
+import javax.management.ObjectName;
 
 #Python Dependencies
 import sys
@@ -49,8 +54,11 @@ class JMXClient:
         #    sys.exit(1)
         
         #Establish Connection to JMX Server
-        url = javax.management.remote.JMXServiceURL(connect_url);
-        connector = javax.management.remote.JMXConnectorFactory.connect(url);
+        #url = javax.management.remote.JMXServiceURL(connect_url);
+        url = javax.management.remote.JMXServiceURL('jmxmp', 'localhost', 9520);
+        #connector = javax.management.remote.JMXConnectorFactory.connect(url);
+        connector = javax.management.remote.jmxmp.JMXMPConnector(url)
+        connector.connect()
         self.remote = connector.getMBeanServerConnection();
         
     def getAttribute(self, mbean_path, attribute):
