@@ -19,8 +19,6 @@ def mypopen(cmd, logger=None, input=None):
                                 stderr=subprocess.PIPE,
                                 shell=True)
         (ret, err) = pipe.communicate(input)
-        #ret = o.read()
-        #err = e.read()
     else:
         #ret = os.popen(cmd)
         (o, i, e) = popen2.popen3(cmd)

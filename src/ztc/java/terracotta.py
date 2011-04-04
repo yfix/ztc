@@ -56,8 +56,3 @@ class JMXTerracotta(JMXCheck):
         # override default url
         self.jmx_url = self.config.get('jmx_url',
                                        'service:jmx:jmxmp://localhost:9520')
-    
-    #def _get(self, metric, *args, **kwargs):
-    #    # TODO: implement
-    #    print self.jmx_url
-    #    pass

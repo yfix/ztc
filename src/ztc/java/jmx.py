@@ -42,13 +42,10 @@ class JMXCheck(ZTCCheck):
             raise CheckFail('unsupported metric')
     
     def get_prop(self, mbean_name, attribute_name):
+        """ get custom JMX bean property """
         popen_cmd = "java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar " + \
             "/opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l %s -e -n -v silent" % \
             (self.jmx_url, )
-        #popen_cmd = "java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar " + \
-        #    "/opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l %s" % \
-        #    (self.jmx_url, )
-        #popen_cmd = 'cat'
         jmxterm_cmd = "get -b %s %s -s" % (mbean_name, attribute_name)
         self.logger.debug("Executing jmxterm command %s" % jmxterm_cmd)
         self.logger.debug("Jmxterm executable: %s" % popen_cmd)
