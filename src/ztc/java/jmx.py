@@ -26,11 +26,18 @@ class JMXCheck(ZTCCheck):
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 3
     
+    def __init__(self):
+        """ constructor override """
+        ZTCCheck.__init__(self)
+        # override default url
+        self.jmx_url = self.config.get('jmx_url',
+                                       'service:jmx:rmi://localhost:123')    
+    
     def _get(self, metric, *args, **kwargs):
         # TODO: implement
         if metric == 'get_prop':
             # get jmx property
-            self.get_prop(*args)
+            return self.get_prop(*args)
         else:
             raise CheckFail('unsupported metric')
     
@@ -38,9 +45,17 @@ class JMXCheck(ZTCCheck):
         popen_cmd = "java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar " + \
             "/opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l %s -e -n -v silent" % \
             (self.jmx_url, )
+        #popen_cmd = "java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar " + \
+        #    "/opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l %s" % \
+        #    (self.jmx_url, )
+        #popen_cmd = 'cat'
         jmxterm_cmd = "get -b %s %s -s" % (mbean_name, attribute_name)
         self.logger.debug("Executing jmxterm command %s" % jmxterm_cmd)
         self.logger.debug("Jmxterm executable: %s" % popen_cmd)
-        ret = mypopen(popen_cmd, self.logger, jmxterm_cmd)
-        return ret
+        try:
+            ret = mypopen(popen_cmd, self.logger, jmxterm_cmd)
+        except IOError:
+            self.logger.exception("Failed to run mypopen")
+            raise CheckFail("jmxterm call failed")
+        return ret.strip()
         # TODO: mypopen function with input support            

@@ -7,28 +7,32 @@ Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 import os
 import sys
 if sys.version_info >= (2, 6):
-    import popen2
-else:
     import subprocess
+else:
+    import popen2    
 
 def mypopen(cmd, logger=None, input=None):
-    # TODO: catch stderr
     os.putenv('LC_ALL', 'POSIX')
     if sys.version_info >= (2, 6):
-        # TODO: use subprocess on 2.6+
-        #ret = os.popen(cmd)
-        (i, o, err) = popen2.popen3(cmd)
-        if input:
-            i.write(input)
-        ret = o.read()
-        e = err.read()
-        if e:
-            if logger:
-                logger.warn("Stderr while executing '%s': '%s'" % (cmd, e))
+        pipe = subprocess.Popen(cmd, stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                shell=True)
+        (ret, err) = pipe.communicate(input)
+        #ret = o.read()
+        #err = e.read()
     else:
-        (i, o, err) = popen2.popen3(cmd)
         #ret = os.popen(cmd)
+        (o, i, e) = popen2.popen3(cmd)
         if input:
             i.write(input)
-        ret = i.read()
+            i.close()
+        ret = o.read()
+        err = e.read()
+        o.close()
+        e.close()
+        
+    if err:
+        if logger:
+            logger.warn("Stderr while executing '%s': '%s'" % (cmd, err))        
     return ret
