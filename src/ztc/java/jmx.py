@@ -17,6 +17,7 @@ echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endo
 """
 
 from ztc.check import ZTCCheck, CheckFail
+from ztc.myos import mypopen
 
 class JMXCheck(ZTCCheck):
     """ Generic JMX check """
@@ -40,4 +41,6 @@ class JMXCheck(ZTCCheck):
         jmxterm_cmd = "get -b %s %s -s" % (mbean_name, attribute_name)
         self.logger.debug("Executing jmxterm command %s" % jmxterm_cmd)
         self.logger.debug("Jmxterm executable: %s" % popen_cmd)
+        ret = mypopen(popen_cmd, self.logger, jmxterm_cmd)
+        return ret
         # TODO: mypopen function with input support            
