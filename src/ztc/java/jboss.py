@@ -21,3 +21,17 @@ class JMXJboss(JMXCheck):
         # override default url
         self.jmx_url = self.config.get('jmx_url',
                                        'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
+
+    def _get(self, metric, *args, **kwargs):
+        if metric == 'get_prop':
+            # get jmx property
+            return self.get_prop(*args)
+        elif metric == 'ds':
+            return self.get_ds_info(args[0], *args[1:])
+        else:
+            raise CheckFail('unsupported metric')
+    
+    def get_ds_info(self, ds, metric):
+        """ Get jboss datasource info """
+        mbean = 'jboss.jca:name=%s,service=ManagedConnectionPool' % ds
+        return self.get_prop(mbean, metric)

@@ -34,7 +34,6 @@ class JMXCheck(ZTCCheck):
                                        'service:jmx:rmi://localhost:123')    
     
     def _get(self, metric, *args, **kwargs):
-        # TODO: implement
         if metric == 'get_prop':
             # get jmx property
             return self.get_prop(*args)
