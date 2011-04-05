@@ -27,6 +27,7 @@ class JMXJboss(JMXCheck):
             # get jmx property
             return self.get_prop(*args)
         elif metric == 'ds':
+            # get datasource info
             return self.get_ds_info(args[0], *args[1:])
         else:
             raise CheckFail('unsupported metric')
