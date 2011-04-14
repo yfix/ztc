@@ -11,6 +11,10 @@ import cPickle as pickle
 
 class ZTCStore(object):
     """ class for storing data in key files """
+    
+    ## properties
+    ttl = 7200 # default TTL for entry: 2 hours
+    
     def __init__(self, name, options):
         """ Args:
         * name - name of store item
@@ -27,12 +31,16 @@ class ZTCStore(object):
             os.makedirs(dir)        
     
     def get(self):
-        if time.time() - os.stat(self.myfile).st_mtime > 7200:
+        """ retirn stored object """
+        if time.time() - os.stat(self.myfile).st_mtime > self.ttl:
             # do not store for more then 2 hours
-            self.clear()        
-        f = open(self.myfile, 'r')
-        ret = pickle.load(f)
-        f.close()
+            self.clear()
+        if os.path.isfile(self.myfile):        
+            f = open(self.myfile, 'r')
+            ret = pickle.load(f)
+            f.close()
+        else:
+            ret = None
         return ret
     
     def set(self, val):
@@ -45,3 +53,25 @@ class ZTCStore(object):
     
     def clear(self):
         os.unlink(self.myfile)
+
+if __name__ == '__main__':
+    # some tests
+    class C:
+        tmpdir = '/tmp/ztc'
+    c = C()
+    s = ZTCStore('test', c)
+    data = "test data"
+    
+    print "set - get test:"
+    s.set(data)
+    print s.get()
+    
+    print "set - get test, ttl 60"
+    s.ttl = 60
+    print s.get()
+    
+    print "set - get test, ttl 1"
+    s.ttl = 1
+    from time import sleep
+    sleep(2)
+    print s.get()
