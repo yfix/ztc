@@ -3,6 +3,7 @@
 Used for storing temporary values & cache
 
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 """
 
 import os
@@ -32,15 +33,15 @@ class ZTCStore(object):
     
     def get(self):
         """ retirn stored object """
-        if time.time() - os.stat(self.myfile).st_mtime > self.ttl:
-            # do not store for more then 2 hours
-            self.clear()
-        if os.path.isfile(self.myfile):        
-            f = open(self.myfile, 'r')
-            ret = pickle.load(f)
-            f.close()
-        else:
-            ret = None
+        ret = None
+        if os.path.isfile(self.myfile):
+            if time.time() - os.stat(self.myfile).st_mtime > self.ttl:
+                # do not store for more then ttl hours
+                self.clear()
+            else:        
+                f = open(self.myfile, 'r')
+                ret = pickle.load(f)
+                f.close()
         return ret
     
     def set(self, val):
