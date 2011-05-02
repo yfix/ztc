@@ -10,16 +10,29 @@
 import urllib2
 import time
 
-import ztc.commons
+#import ztc.commons
+from ztc.check import ZTCCheck, CheckFail
+from ztc.store import ZTCStore
 
-class NginxStatus(object):
+class NginxStatus(ZTCCheck):
     """ Nginx status page reader and parser """
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+    name = 'nginx'
     
     _page_data = None # data from status page
     ping_time = 0
     
-    def __init__(self):
-        self.config = ztc.commons.get_config('nginx')
+    def _get(self, metric=None, *args, **kwargs):
+        allowed_metrics = ('accepts', 'handled', 'requests',
+            'connections_active', 'connections_reading', 'connections_waiting',
+            'connections_writing', 'ping')
+        if metric in allowed_metrics:
+            return self.__getattribute__('get_' + metric)()
+        else:
+            raise CheckFail("Requested not allowed metric")   
+        
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
@@ -53,7 +66,7 @@ class NginxStatus(object):
     
     def get_accepts(self):
         """ Number of accept()s since server start """
-        st = ztc.commons.MyStore('nginx.accepts')
+        st = ZTCStore('nginx.accepts', self.options)
         try:
             self._read_status()
             my_line = self._page_data[2]
@@ -67,7 +80,7 @@ class NginxStatus(object):
     accepts = property(get_accepts)
     
     def get_handled(self):
-        st = ztc.commons.MyStore('nginx.handled')
+        st = ZTCStore('nginx.handled', self.options)
         try:
             self._read_status()
             my_line= self._page_data[2]

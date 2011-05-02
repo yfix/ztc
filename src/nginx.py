@@ -16,19 +16,8 @@ Params:
         connectionw_waiting - current number of connections on waiting state
 """
 
-import sys
-
 from ztc.nginx import NginxStatus
-from ztc import notsupported
 
-if len(sys.argv) <> 2:
-    notsupported("not enough arguments")
-
-metric = sys.argv[1]
-
-try:
-    st = NginxStatus()
-
-    print st.__getattribute__(metric)
-except Exception, e:
-    notsupported(e)
+st = NginxStatus()
+m = st.args[0]
+st.get(m)
