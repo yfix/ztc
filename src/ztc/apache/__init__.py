@@ -227,12 +227,10 @@ class ApacheTimeLog(ZTCCheck):
         """ returns average request processing time """
         metrics = self._get_metrics()
         return metrics['avg']
-    #avg_request_time = property(get_avg)
     
     def get_min(self):
         metrics = self._get_metrics_from_cache()
         return metrics['min']
-    min_request_time = property(get_min)
     
     def get_max(self):
         metrics = self._get_metrics_from_cache()

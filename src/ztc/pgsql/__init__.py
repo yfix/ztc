@@ -4,77 +4,97 @@ ZTC pgsql package
 
 Used in PostgreSQL-related templates
 
-Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
 import sys
 
 import psycopg2 as pg
-import ztc.commons
 
-class PgDB(object):
+from ztc.check import ZTCCheck, CheckFail
+import queries as pgq
+
+class PgDB(ZTCCheck):
     """ Connection to single database """
-    database='postgres'
-    host='localhost'
-    user='postgres'
-    password=None
     
-    my_name='pgsql'
+    name= 'pgsql'
+    
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
     
     dbh = None # database handler
     cur = None # database cursor
     
-    lasterr = None # last error 
-    
-    def __init__(self, my_name='pgsql', database=None):
-        self.my_name = my_name
-        self.config = ztc.commons.get_config(self.my_name)
-        if database:
-            self.database = database
+    def _get(self, metric, *args, **kwargs):
+        if metric == 'query':
+            q = args[0]
+            return self.query(q)
+        elif metric == 'autovac_freeze':
+            return self.get_autovac_freeze()
         else:
-            self.database = self.config.get('database', self.database)
-        self.host = self.config.get('host', self.host)
-        self.user = self.config.get('user', self.user)
-        self.password = self.config.get('password', self.password)
-        
-        self._connect()
+            raise CheckFail('uncknown metric')
     
+    # queries:
+    def get_autovac_freeze(self):
+        """ Checks how close each database is to the Postgres
+            autovacuum_freeze_max_age setting. This action will only work for
+            databases version 8.2 or higher. The 'age' of the transactions in
+            each database is compared to the autovacuum_freeze_max_age setting
+            (200 million by default) to generate a rounded percentage.
+        
+        Returns: (float) maximum age of transaction from all databases, in %
+            (compared to autovacuum_freeze_max_age)
+        """
+        max_percent = 0
+        q = pgq.AUTOVAC_FREEZE
+        ret = self.query(q)
+        for (freeze, age, percent, dbname) in ret:
+            if self.debug:
+                self.logger.info("Freeze %% for %s: %s" % (dbname, percent))
+            max_percent = max(max_percent, percent)        
+        return max_percent
+    
+    # postgresql-related
     def _connect(self):
         """ Connect to database """
+        if self.dbh:
+            return True
+        connect_dict = {
+            'host': self.config.get('host', None), # none = connect via socket
+            'user': self.config.get('user', 'postgres'),
+            'password': self.config.get('password', None),
+            'database': self.config.get('database', 'postgres')
+        }
+        # filtering connect_dict to remove all Nones:
+        connect_dict = dict((k, v) for k, v in connect_dict.iteritems() if v is not None)
         try:
-            if self.host == None or self.host == 'localhost':
-                if self.password:
-                    self.dbh = pg.connect(database=self.database, user=self.user, password=self.password)
-                else:
-                    self.dbh = pg.connect(database=self.database, user=self.user)
-            else:
-                if self.password:
-                    self.dbh = pg.connect(database=self.database, host=self.host, user=self.user, password=self.password)
-                else:
-                    self.dbh = pg.connect(database=self.database, host=self.host, user=self.user)
-            # ^^^ I hate myself, TODO: rewrite this please
+            self.dbh = pg.connect(**connect_dict)
             self.cur = self.dbh.cursor()
+            return True
         except  Exception, e:
             raise
             self.lasterr = e
             self.dbh = None
             self.cur = None
+            return False
     
     def query(self, sql):
-        if not self.cur: return None
-        try:
-            self.cur.execute(sql)
-            return self.cur.fetchall()
-        except Exception, e:
-            self.lasterr = e
-            return None
+        self._connect()
+        if self.debug:
+            self.logger.debug("running query '%s'" % sql)        
+        self.cur.execute(sql)
+        ret = self.cur.fetchall()
+        if self.debug:
+            self.logger.debug("result:\n%s" % self.fineprint_results(ret))
+        return ret
         
     def fineprint_results(self, rets):
         """ Fine print query results """
+        ret = ''
         for row in rets:
             for cell in row:
-                sys.stdout.write(str(cell) + ' | ')
-            sys.stdout.write("\n")
+                ret += (str(cell) + ' | ')
+            ret += "\n"
+        return ret
     
     def close(self):
         self.cur.close()
@@ -111,5 +131,5 @@ class PgCluster(object):
 if __name__ == '__main__':
     # some test
     p = PgDB()
-    ret = p.query("SELECT * FROM pg_tables")
+    ret = p.get('query', "SELECT * FROM pg_tables")
     p.fineprint_results(ret)
