@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="27.05.11" time="17.34">
+<zabbix_export version="1.0" date="28.05.11" time="22.24">
   <hosts>
     <host name="Template_app_PostgreSQL">
       <proxy_hostid>0</proxy_hostid>
@@ -19,15 +19,6 @@
         <group>Templates</group>
       </groups>
       <triggers>
-        <trigger>
-          <description>Low free disk (&lt;5%) space on PostgreSQL backups partition on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/backups,pfree].last(0)}&lt;5</expression>
-          <url></url>
-          <status>0</status>
-          <priority>3</priority>
-          <comments></comments>
-        </trigger>
         <trigger>
           <description>Low free disk (&lt;5%) space on PostgreSQL data partition on {HOSTNAME}</description>
           <type>0</type>
@@ -56,33 +47,6 @@
           <comments></comments>
         </trigger>
         <trigger>
-          <description>PgSQL bloat is too high on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.bloat.last(0)}&gt;35</expression>
-          <url></url>
-          <status>0</status>
-          <priority>2</priority>
-          <comments>Run `/home/zabbix/pgsql_bloat.py someparam`</comments>
-        </trigger>
-        <trigger>
-          <description>Low free disk (&lt;1%) space on PostgreSQL data partition on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;1</expression>
-          <url></url>
-          <status>0</status>
-          <priority>5</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
-          <description>PgSQL: too close to to autovacuum_freeze_max_age setting on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.autovac.freeze.last(0)}&gt;90</expression>
-          <url></url>
-          <status>0</status>
-          <priority>2</priority>
-          <comments>Run /opt/ztc/bin/pgsql_autovac_freeze.py list to determine what database caused this alert</comments>
-        </trigger>
-        <trigger>
           <description>PgSQL: transaction is too long in idle state on {HOSTNAME}</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:pgsql.tnx.idletime.last(0)}&gt;15</expression>
@@ -92,18 +56,27 @@
           <comments></comments>
         </trigger>
         <trigger>
-          <description>Low free disk (&lt;5%) space on PostgreSQL data partition on {HOSTNAME}</description>
+          <description>PgSQL: Too many wal files on {HOSTNAME}</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;5</expression>
+          <expression>{Template_app_PostgreSQL:pgsql.wal.num.last(0)}&gt;100</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
           <comments></comments>
         </trigger>
         <trigger>
-          <description>PgSQL: Too many wal files on {HOSTNAME}</description>
+          <description>PgSQL: bloat is too high on {HOSTNAME}</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.wal.num.last(0)}&gt;40</expression>
+          <expression>{Template_app_PostgreSQL:pgsql.bloat.last(0)}&gt;35</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Run `/home/zabbix/pgsql_bloat.py someparam`</comments>
+        </trigger>
+        <trigger>
+          <description>Low free disk (&lt;5%) space on PostgreSQL data partition on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;5</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
@@ -146,12 +119,30 @@
           <comments></comments>
         </trigger>
         <trigger>
+          <description>PgSQL: too close to to autovacuum_freeze_max_age on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.autovac.freeze.last(0)}&gt;90</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Run /opt/ztc/bin/pgsql_autovac_freeze.py list to determine what database caused this alert</comments>
+        </trigger>
+        <trigger>
           <description>Low free disk (&lt;20%) space on PostgreSQL partition on {HOSTNAME}</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/,pfree].last(0)}&lt;5</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
+          <comments></comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: Low free disk space on data partition: &lt;1% on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;1</expression>
+          <url></url>
+          <status>0</status>
+          <priority>5</priority>
           <comments></comments>
         </trigger>
         <trigger>
@@ -170,6 +161,15 @@
           <url></url>
           <status>0</status>
           <priority>5</priority>
+          <comments></comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: Low free disk space on backups partition: &lt;5% on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/backups,pfree].last(0)}&lt;5</expression>
+          <url></url>
+          <status>0</status>
+          <priority>3</priority>
           <comments></comments>
         </trigger>
       </triggers>
