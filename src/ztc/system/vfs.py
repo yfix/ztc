@@ -168,7 +168,12 @@ class DiskStatus(ZTCCheck):
         cmd = '%s -H %s' % (self.config.get('smartctl', '/usr/sbin/smartctl'),
                             dev)
         c = mypopen(cmd, self.logger).strip().split("\n")        
-        return c[-1].split()[-1]        
+        ret = c[-1].split()[-1]
+        if ret == '/dev/tweN':
+            # this is 3ware raid device;
+            # health should be handled in 3ware template
+            ret = 'OK'
+        return ret         
 
 class MDStatus(object):
     """ Staus of linux software RAID
