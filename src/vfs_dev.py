@@ -27,28 +27,13 @@ Params:
     $2 - device name, e.g. 'sda'
 """
 
-import sys
+#import sys
 
-from ztc.system.vfs import  DiskStatsParser, SmartStatus
-from ztc import notsupported
+#from ztc.system.vfs import  DiskStatsParser, SmartStatus
+#from ztc import notsupported
+from ztc.system.vfs import DiskStatus
 
-if len(sys.argv) <> 3:
-    notsupported("not enough arguments")
 
-metric = sys.argv[1]
-dev = sys.argv[2]
-
-if metric == 'health':
-    try:
-        s = SmartStatus(dev)
-        print  s.health
-    except Exception, e:
-        notsupported(e)
-else:
-    try:
-        p = DiskStatsParser(dev)
-        stats = p.parse()
-
-        print stats.__getattribute__(metric)
-    except Exception, e:
-        notsupported(e)
+d = DiskStatus()
+m = d.args[0]
+d.get(m, *d.args[1:])

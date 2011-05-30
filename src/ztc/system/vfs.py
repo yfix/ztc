@@ -21,7 +21,9 @@ import os
 #import stat
 import re
 
-import ztc
+#import ztc
+from ztc.check import ZTCCheck, CheckFail
+from ztc.myos import mypopen
 
 class DiskStats(object):
     major = 0
@@ -143,21 +145,30 @@ class DiskStatsParser(object):
             map(int, t[:2]) + [t[2], ] + map(int, t[3:])
         
         return r
+
+
+class DiskStatus(ZTCCheck):
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
     
-class SmartStatus(object):
-    """ Disk smart status, using smartmontools """
-    def __init__(self, dev):
-        self.device = dev
+    name = 'DiskStatus'
     
-    def get_health(self):
-        dev = '/dev/%s' % (self.device, )
+    def _get(self, metric, *args, **kwargs):
+        #print args
+        device = args[0]
+        if metric == 'health':
+            return self.get_health(device)
+        else:
+            raise CheckFail('uncknown metric')
+    
+    def get_health(self, dev):
+        dev = '/dev/%s' % (dev, )
         if not os.path.exists(dev):
             return 'NO_DEVICE'
-        cmd = 'smartctl -H %s' % (dev, )
-        # TODO: unversal ztc.popen funcion, which will use recommended method for each python version
-        c = os.popen(cmd)        
-        return c.readlines()[-2].split()[-1]
-    health = property(get_health)
+        cmd = '%s -H %s' % (self.config.get('smartctl', '/usr/sbin/smartctl'),
+                            dev)
+        c = mypopen(cmd, self.logger).strip().split("\n")        
+        return c[-1].split()[-1]        
 
 class MDStatus(object):
     """ Staus of linux software RAID

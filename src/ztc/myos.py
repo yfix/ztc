@@ -13,6 +13,8 @@ else:
 
 def mypopen(cmd, logger=None, input=None):
     os.putenv('LC_ALL', 'POSIX')
+    if logger:
+        logger.debug("mypopen: executing %s", cmd)
     if sys.version_info >= (2, 6):
         pipe = subprocess.Popen(cmd, stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
