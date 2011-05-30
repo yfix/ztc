@@ -162,6 +162,7 @@ class DiskStatus(ZTCCheck):
             raise CheckFail('uncknown metric')
     
     def get_health(self, dev):
+        """ get device health (from SMART) """
         dev = '/dev/%s' % (dev, )
         if not os.path.exists(dev):
             return 'NO_DEVICE'

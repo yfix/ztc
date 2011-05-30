@@ -27,10 +27,6 @@ Params:
     $2 - device name, e.g. 'sda'
 """
 
-#import sys
-
-#from ztc.system.vfs import  DiskStatsParser, SmartStatus
-#from ztc import notsupported
 from ztc.system.vfs import DiskStatus
 
 

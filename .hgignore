@@ -6,3 +6,4 @@ dist/*
 build.sh
 .project
 .pydevproject
+.settings/*

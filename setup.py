@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+"""
+ZTC setup file
+"""
 
 from distutils.core import setup
 import os
@@ -7,18 +10,18 @@ import sys
 
 setup(
       name='ztc',
-      version = '11.04',
+      version = '11.05',
       description = 'Zabbix Template Collection',
       author = 'Vladimir Rusinov',
       author_email = 'vladimir@greenmice.info',
-      url = 'http://trac.greenmice.info/ztc/',
+      url = 'https://bitbucket.org/rvs/ztc/wiki/Home',
       
       home = '/opt/ztc/',
       
       package_dir = {'': 'src'},
       packages = ['ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx', 'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.hw'],
       
-      scripts = glob.glob('src/*.py'),  
+      scripts = glob.glob('src/*.py'),
       
       data_files=[
             ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf') + glob.glob('./conf/zabbix-agent.d/*.ini')),
