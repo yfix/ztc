@@ -73,9 +73,6 @@ class DiskStatsParser(object):
     """ Class to read and parse /proc/diskstats """
     
     def __init__(self, device):
-        """ IN:
-            device (string) - device name, e.g. 'sda'
-        """
         self.device = device
     
     def parse(self):
@@ -92,8 +89,7 @@ class DiskStatsParser(object):
             return self._read_diskstats()
         else:
             # there is no such device
-            return None
-            
+            return None        
     
     def _read_diskstats(self):
         f = open('/proc/diskstats', 'r')
@@ -159,6 +155,10 @@ class DiskStatus(ZTCCheck):
         if metric == 'health':
             return self.get_health(device)
         else:
+            #ds = DiskStats()
+            p = DiskStatsParser(device)
+            ds = p.parse()
+            return ds.__getattribute__(metric)
             raise CheckFail('uncknown metric')
     
     def get_health(self, dev):
