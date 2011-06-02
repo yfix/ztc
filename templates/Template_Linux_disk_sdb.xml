@@ -22,7 +22,7 @@
         <trigger>
           <description>Disk sdb: bad smart status</description>
           <type>0</type>
-          <expression>{Template_Linux_disk_sdb:vfs.dev.health[sdb].str(PASSED)}#1 &amp; {Template_Linux_disk_sdb:vfs.dev.health[sda].str(OK)}#1</expression>
+          <expression>{Template_Linux_disk_sdb:vfs.dev.health[sdb].str(PASSED)}#1 &amp; {Template_Linux_disk_sdb:vfs.dev.health[sdb].str(OK)}#1</expression>
           <url></url>
           <status>0</status>
           <priority>5</priority>
