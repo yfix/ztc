@@ -9,8 +9,8 @@ Currently supported metrics:
         autovac_freeze
 '''
 
-from ztc.pgsql.pgdb import PgDB
+from ztc.pgsql.pgcluster import PgCluster
 
-p = PgDB()
+p = PgCluster()
 m = p.args[0]
 p.get(m, *p.args[1:])

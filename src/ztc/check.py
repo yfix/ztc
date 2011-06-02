@@ -84,7 +84,12 @@ class ZTCCheck(object):
             h.setLevel(logging.WARN)
         self.logger.addHandler(sh)
         self.logger.addHandler(h)
-        self.logger.debug("created")                                                                                                                                                                                                                                                                                                                                       
+        self.logger.debug("created")
+        
+        self._myinit()
+    
+    def _myinit(self):
+        pass                                                                                                                                                                                                                                                                                                                                       
     
     def _parse_argv(self):
         parser = optparse.OptionParser()
