@@ -15,6 +15,7 @@ cp $TEMPLATE_FLDR/Template_Linux_disk_sda.xml $TEMPLATE_FLDR/Template_Linux_disk
 sed -ie s/sda/$NEW_DISK/ $TEMPLATE_FLDR/Template_Linux_disk_$NEW_DISK.xml
 sed -ie s/sda/$NEW_DISK/ $TEMPLATE_FLDR/Template_Linux_disk_$NEW_DISK.xml
 sed -ie s/sda/$NEW_DISK/ $TEMPLATE_FLDR/Template_Linux_disk_$NEW_DISK.xml
+sed -ie s/sda/$NEW_DISK/ $TEMPLATE_FLDR/Template_Linux_disk_$NEW_DISK.xml
 
 rm $TEMPLATE_FLDR/Template_Linux_disk_$NEW_DISK.xmle
 

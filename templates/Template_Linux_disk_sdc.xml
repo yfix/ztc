@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="01.06.11" time="21.51">
+<zabbix_export version="1.0" date="02.06.11" time="15.58">
   <hosts>
     <host name="Template_Linux_disk_sdc">
       <proxy_hostid>0</proxy_hostid>
@@ -20,9 +20,9 @@
       </groups>
       <triggers>
         <trigger>
-          <description>Disk sdc: bad smart status</description>
+          <description>Disk sdc: bad smart status on {HOSTNAME}</description>
           <type>0</type>
-          <expression>{Template_Linux_disk_sdc:vfs.dev.health[sdc].str(PASSED)}#1 &amp; {Template_Linux_disk_sdc:vfs.dev.health[sda].str(OK)}#1</expression>
+          <expression>{Template_Linux_disk_sdc:vfs.dev.health[sdc].str(PASSED)}#1 &amp; {Template_Linux_disk_sdc:vfs.dev.health[sdc].str(OK)}#1</expression>
           <url></url>
           <status>0</status>
           <priority>5</priority>
@@ -411,15 +411,6 @@
           <percent_left>0.0000</percent_left>
           <percent_right>100.0000</percent_right>
           <graph_elements>
-            <graph_element item="Template_Linux_disk_sdc:vfs.dev.reads[sdc]">
-              <drawtype>2</drawtype>
-              <sortorder>1</sortorder>
-              <color>009900</color>
-              <yaxisside>0</yaxisside>
-              <calc_fnc>2</calc_fnc>
-              <type>0</type>
-              <periods_cnt>5</periods_cnt>
-            </graph_element>
             <graph_element item="Template_Linux_disk_sdc:vfs.dev.time_read[sdc]">
               <drawtype>0</drawtype>
               <sortorder>2</sortorder>
@@ -433,6 +424,15 @@
               <drawtype>0</drawtype>
               <sortorder>0</sortorder>
               <color>00DDDD</color>
+              <yaxisside>0</yaxisside>
+              <calc_fnc>2</calc_fnc>
+              <type>0</type>
+              <periods_cnt>5</periods_cnt>
+            </graph_element>
+            <graph_element item="Template_Linux_disk_sdc:vfs.dev.reads[sdc]">
+              <drawtype>2</drawtype>
+              <sortorder>1</sortorder>
+              <color>009900</color>
               <yaxisside>0</yaxisside>
               <calc_fnc>2</calc_fnc>
               <type>0</type>
@@ -569,19 +569,19 @@
           <percent_left>0.0000</percent_left>
           <percent_right>0.0000</percent_right>
           <graph_elements>
-            <graph_element item="Template_Linux_disk_sdc:vfs.dev.sectors_read[sdc]">
+            <graph_element item="Template_Linux_disk_sdc:vfs.dev.sectors_written[sdc]">
               <drawtype>1</drawtype>
-              <sortorder>0</sortorder>
-              <color>009900</color>
+              <sortorder>1</sortorder>
+              <color>EE0000</color>
               <yaxisside>0</yaxisside>
               <calc_fnc>2</calc_fnc>
               <type>0</type>
               <periods_cnt>5</periods_cnt>
             </graph_element>
-            <graph_element item="Template_Linux_disk_sdc:vfs.dev.sectors_written[sdc]">
+            <graph_element item="Template_Linux_disk_sdc:vfs.dev.sectors_read[sdc]">
               <drawtype>1</drawtype>
-              <sortorder>1</sortorder>
-              <color>EE0000</color>
+              <sortorder>0</sortorder>
+              <color>009900</color>
               <yaxisside>0</yaxisside>
               <calc_fnc>2</calc_fnc>
               <type>0</type>
