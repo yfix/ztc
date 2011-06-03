@@ -5,6 +5,8 @@ PgDB class - ZTCCheck for tracking single postgresql database
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
+import time
+
 from ztc.check import ZTCCheck, CheckFail
 import ztc.pgsql.queries as pgq
 from ztc.pgsql.pgconn import PgConn
@@ -13,6 +15,7 @@ class PgDB(ZTCCheck):
     """ Connection to single database """
     
     name= 'pgsql'
+    dbconn = None
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
     
@@ -31,6 +34,15 @@ class PgDB(ZTCCheck):
             return self.dbconn.query(q)
         elif metric == 'autovac_freeze':
             return self.get_autovac_freeze()
+        elif metric == 'ping':
+            st = time.time()
+            try:
+                if self.dbconn.query('SELECT 1'):
+                    return time.time() - st
+                else:
+                    return 0
+            except:
+                return 0
         else:
             raise CheckFail('uncknown metric')
     

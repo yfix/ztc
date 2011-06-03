@@ -29,7 +29,8 @@ class PgConn(object):
             self.cur = self.dbh.cursor()
             return True
         except  Exception, e:
-            raise
+            #raise
+            self.logger.warn("Failed to connect to postgresql: %s" % e)
             self.lasterr = e
             self.dbh = None
             self.cur = None
@@ -37,9 +38,13 @@ class PgConn(object):
     
     def query(self, sql):
         #self._connect()
-        self.logger.debug("running query '%s'" % sql)        
-        self.cur.execute(sql)
-        ret = self.cur.fetchall()
+        self.logger.debug("running query '%s'" % sql)
+        if self.cur:        
+            self.cur.execute(sql)
+            ret = self.cur.fetchall()
+        else:
+            self.logger.warn("Failed to query: not connected to database")
+            ret = None
         #self.logger.debug("result:\n%s" % self.fineprint_results(ret))
         return ret
         
