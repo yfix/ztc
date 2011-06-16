@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+"""
+Memory check class for ztc.
+
+This file is part of ZTC and distributed under the same license
+
+Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+"""
 
 from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
