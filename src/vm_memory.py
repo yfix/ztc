@@ -12,8 +12,19 @@ Params:
         inavtive - amount of inactive (not accessed recently) memory
 """
 
-from ztc.vm.memory import Memory
+import sys
 
-m = Memory()
-c = m.args[0]
-m.get(c, *m.args[1:])
+from ztc.vm.memory import Memory
+from ztc import notsupported
+
+if len(sys.argv) <> 2:
+    notsupported("not enough arguments")
+
+metric = sys.argv[1]
+
+try:
+    m = Memory()
+
+    print m.__getattribute__(metric)
+except Exception, e:
+    notsupported(e)
