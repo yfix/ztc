@@ -53,13 +53,14 @@ Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)
             n = 0
             tot_temp = 0.0
             #temp_re = re.compile('(\d+.\d+) C')
-            temp_re = re.compile('^Core [0-9]+: +\+([0-9]+.[0-9]+)')
+            temp_re = re.compile('^Core [0-9]+: +\+([0-9]+(\.[0-9]+)?)')
             cmd = 'sensors -A'
             for l in mypopen(cmd, self.logger).split("\n"):
                 self.logger.debug("lm_sensors line: %s" % (l, ))
                 temps = temp_re.findall(l)
+                self.logger.debug("temps = %s" % (temps, ))
                 if temps:
-                    temp = float(temps[0])
+                    temp = float(temps[0][0])
                     tot_temp += temp
                     n+=1
             if n == 0:
