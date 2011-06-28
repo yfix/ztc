@@ -24,7 +24,7 @@ def popen(cmd, logger, input=None):
         pipe.wait()
         retcode = pipe.returncode
     else:
-        pipe = popen2.Popen3(cmd)
+        pipe = popen2.Popen3(cmd, True)
         i = pipe.tochild
         o = pipe.fromchild
         e = pipe.childerr

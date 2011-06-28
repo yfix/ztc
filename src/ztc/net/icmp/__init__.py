@@ -38,7 +38,7 @@ class Ping(ZTCCheck):
         cmd = "/bin/ping %s -c 1 -U -W 5" % host
         retcode, ret = popen(cmd, self.logger)
         if retcode == 0:
-            # ping succesd
+            # ping succeed
             ret = ret.strip().split("\n")[-1]
             # ret is something like
             # rtt min/avg/max/mdev = 33.843/33.843/33.843/0.000 ms
