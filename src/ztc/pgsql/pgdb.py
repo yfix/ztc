@@ -18,6 +18,7 @@ class PgDB(ZTCCheck):
     dbconn = None
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
     
     def _myinit(self):
         connect_dict = {
@@ -35,16 +36,39 @@ class PgDB(ZTCCheck):
         elif metric == 'autovac_freeze':
             return self.get_autovac_freeze()
         elif metric == 'ping':
-            st = time.time()
-            try:
-                if self.dbconn.query('SELECT 1'):
-                    return time.time() - st
-                else:
-                    return 0
-            except:
-                return 0
+            return self.get_ping()
+        elif metric == 'tnxage':
+            state = args[0]
+            return self.get_tnx_age(state)
         else:
             raise CheckFail('uncknown metric')
+        
+    def get_tnx_age(self, state):
+        """ Get number of transactions in given state.
+        Supported states are: 'running', 'idle_tnx'
+        """
+        if state == 'idle_tnx':
+            q = pgq.TNX_AGE_IDLE_TNX
+        elif state == 'running':
+            q = pgq.TNX_AGE_RUNNING
+        else:
+            raise CheckFail("uncknown transaction state requested")
+        
+        ret = self.dbconn.query(q)[0][0]
+        if ret:
+            return abs(ret)
+        else:
+            return 0
+    
+    def get_ping(self):
+        st = time.time()
+        try:
+            if self.dbconn.query('SELECT 1'):
+                return time.time() - st
+            else:
+                return 0
+        except:
+            return 0        
     
     # queries:
     def get_autovac_freeze(self):

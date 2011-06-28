@@ -155,6 +155,8 @@ class ZTCCheck(object):
             # for too long.
             # This is required for zabbix agent not to hang
             ret = self._get(metric, *args, **kwargs)
+            if ret is float:
+                ret = "%.6f" % ret
             print(ret)
         except CheckFail, e:
             self.logger.exception('Check fail, getting %s' % (metric, ))

@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 """ ztc.pgsql.queries - python module for ZTC.
-Stores postgresql query contsrants"""
+Stores postgresql query contsrants
+
+Copyright (c) check_postgres.pl authors
+Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+"""
 
 AUTOVAC_FREEZE = """SELECT
     freez,
@@ -72,3 +77,6 @@ FROM (
   LEFT JOIN pg_class c2 ON c2.oid = i.indexrelid
 ) AS sml
 """
+
+TNX_AGE_IDLE_TNX = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query='<IDLE> in transaction'"
+TNX_AGE_RUNNING = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"
