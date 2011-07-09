@@ -69,7 +69,7 @@ class ApacheStatus(ZTCCheck):
             'workers_closingconn', 'workers_dns', 'workers_finishing',
             'workers_idle', 'workers_idlecleanup', 'workers_keepalive',
             'workers_logging', 'workers_openslot', 'workers_reading',
-            'workers_starting', 'workers_waitingconn', 'workers_writing')
+            'workers_starting', 'workers_writing')
         if metric in allowed_metrics:
             return self.__getattribute__('get_' + metric)()
         else:
@@ -136,10 +136,6 @@ class ApacheStatus(ZTCCheck):
     def get_workers_starting(self):
         return self.get_scoreboard().count('S')
     workers_starting = property(get_workers_starting)
-            
-    def get_workers_waitingconn(self):
-        return self.get_scoreboard().count('_')
-    workers_waitingconn = property(get_workers_waitingconn)
             
     def get_workers_writing(self):
         return self.get_scoreboard().count('W')
