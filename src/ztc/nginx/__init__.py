@@ -94,7 +94,8 @@ class NginxStatus(ZTCCheck):
     handled = property(get_handled)
     
     def get_requests(self):
-        st = ztc.commons.MyStore('nginx.requests')
+        """ get number of requests since server start """
+        st = ZTCStore('nginx.requests', self.options)
         try:
             self._read_status()
             my_line= self._page_data[2]
