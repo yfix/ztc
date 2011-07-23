@@ -8,3 +8,4 @@ build.sh
 .pydevproject
 .settings/*
 *.swp
+*.orig
