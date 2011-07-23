@@ -24,4 +24,5 @@ class PHPFPMCheck(ZTCCheck):
         
     @property
     def ping(self):
+        """ calls php-fpm ping resource """
         pass            
