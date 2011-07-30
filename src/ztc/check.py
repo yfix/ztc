@@ -82,6 +82,7 @@ class ZTCCheck(object):
             self.logger.setLevel(logging.WARN)
             sh.setLevel(logging.ERROR)
             h.setLevel(logging.WARN)
+        h.setFormatter(formatter)
         self.logger.addHandler(sh)
         self.logger.addHandler(h)
         self.logger.debug("created")
