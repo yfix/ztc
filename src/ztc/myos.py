@@ -22,6 +22,8 @@ def popen(cmd, logger, input=None):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 shell=True)
+        if input:
+            logger.debug("passing input '%s'" % input)
         (ret, err) = pipe.communicate(input)
         pipe.wait()
         retcode = pipe.returncode
