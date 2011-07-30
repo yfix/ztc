@@ -23,7 +23,7 @@ class JMXJboss(JMXCheck):
         JMXCheck.__init__(self)
         # override default url
         self.jmx_url = self.config.get('jmx_url',
-                                       'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
+           'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
 
     def _get(self, metric, *args, **kwargs):
         if metric == 'get_prop':
