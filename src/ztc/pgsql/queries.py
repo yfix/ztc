@@ -80,3 +80,12 @@ FROM (
 
 TNX_AGE_IDLE_TNX = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query='<IDLE> in transaction'"
 TNX_AGE_RUNNING = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"
+
+# buffer queries:
+BUFFER = {
+          'clear': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'",
+          'dirty': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'",
+          'used': """SELECT COUNT(*) FROM pg_buffercache
+                WHERE reldatabase IS NOT NULL;""",
+           'total': "SELECT count(*) FROM pg_buffercache"
+          }

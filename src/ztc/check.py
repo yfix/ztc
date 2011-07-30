@@ -40,7 +40,7 @@ class ZTCCheck(object):
     # shortened name of the class
     # being used for getting config
     name = 'ztccheck'
-    ver = "11.03"
+    ver = "11.07"
     args = [] # parsed command-line args
     
     # minimum & maximum number of command-line arguments
