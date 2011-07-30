@@ -51,6 +51,9 @@ class PgDB(ZTCCheck):
             raise CheckFail('uncknown metric')
     
     def get_buffers(self, metric):
+        """ PostgreSQL buffer metrics: number of clear/dirty/used/total
+        buffers.
+        Requirements: pg_buffercache contrib """
         q = pgq.BUFFER[metric]
         ret = self.dbconn.query(q)[0][0]
         return ret
