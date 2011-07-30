@@ -27,6 +27,7 @@ setup(
             ('/etc/zabbix-agent.d/', glob.glob('./conf/zabbix-agent.d/*.conf') + glob.glob('./conf/zabbix-agent.d/*.ini')),
             ('/etc/ztc',  glob.glob('./conf/etc/*.conf')),
             ('/opt/ztc/templates', glob.glob('templates/*.xml')),
-            ('/opt/ztc/doc/', ('README', 'REQUIREMENTS'))
+            ('/opt/ztc/doc/', ('README', 'REQUIREMENTS')),
+            ('/opt/ztc/lib/', glob.glob('lib/*.jar'))
       ],
 )
