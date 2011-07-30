@@ -14,7 +14,7 @@ import logging
 
 def popen(cmd, logger, input=None):
     """ popen wrapper
-    returns: (code, stdout) """
+    returns: ((int)code, (str)stdout) """
     os.putenv('LC_ALL', 'POSIX')
     logger.debug("popen: executing %s", cmd)
     if sys.version_info >= (2, 6):
