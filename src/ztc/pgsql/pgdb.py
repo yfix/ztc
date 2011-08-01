@@ -3,6 +3,10 @@
 PgDB class - ZTCCheck for tracking single postgresql database
     
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+
+Requirements:
+    * PostgreSQL 8.3 or older
+    * pg_buffercache from contrib installed on configured db/user
 """
 
 import time
@@ -40,11 +44,22 @@ class PgDB(ZTCCheck):
         elif metric == 'tnxage':
             state = args[0]
             return self.get_tnx_age(state)
+        elif metric == 'buffers':
+            buf_metric = args[0]
+            return self.get_buffers(buf_metric)
         elif metric == 'conn':
             state = args[0]
             return self.get_conn_nr(state)
         else:
             raise CheckFail('uncknown metric')
+    
+    def get_buffers(self, metric):
+        """ PostgreSQL buffer metrics: number of clear/dirty/used/total
+        buffers.
+        Requirements: pg_buffercache contrib """
+        q = pgq.BUFFER[metric]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
         
     def get_conn_nr(self, state):
         """ Get number of connections in given state """

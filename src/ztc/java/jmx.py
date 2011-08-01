@@ -17,7 +17,7 @@ echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endo
 """
 
 from ztc.check import ZTCCheck, CheckFail
-from ztc.myos import mypopen
+from ztc.myos import popen
 
 class JMXCheck(ZTCCheck):
     """ Generic JMX check """
@@ -49,9 +49,10 @@ class JMXCheck(ZTCCheck):
         self.logger.debug("Executing jmxterm command %s" % jmxterm_cmd)
         self.logger.debug("Jmxterm executable: %s" % popen_cmd)
         try:
-            ret = mypopen(popen_cmd, self.logger, jmxterm_cmd)
+            code, ret = popen(popen_cmd, self.logger, jmxterm_cmd)
         except IOError:
             self.logger.exception("Failed to run mypopen")
             raise CheckFail("jmxterm call failed")
-        return ret.strip()
-        # TODO: mypopen function with input support            
+        if code:
+            self.logger.warn('jmxterm returned non-zero status')
+        return ret.strip()            

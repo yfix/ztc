@@ -13,8 +13,12 @@ else:
 import logging    
 
 def popen(cmd, logger, input=None):
+    """ popen wrapper
+    returns: ((int)code, (str)stdout) """
     os.putenv('LC_ALL', 'POSIX')
-    logger.debug("mypopen: executing %s", cmd)
+    logger.debug("popen: executing %s", cmd)
+    if input:
+        logger.debug("passing input '%s'" % input)    
     if sys.version_info >= (2, 6):
         pipe = subprocess.Popen(cmd, stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
@@ -38,7 +42,7 @@ def popen(cmd, logger, input=None):
         retcode = pipe.wait()
         
     if err:
-        logger.warn("Stderr while executing '%s': '%s'" % (cmd, err))        
+        logger.warn("Stderr while executing '%s': '%s'" % (cmd, err.strip()))        
     return retcode, ret
 
 def mypopen(cmd, logger=None, input=None):
