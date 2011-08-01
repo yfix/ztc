@@ -40,11 +40,20 @@ class PgDB(ZTCCheck):
         elif metric == 'tnxage':
             state = args[0]
             return self.get_tnx_age(state)
+        elif metric == 'conn':
+            state = args[0]
+            return self.get_conn_nr(state)
         else:
             raise CheckFail('uncknown metric')
         
+    def get_conn_nr(self, state):
+        """ Get number of connections in given state """
+        q = pgq.CONN_NUMBER[state]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+        
     def get_tnx_age(self, state):
-        """ Get number of transactions in given state.
+        """ Get max age of transactions in given state.
         Supported states are: 'running', 'idle_tnx'
         """
         if state == 'idle_tnx':

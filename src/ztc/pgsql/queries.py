@@ -80,3 +80,15 @@ FROM (
 
 TNX_AGE_IDLE_TNX = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query='<IDLE> in transaction'"
 TNX_AGE_RUNNING = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"
+
+# number of connections
+CONN_NUMBER = {
+    'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
+        WHERE current_query = '<IDLE> in transaction'""",
+    'idle': """SELECT COUNT(*) FROM pg_stat_activity
+        WHERE current_query = '<IDLE>'""",
+    'total': "SELECT COUNT(*) FROM pg_stat_activity",
+    'running': """SELECT COUNT(*) FROM pg_stat_activity
+        WHERE current_query NOT LIKE '<IDLE%'""",
+    'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"
+    }
