@@ -67,6 +67,7 @@ class PgDB(ZTCCheck):
         if ret:
             return abs(ret)
         else:
+            # no rows returned => no transactions in given state
             return 0
     
     def get_ping(self):
