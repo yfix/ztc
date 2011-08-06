@@ -71,19 +71,18 @@ class ZTCCheck(object):
                                                  "a",                                                                                                        
                                                  1*1024*1024, # max 1 M                                                                                                
                                                  10) # max 10 files
-        sh = logging.StreamHandler()
         if self.debug:
-            # setting stream handler                                                                                                        
+            # setting stream handler
+            sh = logging.StreamHandler()                                                                                                        
             sh.setLevel(logging.DEBUG)                                                                                                                  
             self.logger.setLevel(logging.DEBUG)
             sh.setFormatter(formatter)
-            h.setLevel(logging.DEBUG)                                                                                                                  
+            h.setLevel(logging.DEBUG)
+            self.logger.addHandler(sh)                                                                                                                  
         else:
             self.logger.setLevel(logging.WARN)
-            sh.setLevel(logging.ERROR)
             h.setLevel(logging.WARN)
         h.setFormatter(formatter)
-        self.logger.addHandler(sh)
         self.logger.addHandler(h)
         self.logger.debug("created")
         

@@ -23,6 +23,8 @@
 # SUCH DAMAGE.
 #
 # $Id$
+#
+# Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 
 __author__ = 'Allan Saddi <allan@saddi.com>'
 __version__ = '$Revision$'
@@ -323,6 +325,7 @@ class FCGIApp(object):
         # Main loop. Process FCGI_STDOUT, FCGI_STDERR, FCGI_END_REQUEST
         # records from the application.
         result = []
+        err = ''
         while True:
             inrec = Record()
             inrec.read(sock)
@@ -335,7 +338,8 @@ class FCGIApp(object):
                     pass
             elif inrec.type == FCGI_STDERR:
                 # Simply forward to wsgi.errors
-                environ['wsgi.errors'].write(inrec.contentData)
+                err += inrec.contentData
+                #environ['wsgi.errors'].write(inrec.contentData)
             elif inrec.type == FCGI_END_REQUEST:
                 # TODO: Process appStatus/protocolStatus fields?
                 break
@@ -384,7 +388,7 @@ class FCGIApp(object):
         #start_response(status, headers)
         #return [result]
         
-        return status, headers, result
+        return status, headers, result, err
 
     def _getConnection(self):
         if self._connect is not None:
@@ -426,7 +430,7 @@ class FCGIApp(object):
         return result
 
     def _fcgiParams(self, sock, requestId, params):
-        print params
+        #print params
         rec = Record(FCGI_PARAMS, requestId)
         data = []
         for name,value in params.items():
@@ -437,7 +441,7 @@ class FCGIApp(object):
         rec.write(sock)
 
     _environPrefixes = ['SERVER_', 'HTTP_', 'REQUEST_', 'REMOTE_', 'PATH_',
-                        'CONTENT_']
+                        'CONTENT_', 'DOCUMENT_', 'SCRIPT_']
     _environCopies = ['SCRIPT_NAME', 'QUERY_STRING', 'AUTH_TYPE']
     _environRenames = {}
 
