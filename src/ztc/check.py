@@ -89,6 +89,8 @@ class ZTCCheck(object):
         self._myinit()
     
     def _myinit(self):
+        """ To be overriden by subclasses, executes just after __init__ - 
+        in order to avoid messing with parent's __init__ in subclasses """
         pass                                                                                                                                                                                                                                                                                                                                       
     
     def _parse_argv(self):

@@ -32,8 +32,8 @@ class PHPFPMCheck(ZTCCheck):
     def _load_page(self, url):
         """ load fastcgi page """
         try:
-            fcgi = fcgi_client.FCGIApp(host = self.fcgi_host, port = self.fcgi_port)
-            fn = url[1:]
+            fcgi = fcgi_client.FCGIApp(host = self.fcgi_host,
+                                       port = self.fcgi_port)
             env = {
                'SCRIPT_FILENAME': url,
                'QUERY_STRING': '',

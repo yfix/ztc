@@ -259,23 +259,14 @@ class Record(object):
             self._sendall(sock, '\x00'*self.paddingLength)
 
 class FCGIApp(object):
-    def __init__(self, command=None, connect=None, host=None, port=None,
-                 filterEnviron=True):
+   
+    def __init__(self, connect=None, host=None, port=None, filterEnviron=True):
         if host is not None:
             assert port is not None
             connect=(host, port)
 
-        assert (command is not None and connect is None) or \
-               (command is None and connect is not None)
-
-        self._command = command
         self._connect = connect
-
         self._filterEnviron = filterEnviron
-        
-        #sock = self._getConnection()
-        #print self._fcgiGetValues(sock, ['FCGI_MAX_CONNS', 'FCGI_MAX_REQS', 'FCGI_MPXS_CONNS'])
-        #sock.close()
         
     def __call__(self, environ, start_response=None):
         # For sanity's sake, we don't care about FCGI_MPXS_CONN
