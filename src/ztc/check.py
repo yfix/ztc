@@ -28,9 +28,13 @@ class CheckTimeout(Exception):
     pass
 
 class MyConfigParser(ConfigParser.ConfigParser):
+    def __init__(self, section='main'):
+        self.sectname = section
+        ConfigParser.ConfigParser.__init__(self)
+    
     def get(self, option, default):
         try:
-            return ConfigParser.ConfigParser.get(self, 'main', option)
+            return ConfigParser.ConfigParser.get(self, self.sectname, option)
         except:
             return default
 
@@ -110,6 +114,8 @@ class ZTCCheck(object):
         parser.add_option("-c", "--confdir",
                   action="store", type="str", dest="confdir", default="/etc/ztc/",
                   help="ZTC Config dir")
+        parser.add_option("-i", "--instance", dest="instname", default="main",
+                          action="store", type="str")
         (options, args) = parser.parse_args()
         
         if options.version:
@@ -133,7 +139,8 @@ class ZTCCheck(object):
         print "http://trac.greenmice.info/ztc/"
     
     def _get_config(self):
-        config = MyConfigParser()
+        """ return config object """
+        config = MyConfigParser(self.options.instname)
         config.read(os.path.join(self.options.confdir, self.name+".conf"))
         return config
 
