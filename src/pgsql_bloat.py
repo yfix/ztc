@@ -75,7 +75,7 @@ FROM (
 pages = 0
 otta = 0
 print_report = False
-if len(sys.argv > 1):
+if len(sys.argv) > 1:
     if sys.argv[1] == 'list':
         print_report = True
 bloatest = []

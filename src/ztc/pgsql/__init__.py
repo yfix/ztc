@@ -17,9 +17,15 @@ import queries as pgq
 class PgDB(ZTCCheck):
     """ Connection to single database """
     
+    _database = None
+    
+    def __init__(self, database=None):
+        ZTCCheck.__init__(self)
+        self._database = database
+    
     name= 'pgsql'
     
-    OPTPARSE_MIN_NUMBER_OF_ARGS = 1
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 0
     
     dbh = None # database handler
     cur = None # database cursor
@@ -64,6 +70,8 @@ class PgDB(ZTCCheck):
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')
         }
+        if self._database:
+            connect_dict['database'] = self._database
         # filtering connect_dict to remove all Nones:
         connect_dict = dict((k, v) for k, v in connect_dict.iteritems() if v is not None)
         try:
