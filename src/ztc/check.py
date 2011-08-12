@@ -84,7 +84,12 @@ class ZTCCheck(object):
             h.setLevel(logging.WARN)
         self.logger.addHandler(sh)
         self.logger.addHandler(h)
-        self.logger.debug("created")                                                                                                                                                                                                                                                                                                                                       
+        self.logger.debug("created")
+        
+        self._myinit()
+    
+    def _myinit(self):
+        pass                                                                                                                                                                                                                                                                                                                                       
     
     def _parse_argv(self):
         parser = optparse.OptionParser()
@@ -150,6 +155,8 @@ class ZTCCheck(object):
             # for too long.
             # This is required for zabbix agent not to hang
             ret = self._get(metric, *args, **kwargs)
+            if ret is float:
+                ret = "%.6f" % ret
             print(ret)
         except CheckFail, e:
             self.logger.exception('Check fail, getting %s' % (metric, ))
