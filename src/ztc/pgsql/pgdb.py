@@ -50,6 +50,9 @@ class PgDB(ZTCCheck):
         elif metric == 'conn':
             state = args[0]
             return self.get_conn_nr(state)
+        elif metric == 'dbstat':
+            m = args[0]
+            return self.get_dbstat(m)            
         else:
             raise CheckFail('uncknown metric')
     
@@ -58,6 +61,12 @@ class PgDB(ZTCCheck):
         buffers.
         Requirements: pg_buffercache contrib """
         q = pgq.BUFFER[metric]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+        
+    def get_dbstat(self, m):
+        """ get sum of passed metric from dbstat """
+        q = "SELECT SUM(%s) FROM pg_stat_database" % m
         ret = self.dbconn.query(q)[0][0]
         return ret
         

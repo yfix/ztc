@@ -17,7 +17,7 @@ class PHPFPMCheck(ZTCCheck):
     name = "php-fpm"
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
     
     def _myinit(self):
         self.fcgi_port = self.config.get('fpm_port', 9000)
@@ -26,6 +26,9 @@ class PHPFPMCheck(ZTCCheck):
     def _get(self, metric, *arg, **kwarg):
         if metric == 'ping':
             return self.ping
+        elif metric == 'status':
+            m = arg[0]
+            return self.get_status(m)
         else:
             raise CheckFail("uncknown metric")
         
@@ -71,4 +74,27 @@ class PHPFPMCheck(ZTCCheck):
             return time.time() - st
         else:
             self.logger.error('ping: got response, but not correct')
-            return 0            
+            return 0
+    
+    def get_status(self, metric):
+        """ get php-fpm status metric """
+        metric = metric.replace('_', ' ')
+        
+        page = self.get_status_page()
+        if not page:
+            raise CheckFail("unable to get status page")
+        for line in page.splitlines():
+            if line.startswith(metric):
+                return line.split()[-1]
+        # no such metric found
+        raise CheckFail("no such metric found")
+            
+    
+    def get_status_page(self):
+        """ return php-ftm status page text """
+        code, headers, out, err = self._load_page('/status')
+        if code.startswith('200'):
+            return out
+        else:
+            self.logger.error('ping: got response, but not correct')
+            return None                
