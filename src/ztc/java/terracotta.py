@@ -74,6 +74,7 @@ class JMXTerracotta(JMXCheck):
             raise CheckFail('unsupported metric')
     
     def get_heap(self, metric):
+        """ get terracotta heap memory metrics """
         st = ZTCStore('java.terracotta.heap', self.options)
         st.ttl = 60
         data = st.get()

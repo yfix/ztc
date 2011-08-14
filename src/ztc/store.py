@@ -46,6 +46,7 @@ class ZTCStore(object):
         return ret
     
     def set(self, val):
+        """ set value """
         try:
             f = open(self.myfile, 'w')
             pickle.dump(val, f)

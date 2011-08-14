@@ -20,6 +20,7 @@ class JMXJboss(JMXCheck):
     
     def __init__(self):
         """ constructor override """
+        # TODO: move this code to _myinit
         JMXCheck.__init__(self)
         # override default url
         self.jmx_url = self.config.get('jmx_url',
