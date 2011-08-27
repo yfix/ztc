@@ -52,9 +52,19 @@ class PgDB(ZTCCheck):
             return self.get_conn_nr(state)
         elif metric == 'dbstat':
             m = args[0]
-            return self.get_dbstat(m)            
+            return self.get_dbstat(m)
+        elif metric == 'fsm':
+            m = args[0]
+            return self.get_fsm(m)            
         else:
             raise CheckFail('uncknown metric')
+        
+    def get_fsm(self, metric):
+        """ PostgreSQL freespacemap metrics.
+        Requirements: pg_freespacement, PostgreSQL <= 8.3"""
+        q = pgq.FSM[metric]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
     
     def get_buffers(self, metric):
         """ PostgreSQL buffer metrics: number of clear/dirty/used/total
