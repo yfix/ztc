@@ -101,3 +101,27 @@ CONN_NUMBER = {
         WHERE current_query NOT LIKE '<IDLE%'""",
     'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"
     }
+
+FSM = {
+       'pages': """SELECT
+            pages,
+            maxx,
+            ROUND(100*(pages/maxx)) AS percent
+        FROM
+            (SELECT
+                (sumrequests+numrels)*chunkpages AS pages
+            FROM
+                (SELECT
+                    SUM(CASE WHEN avgrequest IS NULL THEN interestingpages/32 ELSE interestingpages/16 END) AS sumrequests,
+                    COUNT(relfilenode) AS numrels, 16 AS chunkpages FROM pg_freespacemap_relations
+                ) AS foo
+            ) AS foo2,
+            (SELECT setting::NUMERIC AS maxx FROM pg_settings WHERE name = 'max_fsm_pages') AS foo3""",
+        'relations': """ SELECT
+            maxx,
+            cur,
+            ROUND(100*(cur/maxx))
+        FROM (SELECT
+              (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
+              (SELECT setting::NUMERIC FROM pg_settings WHERE name='max_fsm_relations') AS maxx) x"""
+       }
