@@ -201,6 +201,7 @@ class ApacheTimeLog(ZTCCheck):
         return ret
 
     def _get_metrics_from_cache(self):
+        """ load page response metrics from ZTCStore key apache_reqtime """
         st = ZTCStore('apache_reqtime', self.options)
         return st.get()
     

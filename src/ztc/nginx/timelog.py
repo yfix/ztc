@@ -76,6 +76,7 @@ class NginxTimeLog(ZTCCheck):
         f.close()            
         
         if n > 0:
+            self.log.warn('there was no new records in time log')
             avg = avg / n
         if mn == -1:
             mn = 0
