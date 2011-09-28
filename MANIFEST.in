@@ -1,0 +1,4 @@
+include REQUIREMENTS
+recursive-include conf *.conf 
+recursive-include templates *.xml
+recursive-include lib *.jar
