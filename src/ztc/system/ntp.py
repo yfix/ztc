@@ -22,7 +22,7 @@ class Ntpq(ZTCCheck):
     ntpq_vars = None
     
     def _read_ntpq_vars(self):
-        self.ntpq_vars = mypopen("ntpq -c readvar localhost").readlines()
+        self.ntpq_vars = mypopen("ntpq -c readvar localhost").splitlines()
     
     def _get(self, metric, *args, **kwargs):
         """ Get some ntp mertic. Howewer, only jitter is currently supported """
