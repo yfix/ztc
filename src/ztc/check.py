@@ -156,6 +156,7 @@ class ZTCCheck(object):
             # This is required for zabbix agent not to hang
             ret = self._get(metric, *args, **kwargs)
             if ret is float:
+                # prevent from printing in exp form 
                 ret = "%.6f" % ret
             print(ret)
         except CheckFail, e:
