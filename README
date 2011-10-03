@@ -19,6 +19,10 @@ GPLv3 unless specified in the beginning of file
 * Vladimir Rusinov - Maitainer, primary developer
   <vladimir@greenmice.info>
 * Denis Seleznyov [https://bitbucket.org/xy2/]
+
+# contrib:
+* Artem Silenkov, 2gis [http://2gis.ru]
+
 # 3rd parties:
 * Greg Sabino Mullane - check_postgres plugin for Nagios and others (used in PostgreSQL template)
   <greg@endpoint.com>
@@ -29,6 +33,7 @@ GPLv3 unless specified in the beginning of file
 * Allan Saddi <allan@saddi.com>
 * Artem Silenkov
 * Alex Lov
+
 # Other copyright holders:
 * Murano Software
   http://muranosoft.com/ http://muranosoft.ru/
