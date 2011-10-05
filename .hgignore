@@ -7,5 +7,6 @@ build.sh
 .project
 .pydevproject
 .settings/*
+*.swp
 *.orig
 *.rej
