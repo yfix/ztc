@@ -51,6 +51,7 @@ class Conn(ZTCCheck):
         cnt = 0 # number of connections in requested state
         status_num = 0 # index of requested state
         if status:
+            self.logger.debug('Getting field /proc/net/$proto field number for %s' % status)
             # get numeric representation of status text
             status_num = self._tcp_conn_states.index(status) + 1
         f = open(os.path.join('/proc/net/', proto), 'r')
