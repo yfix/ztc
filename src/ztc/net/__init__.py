@@ -20,7 +20,7 @@ class Conn(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 0
     OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
     
-    _tcp_conn_states = ( 'ESTABLISHED', # = 1
+    _tcp_conn_states = [ 'ESTABLISHED', # = 1
         'SYN_SENT',
         'SYN_RECV',
         'FIN_WAIT1',
@@ -31,7 +31,8 @@ class Conn(ZTCCheck):
         'LAST_ACK',
         'LISTEN',
         'CLOSING'
-    ) # use indexof('ESTABLISHED' +1 )
+    ] # use indexof('ESTABLISHED' +1 )
+    # ^^^ should be a list, because tuples does not have .index() method til 2.6
     
     def _get_num_sockets(self, proto='tcp', status=None):
         """ reads /proc/net/$proto and calculates number of connections in various states

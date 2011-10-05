@@ -49,8 +49,6 @@ src/nginx.py
 src/ntp_jitter.py
 src/pgsql.py
 src/pgsql_cluster.py
-src/pgsql_conn.py
-src/pgsql_dbstat.py
 src/pgsql_fsm.py
 src/pgsql_locks.py
 src/pgsql_slony.py
