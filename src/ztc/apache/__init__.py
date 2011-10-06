@@ -11,6 +11,7 @@
 import os
 import time
 import urllib2
+import socket
 
 from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
@@ -33,10 +34,11 @@ class ApacheStatus(ZTCCheck):
         if self._page_data is not None:
             # we've already retrieved it
             return 1
+        proto = self.config.get('proto', 'http')
         url  = "%s://%s:%s%s?auto" % (
-                                      self.config.get('proto', 'http'),
+                                      proto,
                                       self.config.get('host', 'localhost'),
-                                      self.config.get('port', '80'),
+                                      self.config.get('port', socket.getservbyname(proto, 'tcp')),
                                       self.config.get('resource', '/server-status')
                                       )
         try:
