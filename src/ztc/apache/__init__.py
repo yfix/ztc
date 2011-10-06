@@ -39,6 +39,7 @@ class ApacheStatus(ZTCCheck):
                                       self.config.get('port', '80'),
                                       self.config.get('resource', '/server-status')
                                       )
+        self.logger.debug("opening url %s" % url)
         try:
             u = urllib2.urlopen(url, None, 1)
         except TypeError:
