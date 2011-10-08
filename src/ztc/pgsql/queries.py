@@ -129,6 +129,10 @@ FSM = {
 LOCKS = {
          'all': "SELECT COUNT(*) FROM pg_locks",
          'granted': "SELECT COUNT(*) FROM pg_locks WHERE granted='t'",
-         'not_granted': "SELECT COUNT(*) FROM pg_locks WHERE granted<>'t'",
          'waiting': "SELECT COUNT(*) FROM pg_locks WHERE granted<>'t'"
          }
+
+LOCKS_BY_MODE = {
+                 'accessexclusivelock':
+                    "SELECT COUNT(*) FROM pg_locks WHERE mode='AccessExclusiveLock'"
+                 }

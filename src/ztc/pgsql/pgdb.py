@@ -22,7 +22,7 @@ class PgDB(ZTCCheck):
     dbconn = None
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
     def _myinit(self):
         connect_dict = {
@@ -58,7 +58,8 @@ class PgDB(ZTCCheck):
             return self.get_fsm(m)
         elif metric == 'locks':
             m = args[0]
-            return self.get_locks(m)            
+            mm = args[1]
+            return self.get_locks(m, mm)            
         else:
             raise CheckFail('uncknown metric')
         
@@ -136,8 +137,11 @@ class PgDB(ZTCCheck):
             max_percent = max(max_percent, percent)        
         return max_percent
 
-    def get_locks(self, m):
+    def get_locks(self, m, mm=None):
         """ get number of database locks """
-        q = pgq.LOCKS[m]
+        if m == 'mode':
+            q = pgq.LOCKS_BY_MODE[mm.lower()]
+        else:
+            q = pgq.LOCKS[m]
         ret = self.dbconn.query(q)[0][0]
         return ret
