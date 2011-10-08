@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="23.07.11" time="20.51">
+<zabbix_export version="1.0" date="08.10.11" time="16.17">
   <hosts>
     <host name="Template_app_splunk_server">
       <proxy_hostid>0</proxy_hostid>
@@ -22,7 +22,7 @@
         <trigger>
           <description>Spunk server is down on {HOSTNAME}</description>
           <type>0</type>
-          <expression>{Template_app_splunk_server:url.ping[http://localhost:8000].last(0)}=0</expression>
+          <expression>{Template_app_splunk_server:net.http.ping[http://localhost:8000].last(0)}=0</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
@@ -30,7 +30,7 @@
         </trigger>
       </triggers>
       <items>
-        <item type="0" key="url.ping[http://localhost:8000]" value_type="0">
+        <item type="0" key="net.http.ping[http://localhost:8000]" value_type="0">
           <description>Splunk server: http (port 8000) availability</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
@@ -81,7 +81,7 @@
           <percent_left>0.0000</percent_left>
           <percent_right>0.0000</percent_right>
           <graph_elements>
-            <graph_element item="Template_app_splunk_server:url.ping[http://localhost:8000]">
+            <graph_element item="Template_app_splunk_server:net.http.ping[http://localhost:8000]">
               <drawtype>0</drawtype>
               <sortorder>0</sortorder>
               <color>009900</color>
