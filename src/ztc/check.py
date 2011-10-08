@@ -139,7 +139,9 @@ class ZTCCheck(object):
         print "http://trac.greenmice.info/ztc/"
     
     def _get_config(self):
-        """ return config object """
+        """ return config object
+        WARN: no logger object available here
+        """
         config = MyConfigParser(self.options.instname)
         config.read(os.path.join(self.options.confdir, self.name+".conf"))
         return config
