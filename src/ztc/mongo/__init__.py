@@ -13,7 +13,10 @@ from ztc.check import ZTCCheck, CheckFail
 class Mongo(ZTCCheck):
     name = "mongo"
     
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    
+    connection = None
+    db = None
     
     def _connect(self):
         """ connect to mongodb """
@@ -27,6 +30,9 @@ class Mongo(ZTCCheck):
     def _get(self, metric, *arg):
         if metric == 'ping':
             return self.get_ping()
+        elif metric == 'operations':
+            m = arg[0]
+            return self.get_operations(m)
         else:
             raise CheckFail("uncknown metric: %s" % metric)
     
@@ -49,3 +55,9 @@ class Mongo(ZTCCheck):
         except:
             self.logger.exception("failed to connect to mongodb")
         return 0
+    
+    def get_operations(self, m):
+        """ get number of operations in specified state """
+        self._connect()
+        if m == 'all':
+            print self.db['$cmd.sys.inprog'].find_one()
