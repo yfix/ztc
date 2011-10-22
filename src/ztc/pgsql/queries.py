@@ -136,3 +136,6 @@ LOCKS_BY_MODE = {
                  'accessexclusivelock':
                     "SELECT COUNT(*) FROM pg_locks WHERE mode='AccessExclusiveLock'"
                  }
+
+WAL_NUMBER = """SELECT count(*) FROM pg_ls_dir('pg_xlog')
+    WHERE pg_ls_dir ~ E'^[0-9A-F]{24}$'"""

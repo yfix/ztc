@@ -59,9 +59,15 @@ class PgDB(ZTCCheck):
         elif metric == 'locks':
             m = args[0]
             mm = args[1]
-            return self.get_locks(m, mm)            
+            return self.get_locks(m, mm)
+        elif metric == 'wal':
+            m = args[0]
+            if m == 'num':
+                return self.get_wal_num()
+            else:
+                CheckFail('uncknown wal metric: %s' % m)                            
         else:
-            raise CheckFail('uncknown metric')
+            raise CheckFail('uncknown metric %s' % metric)
         
     def get_fsm(self, metric):
         """ PostgreSQL freespacemap metrics.
@@ -143,5 +149,11 @@ class PgDB(ZTCCheck):
             q = pgq.LOCKS_BY_MODE[mm.lower()]
         else:
             q = pgq.LOCKS[m]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+    
+    def get_wal_num(self):
+        """ get number of wal files in pg_xlog directory """
+        q = pgq.WAL_NUMBER
         ret = self.dbconn.query(q)[0][0]
         return ret

@@ -41,6 +41,7 @@ class NginxStatusLog(ZTCCheck):
             CheckFail('uncknown metric %s' % metric)
             
     def get_status_num(self, status):
+        """ get number of requests returned given status """
         st = None
         if status != '200':
             # read from store for non-200 statues

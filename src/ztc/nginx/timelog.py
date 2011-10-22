@@ -37,14 +37,12 @@ class NginxTimeLog(ZTCCheck):
         
     def get_resptime(self, metric):
         """ get min/avg/max response time """
-        if metric == 'avg':
+        data = None
+        if metric != 'avg':
+            data = self.read_from_store()
+        if not data:
             data = self.read_timelog()
             self.save_to_store(data)
-        else:
-            data = self.read_from_store()
-            if not data:
-                data = self.read_timelog()
-                self.save_to_store(data)
         return data[metric]
 
     def read_timelog(self):
