@@ -37,6 +37,7 @@ def popen(cmd, logger, input=None):
             i.close()
         ret = o.read()
         err = e.read()
+        logger.debug('stdout: %s' % ret)
         o.close()
         e.close()
         retcode = pipe.wait()
