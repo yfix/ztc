@@ -62,13 +62,14 @@ class NginxTimeLog(ZTCCheck):
             if r == '-':
                 # non-dynamic request
                 continue
-            else:
-                r = float(r)
-            if min == -1:
+            r = float(r)
+            if mn < 0:
                 mn = r
             else:
                 mn = min(r, mn)
             mx = max(r, mx)
+            self.logger.debug("step %i: avg=%.2f, max=%.2f, min=%.2f" %
+                              (n, avg, mx, mn))
             avg += r
             n += 1
             
@@ -76,10 +77,12 @@ class NginxTimeLog(ZTCCheck):
         f.close()            
         
         if n > 0:
-            self.log.warn('there was no new records in time log')
             avg = avg / n
-        if mn == -1:
-            mn = 0
+        else:
+            self.logger.warn('there was no new records in time log')
+        # set mn, mx = 0 if no avg data present
+        mn = max(0, mn)
+        mx = max(0, mx)
             
         return {
                 'min': mn,
