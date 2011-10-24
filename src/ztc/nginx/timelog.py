@@ -58,10 +58,10 @@ class NginxTimeLog(ZTCCheck):
         f = open(fn, 'a+')
         
         for l in f.readlines():
-            r = l.split()[0] # response time should be in first col
-            if r == '-':
-                # non-dynamic request
+            if l.startswith('-'):
+                # skip non-upstream lines with no $upstream_response_time
                 continue
+            r = l.split()[0] # response time should be in first col
             r = float(r)
             if mn < 0:
                 mn = r
