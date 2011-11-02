@@ -5,24 +5,18 @@
     Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
     
-Terracotta beans:
+Interesing Terracotta beans:
 
-JMImplementation:type=MBeanServerDelegate:
-    - nothing interesting
-com.sun.management:type=HotSpotDiagnostic:
-    - nothing intereting
 java.lang:name=Code Cache,type=MemoryPool:
-    ???
-  %0   - CollectionUsage (javax.management.openmbean.CompositeData, r)
-  %1   - CollectionUsageThreshold (long, rw)
-  %2   - CollectionUsageThresholdCount (long, r)
-  %3   - CollectionUsageThresholdExceeded (boolean, r)
-  %4   - CollectionUsageThresholdSupported (boolean, r)
-  %5   - MemoryManagerNames ([Ljava.lang.String;, r)
-  %6   - Name (java.lang.String, r)
-  %7   - PeakUsage (javax.management.openmbean.CompositeData, r)
   %8   - Type (java.lang.String, r)
-  %9   - Usage (javax.management.openmbean.CompositeData, r)
+    'NON_HEAP'
+  %9   - Usage (javax.management.openmbean.CompositeData, r):
+    Usage = { 
+      committed = 2359296;
+      init = 2359296;
+      max = 50331648;
+      used = 628864;
+    };
   %10  - UsageThreshold (long, rw)
   %11  - UsageThresholdCount (long, r)
   %12  - UsageThresholdExceeded (boolean, r)
@@ -83,8 +77,45 @@ class JMXTerracotta(JMXCheck):
             # get java heap memory info
             # supported metric under heap: commited, init, max, used
             return self.get_heap(args[0])
+        elif metric == 'codecache':
+            # get java Code Cache memory info
+            # supported sub-metrics: commited, max, init, used
+            # candidate for moving to jmx class
+            return self.get_codecache(args[0])
         else:
             raise CheckFail('unsupported metric')
+    
+    def extract_val_from_dict(self, data, metric):
+        """ extract value from java dictionary-like sting, like following:
+        { 
+            committed = 257294336;
+            init = 268435456;
+            max = 257294336;
+            used = 59949552;
+        }
+        """        
+        for line in data.splitlines():
+            line = line.strip()
+            if line.startswith(metric):
+                return int(line.split()[-1][:-1])
+        return None
+                    
+    
+    def get_codecache(self, metric):
+        self.logger.debug('in get_codecache')
+        st = ZTCStore('java.terracotta.codecache', self.options)
+        st.ttl = 60
+        data = st.get()
+        if not data:
+            # no cache, get from jmx
+            data = self.get_prop('java.lang:name=Code Cache,type=MemoryPool',
+                                 'Usage')
+            st.set(data)
+        rt = self.extract_val_from_dict(data, metric)
+        if rt is None:
+            raise CheckFail('no such memory mertic')
+        else:
+            return rt            
     
     def get_heap(self, metric):
         """ get terracotta heap memory metrics """
@@ -95,15 +126,9 @@ class JMXTerracotta(JMXCheck):
             # no cache, get from jmx
             data = self.get_prop('java.lang:type=Memory', 'HeapMemoryUsage')
             st.set(data)
-        # example of prop value:
-        # { 
-        #  committed = 257294336;
-        #  init = 268435456;
-        #  max = 257294336;
-        #  used = 59949552;
-        # }
-        for line in data.splitlines():
-            line = line.strip()
-            if line.startswith(metric):
-                return int(line.split()[-1][:-1])
-        raise CheckFail('no such memory mertic')
+        
+        rt = self.extract_val_from_dict(data, metric)
+        if rt is None:
+            raise CheckFail('no such memory mertic')
+        else:
+            return rt 
