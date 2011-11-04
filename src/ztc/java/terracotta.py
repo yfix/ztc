@@ -5,14 +5,23 @@
     Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
     
-Terracotta beans:
+Interesing Terracotta beans:
 
-#domain = JMImplementation:
-JMImplementation:type=MBeanServerDelegate
-#domain = com.sun.management:
-com.sun.management:type=HotSpotDiagnostic
-#domain = java.lang:
-java.lang:name=Code Cache,type=MemoryPool
+java.lang:name=Code Cache,type=MemoryPool:
+  %8   - Type (java.lang.String, r)
+    'NON_HEAP'
+  %9   - Usage (javax.management.openmbean.CompositeData, r):
+    Usage = { 
+      committed = 2359296;
+      init = 2359296;
+      max = 50331648;
+      used = 628864;
+    };
+  %10  - UsageThreshold (long, rw)
+  %11  - UsageThresholdCount (long, r)
+  %12  - UsageThresholdExceeded (boolean, r)
+  %13  - UsageThresholdSupported (boolean, r)
+  %14  - Valid (boolean, r)
 java.lang:name=CodeCacheManager,type=MemoryManager
 java.lang:name=PS Eden Space,type=MemoryPool
 java.lang:name=PS MarkSweep,type=GarbageCollector
@@ -44,15 +53,82 @@ org.terracotta.internal:name=Terracotta Statistics Manager,subsystem=Statistics,
 """
 
 from ztc.java.jmx import JMXCheck
+from ztc.check import CheckFail
+from ztc.store import ZTCStore
 
 class JMXTerracotta(JMXCheck):
     """ Generic JMX check """
     
     name = 'terracotta'
     
-    def __init__(self):
-        """ constructor override """
-        JMXCheck.__init__(self)
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
+    
+    def myinit(self):
         # override default url
         self.jmx_url = self.config.get('jmx_url',
                                        'service:jmx:jmxmp://localhost:9520')
+        
+    def _get(self, metric, *args, **kwargs):
+        if metric == 'get_prop':
+            # get jmx property
+            return self.get_prop(*args)
+        elif metric == 'heap':
+            # get java heap memory info
+            # supported metric under heap: commited, init, max, used
+            return self.get_heap(args[0])
+        elif metric == 'codecache':
+            # get java Code Cache memory info
+            # supported sub-metrics: commited, max, init, used
+            # candidate for moving to jmx class
+            return self.get_codecache(args[0])
+        else:
+            raise CheckFail('unsupported metric')
+    
+    def extract_val_from_dict(self, data, metric):
+        """ extract value from java dictionary-like sting, like following:
+        { 
+            committed = 257294336;
+            init = 268435456;
+            max = 257294336;
+            used = 59949552;
+        }
+        """        
+        for line in data.splitlines():
+            line = line.strip()
+            if line.startswith(metric):
+                return int(line.split()[-1][:-1])
+        return None
+                    
+    
+    def get_codecache(self, metric):
+        self.logger.debug('in get_codecache')
+        st = ZTCStore('java.terracotta.codecache', self.options)
+        st.ttl = 60
+        data = st.get()
+        if not data:
+            # no cache, get from jmx
+            data = self.get_prop('java.lang:name=Code Cache,type=MemoryPool',
+                                 'Usage')
+            st.set(data)
+        rt = self.extract_val_from_dict(data, metric)
+        if rt is None:
+            raise CheckFail('no such memory mertic')
+        else:
+            return rt            
+    
+    def get_heap(self, metric):
+        """ get terracotta heap memory metrics """
+        st = ZTCStore('java.terracotta.heap', self.options)
+        st.ttl = 60
+        data = st.get()
+        if not data:
+            # no cache, get from jmx
+            data = self.get_prop('java.lang:type=Memory', 'HeapMemoryUsage')
+            st.set(data)
+        
+        rt = self.extract_val_from_dict(data, metric)
+        if rt is None:
+            raise CheckFail('no such memory mertic')
+        else:
+            return rt 

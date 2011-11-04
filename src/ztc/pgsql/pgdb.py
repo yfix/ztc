@@ -3,6 +3,10 @@
 PgDB class - ZTCCheck for tracking single postgresql database
     
 Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+
+Requirements:
+    * PostgreSQL 8.3 or older
+    * pg_buffercache from contrib installed on configured db/user
 """
 
 import time
@@ -18,7 +22,7 @@ class PgDB(ZTCCheck):
     dbconn = None
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
     def _myinit(self):
         connect_dict = {
@@ -40,14 +44,45 @@ class PgDB(ZTCCheck):
         elif metric == 'tnxage':
             state = args[0]
             return self.get_tnx_age(state)
+        elif metric == 'buffers':
+            buf_metric = args[0]
+            return self.get_buffers(buf_metric)
         elif metric == 'conn':
             state = args[0]
             return self.get_conn_nr(state)
         elif metric == 'dbstat':
             m = args[0]
-            return self.get_dbstat(m)            
+            return self.get_dbstat(m)
+        elif metric == 'fsm':
+            m = args[0]
+            return self.get_fsm(m)
+        elif metric == 'locks':
+            m = args[0]
+            mm = args[1]
+            return self.get_locks(m, mm)
+        elif metric == 'wal':
+            m = args[0]
+            if m == 'num':
+                return self.get_wal_num()
+            else:
+                CheckFail('uncknown wal metric: %s' % m)                            
         else:
-            raise CheckFail('uncknown metric')
+            raise CheckFail('uncknown metric %s' % metric)
+        
+    def get_fsm(self, metric):
+        """ PostgreSQL freespacemap metrics.
+        Requirements: pg_freespacement, PostgreSQL <= 8.3"""
+        q = pgq.FSM[metric]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+    
+    def get_buffers(self, metric):
+        """ PostgreSQL buffer metrics: number of clear/dirty/used/total
+        buffers.
+        Requirements: pg_buffercache contrib """
+        q = pgq.BUFFER[metric]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
         
     def get_dbstat(self, m):
         """ get sum of passed metric from dbstat """
@@ -89,7 +124,6 @@ class PgDB(ZTCCheck):
         except:
             return 0        
     
-    # queries:
     def get_autovac_freeze(self):
         """ Checks how close each database is to the Postgres
             autovacuum_freeze_max_age setting. This action will only work for
@@ -108,3 +142,18 @@ class PgDB(ZTCCheck):
                 self.logger.info("Freeze %% for %s: %s" % (dbname, percent))
             max_percent = max(max_percent, percent)        
         return max_percent
+
+    def get_locks(self, m, mm=None):
+        """ get number of database locks """
+        if m == 'mode':
+            q = pgq.LOCKS_BY_MODE[mm.lower()]
+        else:
+            q = pgq.LOCKS[m]
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+    
+    def get_wal_num(self):
+        """ get number of wal files in pg_xlog directory """
+        q = pgq.WAL_NUMBER
+        ret = self.dbconn.query(q)[0][0]
+        return ret

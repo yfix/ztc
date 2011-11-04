@@ -16,7 +16,7 @@ class ZTCStore(object):
     ## properties
     ttl = 7200 # default TTL for entry: 2 hours
     
-    def __init__(self, name, options):
+    def __init__(self, name, options, ttl=7200):
         """ Args:
         * name - name of store item
         * options = optparse options object. Needed for getting path of tmpdir
@@ -25,6 +25,7 @@ class ZTCStore(object):
         self.myfile = os.path.join(self.mydir, name)
         if not os.path.isdir(self.mydir):
             os.makedirs(self.mydir)
+        self.ttl = ttl
     
     def _mktmpdir(self, dir):
         """ check & make tmp dir """
@@ -36,7 +37,7 @@ class ZTCStore(object):
         ret = None
         if os.path.isfile(self.myfile):
             if time.time() - os.stat(self.myfile).st_mtime > self.ttl:
-                # do not store for more then ttl hours
+                # do not store for more then ttl seconds
                 self.clear()
             else:        
                 f = open(self.myfile, 'r')
@@ -45,6 +46,7 @@ class ZTCStore(object):
         return ret
     
     def set(self, val):
+        """ set value """
         try:
             f = open(self.myfile, 'w')
             pickle.dump(val, f)

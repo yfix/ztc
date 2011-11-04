@@ -14,8 +14,7 @@ Requirements:
 '''
 
 from ztc.check import ZTCCheck, CheckFail
-
-from ztc.myos import mypopen
+import ztc.myos
 
 class Ntpq(ZTCCheck):
     name = 'ntp'
@@ -23,7 +22,14 @@ class Ntpq(ZTCCheck):
     
     def _read_ntpq_vars(self):
         ntpq_bin = self.config.get('ntpq', '/usr/sbin/ntpq')
-        self.ntpq_vars = mypopen("%s -c readvar localhost" % ntpq_bin).splitlines()
+        code, out = ztc.myos.popen("%s -c readvar localhost" % ntpq_bin,
+                                        self.logger)
+        if code:
+            self.logger.warn('error communicating with ntpq: return code %i' %
+                             code)
+            self.ntpq_vars = []
+        else:
+            self.ntpq_vars = out.splitlines()
     
     def _get(self, metric, *args, **kwargs):
         """ Get some ntp mertic. Howewer, only jitter is currently supported """

@@ -23,7 +23,9 @@ class PgConn(object):
             return True
         
         # filtering connect_dict to remove all Nones:
-        connect_dict = dict((k, v) for k, v in connect_dict.iteritems() if v is not None)
+        connect_dict = dict((k, v) for k, v in connect_dict.iteritems() \
+                            if v is not None)
+        self.logger.debug('db connection dict: %s' % connect_dict)
         try:
             self.dbh = pg.connect(**connect_dict)
             self.cur = self.dbh.cursor()

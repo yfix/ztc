@@ -81,6 +81,15 @@ FROM (
 TNX_AGE_IDLE_TNX = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query='<IDLE> in transaction'"
 TNX_AGE_RUNNING = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"
 
+# buffer queries:
+BUFFER = {
+          'clear': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'",
+          'dirty': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'",
+          'used': """SELECT COUNT(*) FROM pg_buffercache
+                WHERE reldatabase IS NOT NULL;""",
+           'total': "SELECT count(*) FROM pg_buffercache"
+          }
+
 # number of connections
 CONN_NUMBER = {
     'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
@@ -92,3 +101,41 @@ CONN_NUMBER = {
         WHERE current_query NOT LIKE '<IDLE%'""",
     'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"
     }
+
+FSM = {
+       'pages': """SELECT
+            pages,
+            maxx,
+            ROUND(100*(pages/maxx)) AS percent
+        FROM
+            (SELECT
+                (sumrequests+numrels)*chunkpages AS pages
+            FROM
+                (SELECT
+                    SUM(CASE WHEN avgrequest IS NULL THEN interestingpages/32 ELSE interestingpages/16 END) AS sumrequests,
+                    COUNT(relfilenode) AS numrels, 16 AS chunkpages FROM pg_freespacemap_relations
+                ) AS foo
+            ) AS foo2,
+            (SELECT setting::NUMERIC AS maxx FROM pg_settings WHERE name = 'max_fsm_pages') AS foo3""",
+        'relations': """ SELECT
+            maxx,
+            cur,
+            ROUND(100*(cur/maxx))
+        FROM (SELECT
+              (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
+              (SELECT setting::NUMERIC FROM pg_settings WHERE name='max_fsm_relations') AS maxx) x"""
+       }
+
+LOCKS = {
+         'all': "SELECT COUNT(*) FROM pg_locks",
+         'granted': "SELECT COUNT(*) FROM pg_locks WHERE granted='t'",
+         'waiting': "SELECT COUNT(*) FROM pg_locks WHERE granted<>'t'"
+         }
+
+LOCKS_BY_MODE = {
+                 'accessexclusivelock':
+                    "SELECT COUNT(*) FROM pg_locks WHERE mode='AccessExclusiveLock'"
+                 }
+
+WAL_NUMBER = """SELECT count(*) FROM pg_ls_dir('pg_xlog')
+    WHERE pg_ls_dir ~ E'^[0-9A-F]{24}$'"""
