@@ -22,7 +22,8 @@ class Ntpq(ZTCCheck):
     ntpq_vars = None
     
     def _read_ntpq_vars(self):
-        self.ntpq_vars = mypopen("ntpq -c readvar localhost").splitlines()
+        ntpq_bin = self.config.get('ntpq', '/usr/sbin/ntpq')
+        self.ntpq_vars = mypopen("%s -c readvar localhost" % ntpq_bin).splitlines()
     
     def _get(self, metric, *args, **kwargs):
         """ Get some ntp mertic. Howewer, only jitter is currently supported """
