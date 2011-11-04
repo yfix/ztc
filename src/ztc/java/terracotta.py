@@ -98,10 +98,10 @@ class JMXTerracotta(JMXCheck):
             line = line.strip()
             if line.startswith(metric):
                 return int(line.split()[-1][:-1])
-        return None
-                    
+        return None                    
     
     def get_codecache(self, metric):
+        """ get java codecache memory (non-heap) metrics """
         self.logger.debug('in get_codecache')
         st = ZTCStore('java.terracotta.codecache', self.options)
         st.ttl = 60

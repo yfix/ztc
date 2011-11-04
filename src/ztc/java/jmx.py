@@ -55,7 +55,7 @@ class JMXCheck(ZTCCheck):
         try:
             code, ret = popen(popen_cmd, self.logger, jmxterm_cmd)
         except IOError:
-            self.logger.exception("Failed to run mypopen")
+            self.logger.exception("Failed to run popen")
             raise CheckFail("jmxterm call failed")
         if code != 0:
             self.logger.error('jmxterm returned non-zero status')
