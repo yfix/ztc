@@ -8,6 +8,7 @@ setup.py
 ./conf/etc/mysql.conf
 ./conf/etc/nfs.conf
 ./conf/etc/nginx.conf
+./conf/etc/ntp.conf
 ./conf/etc/pgsql.conf
 ./conf/etc/slony.conf
 ./conf/zabbix-agent.d/apache.conf
@@ -25,6 +26,7 @@ conf/etc/hw_raid_3ware.conf
 conf/etc/mysql.conf
 conf/etc/nfs.conf
 conf/etc/nginx.conf
+conf/etc/ntp.conf
 conf/etc/pgsql.conf
 conf/etc/slony.conf
 conf/zabbix-agent.d/apache.conf
