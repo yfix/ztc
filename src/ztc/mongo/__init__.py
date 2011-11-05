@@ -3,6 +3,9 @@
 ZTC Mongodb check class
 
 Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+
+Inspired by:
+* http://blog.boxedice.com/2011/03/14/mongodb-monitoring-current-operations/
 """
 
 import pymongo
@@ -60,4 +63,11 @@ class Mongo(ZTCCheck):
         """ get number of operations in specified state """
         self._connect()
         if m == 'all':
-            print self.db['$cmd.sys.inprog'].find_one()
+            ops = self.db['$cmd.sys.inprog'].find_one()
+            r = 0
+            for k in ops:
+                r += len(ops[k])
+            return r
+        elif m == 'inprog':
+            ops = self.db['$cmd.sys.inprog'].find_one()
+            return len(ops['inprog'])            
