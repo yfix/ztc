@@ -82,7 +82,6 @@ src/ztc/pgsql/pgdb.py
 src/ztc/pgsql/queries.py
 src/ztc/system/__init__.py
 src/ztc/system/ntp.py
-src/ztc/system/vfs.py
 src/ztc/vm/__init__.py
 src/ztc/vm/memory.py
 templates/Template_Linux_disk_sda.xml
