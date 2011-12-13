@@ -44,7 +44,8 @@ class NginxStatus(ZTCCheck):
                                      self.config.get('proto', 'http'),
                                      self.config.get('host', 'localhost'),
                                      self.config.get('port', '8080'),
-                                     self.config.get('resource', '/server-status')
+                                     self.config.get('resource',
+                                                     '/server-status')
                                      )
         try:
             u = urllib2.urlopen(url, None, 1)
