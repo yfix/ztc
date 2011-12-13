@@ -11,7 +11,7 @@ Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 import re
 
 from ztc.check import ZTCCheck
-from ztc.myos import mypopen
+from ztc.myos import popen
 
 class CPUTemperature(ZTCCheck):
     name = "cputemp"
@@ -55,7 +55,7 @@ Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)
             #temp_re = re.compile('(\d+.\d+) C')
             temp_re = re.compile('^Core [0-9]+: +\+([0-9]+(\.[0-9]+)?)')
             cmd = 'sensors -A'
-            for l in mypopen(cmd, self.logger).split("\n"):
+            for l in popen(cmd, self.logger)[1].split("\n"):
                 self.logger.debug("lm_sensors line: %s" % (l, ))
                 temps = temp_re.findall(l)
                 self.logger.debug("temps = %s" % (temps, ))
