@@ -53,9 +53,11 @@ class ApacheStatus(ZTCCheck):
     def _get_info(self, name):
         """ Extracts info from status """
         self._read_status()
+        self.logger.debug("Getting apache info metric %s" % name)
         ret = None
-        for l in self._page_data.split("\n"):
-            if l.find(name + ": ") == 0:
+        for l in self._page_data.splitlines():
+            self.logger.debug("_get_info: got line '%s'" % l)
+            if l.startswith(name + ": "):
                 ret = l.split()[-1]
                 break
         return ret
