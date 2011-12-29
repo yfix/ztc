@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="08.10.11" time="13.29">
+<zabbix_export version="1.0" date="29.12.11" time="12.04">
   <hosts>
     <host name="Template_app_PostgreSQL">
       <proxy_hostid>0</proxy_hostid>
@@ -110,9 +110,9 @@
           <comments></comments>
         </trigger>
         <trigger>
-          <description>PgSQL is down on {HOSTNAME}</description>
+          <description>PgSQL: Low free disk space on data partiton (&lt;1%)</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.ping.last(0)}=0</expression>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;1</expression>
           <url></url>
           <status>0</status>
           <priority>5</priority>
@@ -137,13 +137,13 @@
           <comments></comments>
         </trigger>
         <trigger>
-          <description>Low free disk (&lt;1%) space on PostgreSQL data partition on {HOSTNAME}</description>
+          <description>PgSQL is down</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;1</expression>
+          <expression>{Template_app_PostgreSQL:pgsql.ping.last(0)}=0</expression>
           <url></url>
           <status>0</status>
           <priority>5</priority>
-          <comments></comments>
+          <comments>ZTC was unable to connect to database and execute simple query. Please check that postgres is up and you have correct ztc configuration. For more info, run /opt/ztc/bin/pgsql.py ping -d</comments>
         </trigger>
         <trigger>
           <description>Low free disk (&lt;20%) space on PostgreSQL partition on {HOSTNAME}</description>
@@ -364,7 +364,7 @@
           </applications>
         </item>
         <item type="0" key="pgsql.autovac.freeze" value_type="3">
-          <description>PgSQL: autovac.freeze</description>
+          <description>PgSQL: autovac freeze</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>300</delay>
           <history>14</history>
@@ -925,7 +925,7 @@
           </applications>
         </item>
         <item type="0" key="pgsql.dbstat.tup_fetched" value_type="3">
-          <description>PostgreSQL dbstat: tuples fetched per sec</description>
+          <description>PgSQL: tuples fetched / sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>60</delay>
           <history>7</history>
