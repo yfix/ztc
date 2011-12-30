@@ -7,6 +7,7 @@
     
     Copyright (c) 2011 Denis Seleznyov [https://bitbucket.org/xy2/]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+    Copyright (c) 2011 Murano Software [http://muranosoft.com]
 """
 
 import os
@@ -17,7 +18,7 @@ import ConfigParser
 import logging
 import logging.handlers
 
-#import ztc.commons
+import unittest
 
 class CheckFail(Exception):
     """Exception that should be raised to notify zabbix about failed check."""
@@ -95,7 +96,7 @@ class ZTCCheck(object):
     def _myinit(self):
         """ To be overriden by subclasses, executes just after __init__ - 
         in order to avoid messing with parent's __init__ in subclasses """
-        pass                                                                                                                                                                                                                                                                                                                                       
+        pass
     
     def _parse_argv(self):
         parser = optparse.OptionParser()
@@ -153,6 +154,17 @@ class ZTCCheck(object):
         raise NotImplementedError("Class %s must reimplement _get method"
                                             % (self.__class__.__name__, ))
 
+    def get_val(self, metric=None, *args, **kwargs):
+        # TODO: run _get in another thread, terminate it when it's running
+        # for too long.
+        # This is required for zabbix agent not to hang
+        ret = self._get(metric, *args, **kwargs)
+        if type(ret) == float:
+            # prevent from printing in exp form 
+            ret = ("%.6f" % ret).rstrip('0').rstrip('.')
+        return ret
+
+
     def get(self, metric=None, *args, **kwargs):
         """Perform a check and return data immediately with exit code
         expected by zabbix. Caller script will be not continued after this
@@ -162,13 +174,7 @@ class ZTCCheck(object):
         self.logger.debug("executed get metric '%s', args '%s', kwargs '%s'" %
                    (str(metric), str(args), str(kwargs)))
         try:
-            # TODO: run _get in another thread, terminate it when it's running
-            # for too long.
-            # This is required for zabbix agent not to hang
-            ret = self._get(metric, *args, **kwargs)
-            if ret is float:
-                # prevent from printing in exp form 
-                ret = "%.6f" % ret
+            ret = self.get_val(metric, *args, **kwargs)
             print(ret)
         except CheckFail, e:
             self.logger.exception('Check fail, getting %s' % (metric, ))
@@ -188,4 +194,24 @@ class ZTCCheck(object):
             # totally unexpected fail: dump all data we know
             self.logger.exception('Check unexpected error, getting %s' % (metric, ))
             sys.exit(1)
-        sys.exit(0)        
+        #sys.exit(0)
+
+class ZTCCheckTest(unittest.TestCase):
+    class ZTCTestCheck(ZTCCheck):
+        name = 'test'
+        def _get(self, *args, **kwargs):
+            if len(args) == 1:
+                return args[0]
+
+    def test_floatformat(self):
+        """ Zabbix only accepts floating-point numbers in xx.xx format.
+        Test that we are returning correct string for every float """
+
+        ch = self.ZTCTestCheck()
+        self.assertEqual(ch.get_val(8.1e-05), '0.000081')
+        self.assertEqual(ch.get_val(100000.0), '100000')
+        self.assertEqual(ch.get_val(0.0), '0')
+        self.assertEqual(ch.get_val(0.33333333333333333333333), '0.333333')
+
+if __name__ == '__main__':
+    unittest.main()
