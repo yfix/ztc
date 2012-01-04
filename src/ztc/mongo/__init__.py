@@ -113,11 +113,12 @@ class Mongo(ZTCCheck):
         c = ZTCStore('mongodb_dbstats_' + dbname, self.options, 120)
         dbstats = c.get()
         if not dbstats:
-            dbstats = db.command('collstats', 'test')
-            print dbstats
-            #c.set(dbstats)
+            dbstats = db.command('dbstats')
+            c.set(dbstats)
 
         ret = dbstats[metric]
+        if metric == 'nsSizeMB':
+            ret = ret * 1024 * 1024
         return ret
 
     def get_bgflushing(self, m):
