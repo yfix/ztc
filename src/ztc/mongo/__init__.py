@@ -12,14 +12,16 @@ import pymongo
 import time
 
 from ztc.check import ZTCCheck, CheckFail
+from ztc.store import ZTCStore
 
 class Mongo(ZTCCheck):
     name = "mongo"
     
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
     connection = None
     db = None
+    dbs = {}
     
     def _connect(self):
         """ connect to mongodb """
@@ -29,6 +31,7 @@ class Mongo(ZTCCheck):
             db = self.config.get('db', 'ztc')
             self.connection = pymongo.Connection(host, port)
             self.db = self.connection[db]
+            self.dbs[db] = self.db
 
     def _get(self, metric, *args):
         if metric == 'ping':
@@ -39,6 +42,14 @@ class Mongo(ZTCCheck):
         elif metric == 'globallock':
             m = args[0]
             return self.get_globallock(m)
+        elif metric == 'bgflushing':
+            m = args[0]
+            return self.get_bgflushing(m)
+        elif metric == 'dbstats':
+            # per-db metrics
+            m = args[0]
+            db = args[1]
+            return self.get_dbstats(db, m)
         else:
             raise CheckFail("uncknown metric: %s" % metric)
     
@@ -88,4 +99,29 @@ class Mongo(ZTCCheck):
         """ returns output of serverstatus command (json parsed) """
         self._connect()
         ret = self.db.command('serverStatus')
+        return ret
+
+    def get_dbstats(self, dbname, metric):
+        """ get db.stats metric for specified database """
+        self._connect()
+        # get database object
+        if dbname not in self.dbs:
+            self.dbs[dbname] = self.connection[dbname]
+        db = self.dbs[dbname]
+        
+        # load dbstats for specified database
+        c = ZTCStore('mongodb_dbstats_' + dbname, self.options, 120)
+        dbstats = c.get()
+        if not dbstats:
+            dbstats = db.command('collstats', 'test')
+            print dbstats
+            #c.set(dbstats)
+
+        ret = dbstats[metric]
+        return ret
+
+    def get_bgflushing(self, m):
+        """ return BackgroundFlushing metrics """
+        st = self.get_serverstatus()
+        ret = st['backgroundFlushing'][m]
         return ret
