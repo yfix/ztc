@@ -30,12 +30,15 @@ class Mongo(ZTCCheck):
             self.connection = pymongo.Connection(host, port)
             self.db = self.connection[db]
 
-    def _get(self, metric, *arg):
+    def _get(self, metric, *args):
         if metric == 'ping':
             return self.get_ping()
         elif metric == 'operations':
-            m = arg[0]
+            m = args[0]
             return self.get_operations(m)
+        elif metric == 'globallock':
+            m = args[0]
+            return self.get_globallock(m)
         else:
             raise CheckFail("uncknown metric: %s" % metric)
     
@@ -70,4 +73,19 @@ class Mongo(ZTCCheck):
             return r
         elif m == 'inprog':
             ops = self.db['$cmd.sys.inprog'].find_one()
-            return len(ops['inprog'])            
+            return len(ops['inprog'])
+
+    def get_globallock(self, m):
+        """ return globallock-related metrics:
+        serverStatus().globalLock.$m """
+        st = self.get_serverstatus()
+        ret = st['globalLock'][m]
+        if m in ('totalTime', 'lockTime'):
+            ret = ret / 1000000.0
+        return ret
+
+    def get_serverstatus(self):
+        """ returns output of serverstatus command (json parsed) """
+        self._connect()
+        ret = self.db.command('serverStatus')
+        return ret
