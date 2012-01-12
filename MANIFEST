@@ -123,6 +123,8 @@ src/ztc/php/__init__.py
 src/ztc/php/fpm.py
 src/ztc/system/__init__.py
 src/ztc/system/ntp.py
+src/ztc/system/vfs/__init__.py
+src/ztc/system/vfs/nfs.py
 src/ztc/vm/__init__.py
 src/ztc/vm/memory.py
 templates/Template_Linux_disk_sda.xml
