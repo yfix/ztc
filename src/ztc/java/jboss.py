@@ -15,12 +15,13 @@ class JMXJboss(JMXCheck):
     
     name = 'jboss'
     
-    def __init__(self):
-        """ constructor override """
-        JMXCheck.__init__(self)
+    OPTPARSE_MIN_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
+    
+    def __myinit(self):
         # override default url
         self.jmx_url = self.config.get('jmx_url',
-                                       'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
+           'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
 
     def _get(self, metric, *args, **kwargs):
         if metric == 'get_prop':
@@ -29,6 +30,9 @@ class JMXJboss(JMXCheck):
         elif metric == 'ds':
             # get datasource info
             return self.get_ds_info(args[0], *args[1:])
+        elif metric == 'heap':
+            # get java heap memory info
+            return self.get_heap(args[0])
         else:
             raise CheckFail('unsupported metric')
     
@@ -36,3 +40,8 @@ class JMXJboss(JMXCheck):
         """ Get jboss datasource info """
         mbean = 'jboss.jca:name=%s,service=ManagedConnectionPool' % ds
         return self.get_prop(mbean, metric)
+    
+    def get_heap(self, metric):
+        """ get java heap memory metric: 'free', 'max', 'total' """
+        metric = metric.capitalize() + 'Memory'
+        return self.get_prop('jboss.system:type=ServerInfo', metric)

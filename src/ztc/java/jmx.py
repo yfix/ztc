@@ -17,7 +17,7 @@ echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endo
 """
 
 from ztc.check import ZTCCheck, CheckFail
-from ztc.myos import mypopen
+from ztc.myos import popen
 
 class JMXCheck(ZTCCheck):
     """ Generic JMX check """
@@ -42,6 +42,10 @@ class JMXCheck(ZTCCheck):
     
     def get_prop(self, mbean_name, attribute_name):
         """ get custom JMX bean property """
+        
+        # escape spaces in mbean_name
+        mbean_name = mbean_name.replace(' ', '\ ')
+        
         popen_cmd = "java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar " + \
             "/opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l %s -e -n -v silent" % \
             (self.jmx_url, )
@@ -49,9 +53,12 @@ class JMXCheck(ZTCCheck):
         self.logger.debug("Executing jmxterm command %s" % jmxterm_cmd)
         self.logger.debug("Jmxterm executable: %s" % popen_cmd)
         try:
-            ret = mypopen(popen_cmd, self.logger, jmxterm_cmd)
+            code, ret = popen(popen_cmd, self.logger, jmxterm_cmd)
         except IOError:
-            self.logger.exception("Failed to run mypopen")
+            self.logger.exception("Failed to run popen")
             raise CheckFail("jmxterm call failed")
-        return ret.strip()
-        # TODO: mypopen function with input support            
+        if code != 0:
+            self.logger.error('jmxterm returned non-zero status')
+            raise CheckFail('unable to get jmx propery %s %s' %
+                            (mbean_name, attribute_name))
+        return ret.strip()            

@@ -24,7 +24,7 @@ import unittest
 
 #import ztc
 from ztc.check import ZTCCheck, CheckFail
-from ztc.myos import mypopen
+import ztc.myos
 
 class DiskStats(object):
     major = 0
@@ -147,15 +147,18 @@ class DiskStatsParser(object):
 
 class DiskStatus(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
     name = 'DiskStatus'
     
     def _get(self, metric, *args, **kwargs):
         #print args
         device = args[0]
+        dev_type = 'auto'
+        if len(args) > 1:
+             dev_type = args[1]
         if metric == 'health':
-            return self.get_health(device)
+            return self.get_health(device, dev_type)
         else:
             #ds = DiskStats()
             p = DiskStatsParser(device, self.logger)
@@ -163,14 +166,17 @@ class DiskStatus(ZTCCheck):
             return ds.__getattribute__(metric)
             raise CheckFail('uncknown metric')
     
-    def get_health(self, dev):
+    def get_health(self, dev, dev_type='auto'):
         """ get device health (from SMART) """
         dev = '/dev/%s' % (dev, )
         if not os.path.exists(dev):
             return 'NO_DEVICE'
         cmd = '%s -H %s' % (self.config.get('smartctl', '/usr/sbin/smartctl'),
                             dev)
-        c = mypopen(cmd, self.logger).strip().split("\n")        
+        if dev_type != 'auto':
+            cmd += " -d %s" % dev_type
+        retcode, c = ztc.myos.popen(cmd, self.logger)
+        c = c.strip().splitlines()
         ret = c[-1].split()[-1]
         if ret == '/dev/tweN':
             # this is 3ware raid device;

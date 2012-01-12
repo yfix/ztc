@@ -28,9 +28,13 @@ class CheckTimeout(Exception):
     pass
 
 class MyConfigParser(ConfigParser.ConfigParser):
+    def __init__(self, section='main'):
+        self.sectname = section
+        ConfigParser.ConfigParser.__init__(self)
+    
     def get(self, option, default):
         try:
-            return ConfigParser.ConfigParser.get(self, 'main', option)
+            return ConfigParser.ConfigParser.get(self, self.sectname, option)
         except:
             return default
 
@@ -40,7 +44,7 @@ class ZTCCheck(object):
     # shortened name of the class
     # being used for getting config
     name = 'ztccheck'
-    ver = "11.03"
+    ver = "11.07"
     args = [] # parsed command-line args
     
     # minimum & maximum number of command-line arguments
@@ -71,24 +75,26 @@ class ZTCCheck(object):
                                                  "a",                                                                                                        
                                                  1*1024*1024, # max 1 M                                                                                                
                                                  10) # max 10 files
-        sh = logging.StreamHandler()
         if self.debug:
-            # setting stream handler                                                                                                        
+            # setting stream handler
+            sh = logging.StreamHandler()                                                                                                        
             sh.setLevel(logging.DEBUG)                                                                                                                  
             self.logger.setLevel(logging.DEBUG)
             sh.setFormatter(formatter)
-            h.setLevel(logging.DEBUG)                                                                                                                  
+            h.setLevel(logging.DEBUG)
+            self.logger.addHandler(sh)                                                                                                                  
         else:
             self.logger.setLevel(logging.WARN)
-            sh.setLevel(logging.ERROR)
             h.setLevel(logging.WARN)
-        self.logger.addHandler(sh)
+        h.setFormatter(formatter)
         self.logger.addHandler(h)
         self.logger.debug("created")
         
         self._myinit()
     
     def _myinit(self):
+        """ To be overriden by subclasses, executes just after __init__ - 
+        in order to avoid messing with parent's __init__ in subclasses """
         pass                                                                                                                                                                                                                                                                                                                                       
     
     def _parse_argv(self):
@@ -108,6 +114,8 @@ class ZTCCheck(object):
         parser.add_option("-c", "--confdir",
                   action="store", type="str", dest="confdir", default="/etc/ztc/",
                   help="ZTC Config dir")
+        parser.add_option("-i", "--instance", dest="instname", default="main",
+                          action="store", type="str")
         (options, args) = parser.parse_args()
         
         if options.version:
@@ -131,7 +139,10 @@ class ZTCCheck(object):
         print "http://trac.greenmice.info/ztc/"
     
     def _get_config(self):
-        config = MyConfigParser()
+        """ return config object
+        WARN: no logger object available here
+        """
+        config = MyConfigParser(self.options.instname)
         config.read(os.path.join(self.options.confdir, self.name+".conf"))
         return config
 
@@ -145,7 +156,7 @@ class ZTCCheck(object):
     def get(self, metric=None, *args, **kwargs):
         """Perform a check and return data immediately with exit code
         expected by zabbix. Caller script will be not continued after this
-        method call, so SomeFancyCheck.process(arg1, arg2, ...) line should
+        method call, so SomeFancyCheck.get(arg1, arg2, ...) line should
         be last in userparameter script. Exit codes are defined in enum
         ZBX_SYSINFO_RET (include/sysinfo.h)"""
         self.logger.debug("executed get metric '%s', args '%s', kwargs '%s'" %
@@ -176,7 +187,5 @@ class ZTCCheck(object):
         except Exception, e:
             # totally unexpected fail: dump all data we know
             self.logger.exception('Check unexpected error, getting %s' % (metric, ))
-            #traceback.print_stack()
             sys.exit(1)
-        sys.exit(0)
-            
+        sys.exit(0)        
