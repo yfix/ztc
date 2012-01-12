@@ -2,7 +2,7 @@
 '''
 VFS Device metrics module for ZTC
 
-Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010-2012 Vladimir Rusinov <vladimir@greenmice.info>
 Copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
 Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
@@ -20,6 +20,7 @@ Requirements:
 import os
 #import stat
 import re
+import unittest
 
 #import ztc
 from ztc.check import ZTCCheck, CheckFail
@@ -72,12 +73,12 @@ weighted time spent doing I/Os (ms): %i
 class DiskStatsParser(object):
     """ Class to read and parse /proc/diskstats """
     
-    def __init__(self, device):
+    def __init__(self, device, logger):
         self.device = device
+        self.logger = logger
     
     def parse(self):
         """ Parse /proc/diskstats file and return DiskStats object """
-        
         # check if device exists
         if os.path.exists('/sys/block/%s' % (self.device)):
             return self._read_diskstats()
@@ -88,8 +89,9 @@ class DiskStatsParser(object):
             self.device = self.device + '1'
             return self._read_diskstats()
         else:
-            # there is no such device
-            return None        
+            # there is probably no such device
+            self.logger.warn("%s: no such device in /sys/block" % self.device)
+            return self._read_diskstats()
     
     def _read_diskstats(self):
         f = open('/proc/diskstats', 'r')
@@ -156,7 +158,7 @@ class DiskStatus(ZTCCheck):
             return self.get_health(device)
         else:
             #ds = DiskStats()
-            p = DiskStatsParser(device)
+            p = DiskStatsParser(device, self.logger)
             ds = p.parse()
             return ds.__getattribute__(metric)
             raise CheckFail('uncknown metric')
@@ -248,23 +250,53 @@ class MountStatus(object):
         f.close()
         return ret
 
-if __name__ == '__main__':
-    #st = DiskStatsParser('sda')
-    #print st.parse()
-    
-    #ss = SmartStatus('sda')
-    #print ss.health
+class DiskStatsParserTest(unittest.TestCase):
 
-    #ss = SmartStatus('sdq')
-    #print ss.health
-    
-    #md = MDStatus()
-    #print md.failed_devs
-    
-    print "== MountStatus =="
-    ms = MountStatus('/home/data')
-    print ms.checkmount()
-    print ms.checkmount('ext3')
-    print ms.checkmount('xfs')
-    
-    pass
+    def setUp(self):
+        import logging
+        self.logger = logging.getLogger('test')
+
+    def test_diskstats_line_parser(self):
+        """ Test parsing of /proc/diskstats file """
+        dsp = DiskStatsParser('sda', self.logger)
+        ds = DiskStats()
+
+        # 1: simple sda line from 3.1.x kernel
+        ds.major = 8
+        ds.minor = 0
+        ds.devname = 'sda'
+        ds.reads = 148516
+        ds.reads_merged = 118319
+        ds.sectors_read = 7024128
+        ds.time_read = 1863284
+        ds.writes = 116304
+        ds.writes_merged = 375629
+        ds.sectors_written = 11643968
+        ds.time_write = 17513572
+        ds.cur_ios = 0
+        ds.time_io = 1429389
+        ds.time_io_weidged = 19461480
+        assert str(dsp._parse_diskstats_line('   8       0 sda 148516 118319 7024128 1863284 116304 375629 11643968 17513572 0 1429389 19461480')) == str(ds)
+
+        # 2: test for device with '/' in name
+        # 104 0 cciss/c0d0 12746 1947 208311 37832 2424476 2120977 36390792 58162004 0 24766012 58198856
+        ds.major = 104
+        ds.minor = 0
+        ds.devname = 'cciss/c0d0'
+        ds.reads = 12746
+        ds.reads_merged = 1947
+        ds.sectors_read = 208311
+        ds.time_read = 37832
+        ds.writes = 2424476
+        ds.writes_merged = 2120977
+        ds.sectors_written = 36390792
+        ds.time_write = 58162004
+        ds.cur_ios = 0
+        ds.time_io = 24766012
+        ds.time_io_weidged = 58198856
+        assert str(dsp._parse_diskstats_line('104 0 cciss/c0d0 12746 1947 208311 37832 2424476 2120977 36390792 58162004 0 24766012 58198856')) == str(ds)
+
+
+
+if __name__ == '__main__':
+    unittest.main()
