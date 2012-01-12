@@ -89,9 +89,9 @@ class DiskStatsParser(object):
             self.device = self.device + '1'
             return self._read_diskstats()
         else:
-            self.logger.error("%s: no such device" % self.device)
-            # there is no such device
-            return None        
+            # there is probably no such device
+            self.logger.warn("%s: no such device in /sys/block" % self.device)
+            return self._read_diskstats()
     
     def _read_diskstats(self):
         f = open('/proc/diskstats', 'r')
