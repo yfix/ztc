@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="29.12.11" time="12.48">
+<zabbix_export version="1.0" date="13.01.12" time="22.04">
   <hosts>
     <host name="Template_app_PostgreSQL">
       <proxy_hostid>0</proxy_hostid>
@@ -47,15 +47,6 @@
           <comments>Run `/home/zabbix/pgsql_bloat.py someparam`</comments>
         </trigger>
         <trigger>
-          <description>Low free disk (&lt;5%) space on PostgreSQL data partition on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;5</expression>
-          <url></url>
-          <status>0</status>
-          <priority>4</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
           <description>PgSQL: tnx is too long in idle state on {HOSTNAME}</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:pgsql.tnx.idle_tnx.last(0)}&gt;60</expression>
@@ -92,6 +83,15 @@
           <comments></comments>
         </trigger>
         <trigger>
+          <description>PgSQL: low free disk space on data partition: &lt;5%</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;5</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments></comments>
+        </trigger>
+        <trigger>
           <description>PgSQL: Low free disk space on data partiton (&lt;1%)</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/data,pfree].last(0)}&lt;1</expression>
@@ -110,13 +110,22 @@
           <comments>Run `/opt/ztc/bin/pgsql.py autovac_freeze -d` to chech what databases caused this and vacuum them</comments>
         </trigger>
         <trigger>
-          <description>Low free disk (&lt;20%) space on PostgreSQL backups partition on {HOSTNAME}</description>
+          <description>PgSQL: long-running transaction (&gt;15 min)</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/backups,pfree].last(0)}&lt;20</expression>
+          <expression>{Template_app_PostgreSQL:pgsql.tnx.running.last(0)}&gt;900</expression>
           <url></url>
           <status>0</status>
-          <priority>3</priority>
-          <comments></comments>
+          <priority>4</priority>
+          <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: long-running transaction (&gt;5 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.tnx.running.last(0)}&gt;300</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
         </trigger>
         <trigger>
           <description>PgSQL is down</description>
@@ -126,6 +135,15 @@
           <status>0</status>
           <priority>5</priority>
           <comments>ZTC was unable to connect to database and execute simple query. Please check that postgres is up and you have correct ztc configuration. For more info, run /opt/ztc/bin/pgsql.py ping -d</comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: low free disk space on backups partition: &lt;20%</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:vfs.fs.size[/var/lib/pgsql/backups,pfree].last(0)}&lt;20</expression>
+          <url></url>
+          <status>0</status>
+          <priority>3</priority>
+          <comments></comments>
         </trigger>
         <trigger>
           <description>Low free disk (&lt;20%) space on PostgreSQL partition on {HOSTNAME}</description>

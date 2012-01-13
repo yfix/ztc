@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="29.12.11" time="12.49">
+<zabbix_export version="1.0" date="13.01.12" time="22.04">
   <hosts>
     <host name="Template_app_PostgreSQL_83">
       <proxy_hostid>0</proxy_hostid>
@@ -63,6 +63,15 @@
           <status>0</status>
           <priority>3</priority>
           <comments></comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: long-running transaction (&gt;5 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL_83:pgsql.tnx.running.last(0)}&gt;300</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
         </trigger>
         <trigger>
           <description>PgSQL is down</description>
@@ -162,6 +171,15 @@
           <status>0</status>
           <priority>3</priority>
           <comments></comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: long-running transaction (&gt;15 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL_83:pgsql.tnx.running.last(0)}&gt;900</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
         </trigger>
       </triggers>
       <items>
