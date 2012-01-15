@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="29.12.11" time="15.40">
+<zabbix_export version="1.0" date="15.01.12" time="18.09">
   <hosts>
     <host name="Template_os_Linux">
       <proxy_hostid>0</proxy_hostid>
@@ -47,15 +47,6 @@
           <comments></comments>
         </trigger>
         <trigger>
-          <description>Ntp jitter is too high on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:ntp.jitter.last(0)}&gt;60</expression>
-          <url></url>
-          <status>0</status>
-          <priority>2</priority>
-          <comments>Check your ntp time sync</comments>
-        </trigger>
-        <trigger>
           <description>HW: {HOSTNAME} restarted</description>
           <type>0</type>
           <expression>{Template_os_Linux:system.uptime.last(0)}&lt;600</expression>
@@ -65,21 +56,21 @@
           <comments></comments>
         </trigger>
         <trigger>
+          <description>Ntp jitter is too high</description>
+          <type>0</type>
+          <expression>{Template_os_Linux:ntp.jitter.last(0)}&gt;60</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Check your ntp time sync</comments>
+        </trigger>
+        <trigger>
           <description>Lack of free memory (&lt;30%) on server {HOSTNAME}</description>
           <type>0</type>
           <expression>({Template_os_Linux:vm.memory.size[free].last(0)}+{Template_os_Linux:vm.memory.size[cached].last(0)})*3&lt;{Template_os_Linux:vm.memory.used.last(0)}</expression>
           <url></url>
           <status>0</status>
           <priority>3</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
-          <description>CPU: Load is too high on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:system.cpu.util[,idle,avg1].avg(300)}&lt;20</expression>
-          <url></url>
-          <status>0</status>
-          <priority>2</priority>
           <comments></comments>
         </trigger>
         <trigger>
@@ -185,15 +176,6 @@
           <description>Sec: /etc/passwd changed on {HOSTNAME}</description>
           <type>0</type>
           <expression>{Template_os_Linux:vfs.file.cksum[/etc/passwd].diff(0)}&gt;0</expression>
-          <url></url>
-          <status>0</status>
-          <priority>3</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
-          <description>Zabbix: agent version changed on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:agent.version.diff(0)}&gt;0</expression>
           <url></url>
           <status>0</status>
           <priority>3</priority>
