@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="15.01.12" time="18.09">
+<zabbix_export version="1.0" date="16.01.12" time="12.49">
   <hosts>
     <host name="Template_os_Linux">
       <proxy_hostid>0</proxy_hostid>
@@ -45,6 +45,15 @@
           <status>0</status>
           <priority>3</priority>
           <comments></comments>
+        </trigger>
+        <trigger>
+          <description>Cron is not running</description>
+          <type>0</type>
+          <expression>{Template_os_Linux:proc.num[fcron].last(0)}+{Template_os_Linux:proc.num[crond].last(0)}+{Template_os_Linux:proc.num[cron].last(0)}=0</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments>Scheduler is down</comments>
         </trigger>
         <trigger>
           <description>HW: {HOSTNAME} restarted</description>
@@ -189,15 +198,6 @@
           <status>0</status>
           <priority>3</priority>
           <comments></comments>
-        </trigger>
-        <trigger>
-          <description>cron service is not running</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:proc.num[fcron].last(0)}+{Template_os_Linux:proc.num[crond].last(0)}+{Template_os_Linux:proc.num[cron].last(0)}=0</expression>
-          <url></url>
-          <status>0</status>
-          <priority>4</priority>
-          <comments>Scheduler is down</comments>
         </trigger>
         <trigger>
           <description>Zabbix: agentd is not running on {HOSTNAME}</description>
