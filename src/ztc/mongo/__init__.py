@@ -42,6 +42,9 @@ class Mongo(ZTCCheck):
         elif metric == 'globallock':
             m = args[0]
             return self.get_globallock(m)
+        elif metric == 'globallock_currentqueue':
+            m = args[0]
+            return self.get_globallock_currentqueue(m)
         elif metric == 'bgflushing':
             m = args[0]
             return self.get_bgflushing(m)
@@ -94,6 +97,11 @@ class Mongo(ZTCCheck):
         if m in ('totalTime', 'lockTime'):
             ret = ret / 1000000.0
         return ret
+
+    def get_globallock_currentqueue(self, m):
+        """ return globallock currentQueue related metrics """
+        cq = self.get_globallock('currentQueue')
+        return cq[m]
 
     def get_serverstatus(self):
         """ returns output of serverstatus command (json parsed) """
