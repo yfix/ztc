@@ -38,22 +38,32 @@ class NginxStatus(ZTCCheck):
         """ urlopen and save to _page_data text of status page """
         if self._page_data is not None:
             # we've already retrieved it
-            return 1
-        read_start = time.time()
-        url = "%s://%s:%s%s?auto" % (
-                                     self.config.get('proto', 'http'),
-                                     self.config.get('host', 'localhost'),
-                                     self.config.get('port', '8080'),
-                                     self.config.get('resource',
-                                                     '/server-status')
-                                     )
+            return True
+        
+        st = ZTCStore('nginx.status_page', self.options)
         try:
-            u = urllib2.urlopen(url, None, 1)
-        except TypeError:
-            u = urllib2.urlopen(url, None)
-        self._page_data = u.readlines()
-        u.close()
-        self.ping_time = time.time() - read_start # calulate how many time was required
+            read_start = time.time()
+            url = "%s://%s:%s%s?auto" % (
+                                         self.config.get('proto', 'http'),
+                                         self.config.get('host', 'localhost'),
+                                         self.config.get('port', '8080'),
+                                         self.config.get('resource',
+                                                         '/server-status')
+                                         )
+            try:
+                u = urllib2.urlopen(url, None, 1)
+            except TypeError:
+                u = urllib2.urlopen(url, None)
+            self._page_data = u.readlines()
+            u.close()
+            st.set(self._page_data)
+            self.ping_time = time.time() - read_start # calulate how many time was required
+            return True
+        except urllib2.URLError:
+            # status page read failed
+            self._page_data = st.get()
+            self.ping_time = 0 # status page read failed
+            return False
     
     def _get_info(self, name):
         """ Extracts info from status """
@@ -67,46 +77,31 @@ class NginxStatus(ZTCCheck):
     
     def get_accepts(self):
         """ Number of accept()s since server start """
-        st = ZTCStore('nginx.accepts', self.options)
-        try:
-            self._read_status()
+        self._read_status()
+        if self._page_data:
             my_line = self._page_data[2]
-            a = int(my_line.split()[0])
-            st.set(a)
-        except Exception, e:
-            # if nginx status failed, do not become unsupported
-            try: a = st.get()
-            except: raise e 
-        return a
+            return int(my_line.split()[0])
+        else:
+            return 0
     accepts = property(get_accepts)
     
     def get_handled(self):
-        st = ZTCStore('nginx.handled', self.options)
-        try:
-            self._read_status()
+        self._read_status()
+        if self._page_data:
             my_line= self._page_data[2]
-            a = int(my_line.split()[1])
-            st.set(a)
-        except Exception, e:
-            # if nginx status failed, do not become unsupported
-            try: a = st.get()
-            except: raise e 
-        return a        
+        else:
+            # no data neither in nginx or cache
+            return 0
     handled = property(get_handled)
     
     def get_requests(self):
         """ get number of requests since server start """
-        st = ZTCStore('nginx.requests', self.options)
-        try:
-            self._read_status()
+        self._read_status()
+        if self._page_data:
             my_line= self._page_data[2]
-            a = int(my_line.split()[2])
-            st.set(a)
-        except Exception, e:
-            # if nginx status failed, do not become unsupported
-            try: a = st.get()
-            except: raise e 
-        return a        
+            return int(my_line.split()[2])
+        else:
+            return 0
     requests = property(get_requests)
     
     def get_connections_active(self):
