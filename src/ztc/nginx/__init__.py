@@ -60,6 +60,7 @@ class NginxStatus(ZTCCheck):
             self.ping_time = time.time() - read_start # calulate how many time was required
             return True
         except urllib2.URLError:
+            self.logger.exception('failed to load test page')
             # status page read failed
             self._page_data = st.get()
             self.ping_time = 0 # status page read failed
