@@ -111,6 +111,8 @@ src/ztc/lib/__init__.py
 src/ztc/lib/flup_fcgi_client.py
 src/ztc/mysql/__init__.py
 src/ztc/net/__init__.py
+src/ztc/net/http/__init__.py
+src/ztc/net/icmp/__init__.py
 src/ztc/nginx/__init__.py
 src/ztc/nginx/statuslog.py
 src/ztc/nginx/timelog.py

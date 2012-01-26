@@ -20,7 +20,7 @@ setup(
       
       package_dir = {'': 'src'},
       packages = ['ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
-          'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.hw', 'ztc.system.vfs',
+          'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.net.icmp', 'ztc.net.http', 'ztc.hw', 'ztc.system.vfs',
           'ztc.java', 'ztc.php', 'ztc.lib'],
       
       scripts = glob.glob('src/*.py'),
