@@ -19,9 +19,11 @@ setup(
       home = '/opt/ztc/',
       
       package_dir = {'': 'src'},
-      packages = ['ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
-          'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.hw', 'ztc.system.vfs',
-          'ztc.java', 'ztc.php', 'ztc.lib', 'ztc.mongo'],
+      packages = [
+          'ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
+          'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.net.icmp', 'ztc.net.http', 'ztc.hw', 'ztc.system.vfs',
+          'ztc.java', 'ztc.php', 'ztc.lib', 'ztc.mongo'
+          ],
       
       scripts = glob.glob('src/*.py'),
       
