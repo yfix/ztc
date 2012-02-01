@@ -23,7 +23,7 @@ setup(
           'ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
           'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.net.icmp', 'ztc.net.http', 'ztc.hw', 'ztc.system.vfs',
           'ztc.java', 'ztc.php', 'ztc.lib',
-          'ztc.mongo'
+          'ztc.mongo',
           'ztc.ldap'
           ],
       
