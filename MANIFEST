@@ -5,6 +5,7 @@ setup.cfg
 setup.py
 ./conf/etc/apache.conf
 ./conf/etc/hw_raid_3ware.conf
+./conf/etc/ldap.conf
 ./conf/etc/mongo.conf
 ./conf/etc/mysql.conf
 ./conf/etc/net.conf
@@ -30,6 +31,7 @@ setup.py
 ./conf/zabbix-agent.d/terracotta.conf
 conf/etc/apache.conf
 conf/etc/hw_raid_3ware.conf
+conf/etc/ldap.conf
 conf/etc/mongo.conf
 conf/etc/mysql.conf
 conf/etc/net.conf
@@ -85,6 +87,7 @@ src/nginx.py
 src/nginx_reqtime.py
 src/nginx_status.py
 src/ntp_jitter.py
+src/pg_controldata.py
 src/pgsql.py
 src/pgsql_cluster.py
 src/php-fpm.py
@@ -107,6 +110,7 @@ src/ztc/java/jboss.py
 src/ztc/java/jmap.py
 src/ztc/java/jmx.py
 src/ztc/java/terracotta.py
+src/ztc/ldap/__init__.py
 src/ztc/lib/__init__.py
 src/ztc/lib/flup_fcgi_client.py
 src/ztc/mongo/__init__.py
@@ -118,6 +122,7 @@ src/ztc/nginx/__init__.py
 src/ztc/nginx/statuslog.py
 src/ztc/nginx/timelog.py
 src/ztc/pgsql/__init__.py
+src/ztc/pgsql/pg_controldata.py
 src/ztc/pgsql/pgcluster.py
 src/ztc/pgsql/pgconn.py
 src/ztc/pgsql/pgdb.py
@@ -150,6 +155,7 @@ templates/Template_app_MongoDB.xml
 templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
 templates/Template_app_PostgreSQL_83.xml
+templates/Template_app_PostgreSQL_slave.xml
 templates/Template_app_Slony.xml
 templates/Template_app_Terracotta.xml
 templates/Template_app_nginx.xml
