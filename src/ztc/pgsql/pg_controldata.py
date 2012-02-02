@@ -40,7 +40,7 @@ class PgControldata(ZTCCheck):
             raise CheckFail('error executing pg_controldata')
         for line in ret.splitlines():
             if line.startswith('Time of latest checkpoint:'):
-                date_str = line.partition(':')[2].strip()
+                date_str = line.split(':', 1)[1].strip()
                 self.logger.debug('Got date %s' % date_str)
 
         if not date_str:
