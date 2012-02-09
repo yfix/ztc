@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="15.01.12" time="21.00">
+<zabbix_export version="1.0" date="09.02.12" time="20.37">
   <hosts>
     <host name="Template_app_MySQL">
       <proxy_hostid>0</proxy_hostid>
@@ -77,6 +77,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -110,6 +111,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -143,6 +145,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -176,6 +179,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -209,6 +213,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -242,6 +247,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -275,6 +281,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -308,6 +315,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -341,12 +349,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.status[aborted_connects]" value_type="0">
-          <description>MySQL: aborted connects / sec</description>
+          <description>MySQL: connects aborted / sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -374,6 +383,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -407,12 +417,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.status[Threads_connected]" value_type="3">
-          <description>Mysql: current number of connections</description>
+          <description>Mysql: connections - current nr</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -440,12 +451,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.status[Com_admin_commands]" value_type="3">
-          <description>MySQL: admin commands / sec</description>
+          <description>MySQL: commands - admin / sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -473,6 +485,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -506,6 +519,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -539,6 +553,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -572,6 +587,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -605,12 +621,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.status[aborted_clients]" value_type="0">
-          <description>MySQL: aborted clients / sec</description>
+          <description>MySQL: clients aborted / sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -638,6 +655,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -671,12 +689,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.status[slow_queries]" value_type="0">
-          <description>MySQL: slow queries / sec</description>
+          <description>MySQL: queries - slow queries / sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -704,12 +723,13 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
         </item>
         <item type="0" key="mysql.ping" value_type="0">
-          <description>MySQL ping</description>
+          <description>MySQL: ping</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>60</delay>
           <history>7</history>
@@ -737,6 +757,7 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -770,6 +791,41 @@
           <snmpv3_securitylevel>0</snmpv3_securitylevel>
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>MySQL</application>
+          </applications>
+        </item>
+        <item type="0" key="mysql.status[Max_used_connections]" value_type="3">
+          <description>Mysql: connections - max used</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>900</delay>
+          <history>7</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units></units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params></params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community></snmp_community>
+          <snmp_oid></snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
           <applications>
             <application>MySQL</application>
           </applications>
@@ -794,7 +850,7 @@
           <graph_elements>
             <graph_element item="Template_app_MySQL:mysql.status[Connections]">
               <drawtype>0</drawtype>
-              <sortorder>1</sortorder>
+              <sortorder>2</sortorder>
               <color>EE0000</color>
               <yaxisside>1</yaxisside>
               <calc_fnc>2</calc_fnc>
@@ -803,9 +859,18 @@
             </graph_element>
             <graph_element item="Template_app_MySQL:mysql.status[aborted_connects]">
               <drawtype>2</drawtype>
-              <sortorder>2</sortorder>
+              <sortorder>3</sortorder>
               <color>CC00CC</color>
               <yaxisside>1</yaxisside>
+              <calc_fnc>2</calc_fnc>
+              <type>0</type>
+              <periods_cnt>5</periods_cnt>
+            </graph_element>
+            <graph_element item="Template_app_MySQL:mysql.status[Max_used_connections]">
+              <drawtype>0</drawtype>
+              <sortorder>1</sortorder>
+              <color>00EEEE</color>
+              <yaxisside>0</yaxisside>
               <calc_fnc>2</calc_fnc>
               <type>0</type>
               <periods_cnt>5</periods_cnt>
