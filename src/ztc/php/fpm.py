@@ -13,16 +13,17 @@ import time
 from ztc.check import ZTCCheck, CheckFail
 import ztc.lib.flup_fcgi_client as fcgi_client
 
+
 class PHPFPMCheck(ZTCCheck):
     name = "php-fpm"
-    
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2
-    
+
     def _myinit(self):
         self.fcgi_port = self.config.get('fpm_port', 9000)
         self.fcgi_host = self.config.get('fpm_host', '127.0.0.1')
-    
+
     def _get(self, metric, *arg, **kwarg):
         if metric == 'ping':
             return self.ping
@@ -31,12 +32,12 @@ class PHPFPMCheck(ZTCCheck):
             return self.get_status(m)
         else:
             raise CheckFail("uncknown metric")
-        
+
     def _load_page(self, url):
         """ load fastcgi page """
         try:
-            fcgi = fcgi_client.FCGIApp(host = self.fcgi_host,
-                                       port = self.fcgi_port)
+            fcgi = fcgi_client.FCGIApp(host=self.fcgi_host,
+                                       port=self.fcgi_port)
             env = {
                'SCRIPT_FILENAME': url,
                'QUERY_STRING': '',
@@ -63,8 +64,7 @@ class PHPFPMCheck(ZTCCheck):
         except:
             self.logger.exception('fastcgi load failed')
             return '500', [], '', ''
-        
-        
+
     @property
     def ping(self):
         """ calls php-fpm ping resource """
@@ -75,11 +75,11 @@ class PHPFPMCheck(ZTCCheck):
         else:
             self.logger.error('ping: got response, but not correct')
             return 0
-    
+
     def get_status(self, metric):
         """ get php-fpm status metric """
         metric = metric.replace('_', ' ')
-        
+
         page = self.get_status_page()
         if not page:
             raise CheckFail("unable to get status page")
@@ -88,8 +88,7 @@ class PHPFPMCheck(ZTCCheck):
                 return line.split()[-1]
         # no such metric found
         raise CheckFail("no such metric found")
-            
-    
+
     def get_status_page(self):
         """ return php-ftm status page text """
         code, headers, out, err = self._load_page('/status')
@@ -97,4 +96,4 @@ class PHPFPMCheck(ZTCCheck):
             return out
         else:
             self.logger.error('ping: got response, but not correct')
-            return None                
+            return None
