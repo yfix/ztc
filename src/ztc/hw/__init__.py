@@ -11,7 +11,7 @@
 #from ztc.commons import mypopen, get_config
 
 from ztc.check import ZTCCheck, CheckFail
-from ztc.myos import mypopen
+from ztc.myos import popen
 
 class RAID_3Ware(ZTCCheck):
     """
@@ -31,8 +31,8 @@ class RAID_3Ware(ZTCCheck):
     
     def get_status(self, c=0, u=0):
         cmd = "%s info c%i u%i status" % (self.config.get('tw_cli_path', '/opt/3ware/tw_cli'), c, u)
-        ret = mypopen(cmd).readlines()[0]
-        return ret.split()[3]
+        retcide, ret = popen(cmd, self.logger)
+        return ret.splitlines()[0].split()[3]
 
 if __name__ == '__main__':
     # test
