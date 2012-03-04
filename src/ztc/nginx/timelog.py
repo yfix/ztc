@@ -22,7 +22,7 @@ http://bitbucket.org/rvs/ztc/
 Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
-from ztc.check import ZTCCheck, CheckFail
+from ztc.check import ZTCCheck
 from ztc.store import ZTCStore
 
 class NginxTimeLog(ZTCCheck):

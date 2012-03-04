@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-    ztc.nginx package
-    Used in nginx Apache template
+ztc.nginx package
     
-    Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
-    License: GNU GPL v.3
+Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
+License: GPL3
+This file is part of ZTC [http://bitbucket.org/rvs/ztc/]
 """
 
 import urllib2

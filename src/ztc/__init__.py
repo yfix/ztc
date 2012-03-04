@@ -1,17 +1,6 @@
 #!/usr/bin/env python
+"""
+ZTC main module
 
-import sys
-
-def notsupported(err=None):
-    """
-    DEPRECATED, will be removed!
-    
-    Executed when item is not supported
-    Params:
-     * err: Exception - reason exception object
-    """
-    msg = "NOT_SUPPORTED"
-    if err: msg += ": " + str(err)
-    print(msg)
-    if isinstance(err, Exception): raise err
-    sys.exit(1)
+Copyright (c) 2009-2012 Vladimir Rusinov <vladimir@greenmice.info>
+"""

@@ -17,12 +17,13 @@ Params:
         workers_finishing - current number of workers finishing
         workers_idle - current number of idle workers
         workers_idlecleanup - current number of idle workers in cleanup state
-        workers_keepalive - current number of workers in keepalive state 
+        workers_keepalive - current number of workers in keepalive state
         workers_logging - current number of workers in logging state
         workers_openslot - current number of open slots for workers
         workers_reading - current number of workers in reading state
         workers_starting - current number of workers starting
-        workers_waitingconn - current number of workers ready to accept connection
+        workers_waitingconn - current number of workers ready to accept
+                              connection
         workers_writing - current number of workers writing response
 Returns:
     for ping: float (seconds)
