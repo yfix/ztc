@@ -10,7 +10,7 @@ import sys
 
 setup(
       name='ztc',
-      version = '11.11.2',
+      version = '12.01',
       description = 'Zabbix Template Collection',
       author = 'Vladimir Rusinov',
       author_email = 'vladimir@greenmice.info',
@@ -19,9 +19,11 @@ setup(
       home = '/opt/ztc/',
       
       package_dir = {'': 'src'},
-      packages = ['ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
+      packages = [
+          'ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
           'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.net.icmp', 'ztc.net.http', 'ztc.hw', 'ztc.system.vfs',
-          'ztc.java', 'ztc.php', 'ztc.lib'],
+          'ztc.java', 'ztc.php', 'ztc.lib', 'ztc.mongo'
+          ],
       
       scripts = glob.glob('src/*.py'),
       

@@ -3,20 +3,25 @@
 ZTC Mongodb check class
 
 Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+
+Inspired by:
+* http://blog.boxedice.com/2011/03/14/mongodb-monitoring-current-operations/
 """
 
 import pymongo
 import time
 
 from ztc.check import ZTCCheck, CheckFail
+from ztc.store import ZTCStore
 
 class Mongo(ZTCCheck):
     name = "mongo"
     
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 2
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
     connection = None
     db = None
+    dbs = {}
     
     def _connect(self):
         """ connect to mongodb """
@@ -26,13 +31,28 @@ class Mongo(ZTCCheck):
             db = self.config.get('db', 'ztc')
             self.connection = pymongo.Connection(host, port)
             self.db = self.connection[db]
+            self.dbs[db] = self.db
 
-    def _get(self, metric, *arg):
+    def _get(self, metric, *args):
         if metric == 'ping':
             return self.get_ping()
         elif metric == 'operations':
-            m = arg[0]
+            m = args[0]
             return self.get_operations(m)
+        elif metric == 'globallock':
+            m = args[0]
+            return self.get_globallock(m)
+        elif metric == 'globallock_currentqueue':
+            m = args[0]
+            return self.get_globallock_currentqueue(m)
+        elif metric == 'bgflushing':
+            m = args[0]
+            return self.get_bgflushing(m)
+        elif metric == 'dbstats':
+            # per-db metrics
+            m = args[0]
+            db = args[1]
+            return self.get_dbstats(db, m)
         else:
             raise CheckFail("uncknown metric: %s" % metric)
     
@@ -60,4 +80,57 @@ class Mongo(ZTCCheck):
         """ get number of operations in specified state """
         self._connect()
         if m == 'all':
-            print self.db['$cmd.sys.inprog'].find_one()
+            ops = self.db['$cmd.sys.inprog'].find_one()
+            r = 0
+            for k in ops:
+                r += len(ops[k])
+            return r
+        elif m == 'inprog':
+            ops = self.db['$cmd.sys.inprog'].find_one()
+            return len(ops['inprog'])
+
+    def get_globallock(self, m):
+        """ return globallock-related metrics:
+        serverStatus().globalLock.$m """
+        st = self.get_serverstatus()
+        ret = st['globalLock'][m]
+        if m in ('totalTime', 'lockTime'):
+            ret = ret / 1000000.0
+        return ret
+
+    def get_globallock_currentqueue(self, m):
+        """ return globallock currentQueue related metrics """
+        cq = self.get_globallock('currentQueue')
+        return cq[m]
+
+    def get_serverstatus(self):
+        """ returns output of serverstatus command (json parsed) """
+        self._connect()
+        ret = self.db.command('serverStatus')
+        return ret
+
+    def get_dbstats(self, dbname, metric):
+        """ get db.stats metric for specified database """
+        self._connect()
+        # get database object
+        if dbname not in self.dbs:
+            self.dbs[dbname] = self.connection[dbname]
+        db = self.dbs[dbname]
+        
+        # load dbstats for specified database
+        c = ZTCStore('mongodb_dbstats_' + dbname, self.options, 120)
+        dbstats = c.get()
+        if not dbstats:
+            dbstats = db.command('dbstats')
+            c.set(dbstats)
+
+        ret = dbstats[metric]
+        if metric == 'nsSizeMB':
+            ret = ret * 1024 * 1024
+        return ret
+
+    def get_bgflushing(self, m):
+        """ return BackgroundFlushing metrics """
+        st = self.get_serverstatus()
+        ret = st['backgroundFlushing'][m]
+        return ret

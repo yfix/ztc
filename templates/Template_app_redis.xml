@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="16.01.12" time="11.03">
+<zabbix_export version="1.0" date="16.01.12" time="12.31">
   <hosts>
-    <host name="Template_app_activemq">
+    <host name="Template_app_redis">
       <proxy_hostid>0</proxy_hostid>
       <useip>1</useip>
       <dns></dns>
@@ -20,9 +20,9 @@
       </groups>
       <triggers>
         <trigger>
-          <description>Activemq is down</description>
+          <description>Redis is down (by port)</description>
           <type>0</type>
-          <expression>{Template_app_activemq:net.tcp.port[,61616].last(0)}=0</expression>
+          <expression>{Template_app_redis:net.tcp.port[,6379].last(0)}=0</expression>
           <url></url>
           <status>0</status>
           <priority>5</priority>
@@ -30,8 +30,8 @@
         </trigger>
       </triggers>
       <items>
-        <item type="0" key="net.tcp.port[,61616]" value_type="3">
-          <description>Activemq: network port available</description>
+        <item type="0" key="net.tcp.port[,6379]" value_type="3">
+          <description>Redis: network port available</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>90</history>
@@ -60,7 +60,7 @@
           <snmpv3_authpassphrase></snmpv3_authpassphrase>
           <snmpv3_privpassphrase></snmpv3_privpassphrase>
           <applications>
-            <application>ActiveMQ</application>
+            <application>Redis</application>
           </applications>
         </item>
       </items>

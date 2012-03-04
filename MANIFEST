@@ -109,6 +109,7 @@ src/ztc/java/jmx.py
 src/ztc/java/terracotta.py
 src/ztc/lib/__init__.py
 src/ztc/lib/flup_fcgi_client.py
+src/ztc/mongo/__init__.py
 src/ztc/mysql/__init__.py
 src/ztc/net/__init__.py
 src/ztc/net/http/__init__.py
@@ -133,6 +134,7 @@ templates/Template_Linux_disk_sda.xml
 templates/Template_Linux_disk_sdb.xml
 templates/Template_Linux_disk_sdc.xml
 templates/Template_Linux_disk_sdd.xml
+templates/Template_Linux_disk_xvda1.xml
 templates/Template_Linux_iface_eth0.xml
 templates/Template_Linux_iface_eth1.xml
 templates/Template_Linux_partition_home.xml
@@ -144,13 +146,16 @@ templates/Template_Linux_with_snmpd.xml
 templates/Template_Zabbix_Server.xml
 templates/Template_app_ActiveMQ.xml
 templates/Template_app_Apache2.xml
+templates/Template_app_MongoDB.xml
 templates/Template_app_MySQL.xml
 templates/Template_app_PostgreSQL.xml
+templates/Template_app_PostgreSQL_83.xml
 templates/Template_app_Slony.xml
 templates/Template_app_Terracotta.xml
 templates/Template_app_nginx.xml
 templates/Template_app_php-fpm.xml
 templates/Template_app_puppetd.xml
+templates/Template_app_redis.xml
 templates/Template_app_snmp_Jboss.xml
 templates/Template_app_splunk_server.xml
 templates/Template_fs_nfs.xml

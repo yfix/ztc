@@ -184,7 +184,7 @@ class DiskStatus(ZTCCheck):
             ret = 'OK'
         return ret         
 
-class MDStatus(object):
+class MDStatus(ZTCCheck):
     """ Staus of linux software RAID
     Sample /proc/mdstat output:
     
@@ -198,6 +198,16 @@ class MDStatus(object):
     
     unused devices: <none>
     """
+
+    name = "mdstatus"
+
+    def _get(self, metric, *arg, **kwarg):
+        if metric == 'failed_devs':
+            failed_devs = self.get_failed_devs()
+            if failed_devs:
+                return str(failed_devs)
+            else:
+                return 'OK'
     
     def get_failed_devs(self):
         failed_devs = []
@@ -224,7 +234,6 @@ class MDStatus(object):
                 else:
                     active_devs.append(dev)
         return failed_devs
-    failed_devs = property(get_failed_devs)
             
 class MountStatus(object):
     """ class for checing mount points and mounted filesystems """

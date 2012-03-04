@@ -107,8 +107,9 @@ class PgDB(ZTCCheck):
         else:
             raise CheckFail("uncknown transaction state requested")
         
-        ret = self.dbconn.query(q)[0][0]
+        ret = self.dbconn.query(q)
         if ret:
+            ret = ret[0][0]
             return abs(ret)
         else:
             # no rows returned => no transactions in given state
