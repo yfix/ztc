@@ -87,16 +87,18 @@ class NginxStatus(ZTCCheck):
     accepts = property(get_accepts)
     
     def get_handled(self):
+        """ Number of handled()s since server start """
         self._read_status()
         if self._page_data:
             my_line= self._page_data[2]
+            return int(my_line.split()[1])
         else:
             # no data neither in nginx or cache
             return 0
     handled = property(get_handled)
     
     def get_requests(self):
-        """ get number of requests since server start """
+        """ Number of requests()s since server start """
         self._read_status()
         if self._page_data:
             my_line= self._page_data[2]

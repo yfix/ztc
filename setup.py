@@ -15,13 +15,17 @@ setup(
       author = 'Vladimir Rusinov',
       author_email = 'vladimir@greenmice.info',
       url = 'https://bitbucket.org/rvs/ztc/wiki/Home',
-      
+
       home = '/opt/ztc/',
-      
+
       package_dir = {'': 'src'},
       packages = [
-          'ztc', 'ztc.system', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
-          'ztc.vm', 'ztc.pgsql', 'ztc.net', 'ztc.net.icmp', 'ztc.net.http', 'ztc.hw', 'ztc.system.vfs',
+          'ztc', 'ztc.apache', 'ztc.mysql', 'ztc.nginx',
+          'ztc.vm',
+          'ztc.pgsql',
+          'ztc.net', 'ztc.net.icmp', 'ztc.net.http',
+          'ztc.hw',
+          'ztc.system', 'ztc.system.vfs',
           'ztc.java', 'ztc.php', 'ztc.lib', 'ztc.mongo'
           ],
       
