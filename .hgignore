@@ -10,4 +10,4 @@ build.sh
 *.swp
 *.orig
 *.rej
-*..komodoproject
+*.komodoproject
