@@ -18,8 +18,8 @@ class JMXJboss(JMXCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
     OPTPARSE_MAX_NUMBER_OF_ARGS = 3
     
-    def __myinit(self):
-        # override default url
+    def _myinit(self):
+        """ init: override default url """
         self.jmx_url = self.config.get('jmx_url',
            'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
 

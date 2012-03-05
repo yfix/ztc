@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="02.02.12" time="13.38">
+<zabbix_export version="1.0" date="01.02.12" time="15.12">
   <hosts>
     <host name="Template_app_PostgreSQL_slave">
       <proxy_hostid>0</proxy_hostid>
@@ -22,7 +22,7 @@
         <trigger>
           <description>PgSQL: tnx is too long in idle state on {HOSTNAME}</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL_slave:pgsql.tnxage.idle_tnx.last(0)}&gt;60</expression>
+          <expression>{Template_app_PostgreSQL_slave:pgsql.tnx.idle_tnx.last(0)}&gt;60</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
@@ -31,7 +31,7 @@
         <trigger>
           <description>PgSQL: long-running transaction (&gt;15 min)</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL_slave:pgsql.tnxage.running.last(0)}&gt;900</expression>
+          <expression>{Template_app_PostgreSQL_slave:pgsql.tnx.running.last(0)}&gt;900</expression>
           <url></url>
           <status>0</status>
           <priority>4</priority>
@@ -76,7 +76,7 @@
         <trigger>
           <description>PgSQL: long-running transaction (&gt;5 min)</description>
           <type>0</type>
-          <expression>{Template_app_PostgreSQL_slave:pgsql.tnxage.running.last(0)}&gt;300</expression>
+          <expression>{Template_app_PostgreSQL_slave:pgsql.tnx.running.last(0)}&gt;300</expression>
           <url></url>
           <status>0</status>
           <priority>2</priority>
@@ -331,74 +331,6 @@
             <application>PostgreSQL</application>
           </applications>
         </item>
-        <item type="0" key="pgsql.tnxage.running" value_type="0">
-          <description>PgSQL: max age of running query</description>
-          <ipmi_sensor></ipmi_sensor>
-          <delay>60</delay>
-          <history>90</history>
-          <trends>365</trends>
-          <status>0</status>
-          <data_type>0</data_type>
-          <units>s</units>
-          <multiplier>0</multiplier>
-          <delta>0</delta>
-          <formula>1</formula>
-          <lastlogsize>0</lastlogsize>
-          <logtimefmt></logtimefmt>
-          <delay_flex></delay_flex>
-          <authtype>0</authtype>
-          <username></username>
-          <password></password>
-          <publickey></publickey>
-          <privatekey></privatekey>
-          <params></params>
-          <trapper_hosts></trapper_hosts>
-          <snmp_community>public</snmp_community>
-          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-          <snmp_port>161</snmp_port>
-          <snmpv3_securityname></snmpv3_securityname>
-          <snmpv3_securitylevel>0</snmpv3_securitylevel>
-          <snmpv3_authpassphrase></snmpv3_authpassphrase>
-          <snmpv3_privpassphrase></snmpv3_privpassphrase>
-          <valuemapid>0</valuemapid>
-          <applications>
-            <application>PostgreSQL</application>
-          </applications>
-        </item>
-        <item type="0" key="pgsql.tnxage.idle_tnx" value_type="0">
-          <description>PgSQL: max idle tnx age</description>
-          <ipmi_sensor></ipmi_sensor>
-          <delay>60</delay>
-          <history>90</history>
-          <trends>365</trends>
-          <status>0</status>
-          <data_type>0</data_type>
-          <units>s</units>
-          <multiplier>0</multiplier>
-          <delta>0</delta>
-          <formula>1</formula>
-          <lastlogsize>0</lastlogsize>
-          <logtimefmt></logtimefmt>
-          <delay_flex></delay_flex>
-          <authtype>0</authtype>
-          <username></username>
-          <password></password>
-          <publickey></publickey>
-          <privatekey></privatekey>
-          <params></params>
-          <trapper_hosts></trapper_hosts>
-          <snmp_community>public</snmp_community>
-          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
-          <snmp_port>161</snmp_port>
-          <snmpv3_securityname></snmpv3_securityname>
-          <snmpv3_securitylevel>0</snmpv3_securitylevel>
-          <snmpv3_authpassphrase></snmpv3_authpassphrase>
-          <snmpv3_privpassphrase></snmpv3_privpassphrase>
-          <valuemapid>0</valuemapid>
-          <applications>
-            <application>PostgreSQL</application>
-          </applications>
-        </item>
         <item type="0" key="pgsql.dbstat.tup_inserted" value_type="3">
           <description>PgSQL dbstat: tuples inserted per sec</description>
           <ipmi_sensor></ipmi_sensor>
@@ -535,8 +467,76 @@
             <application>PostgreSQL</application>
           </applications>
         </item>
+        <item type="0" key="pgsql.tnx.running" value_type="0">
+          <description>PgSQL: max age of running query</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>60</delay>
+          <history>90</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units>s</units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params></params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community>public</snmp_community>
+          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>PostgreSQL</application>
+          </applications>
+        </item>
+        <item type="0" key="pgsql.tnx.idle_tnx" value_type="0">
+          <description>PgSQL: max idle tnx age</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>60</delay>
+          <history>90</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units>s</units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params></params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community>public</snmp_community>
+          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>PostgreSQL</application>
+          </applications>
+        </item>
         <item type="0" key="pgsql.wal.num" value_type="3">
-          <description>PgSQL: nr of wal files</description>
+          <description>PgSQL: Number of wal files</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>300</delay>
           <history>7</history>
@@ -570,7 +570,7 @@
           </applications>
         </item>
         <item type="0" key="pgsql.conn.idle_in_transaction" value_type="3">
-          <description>PgSQL: nr of connections idle in transaction</description>
+          <description>PgSQL: # of connections idle in transaction</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
           <history>7</history>
@@ -876,7 +876,7 @@
           </applications>
         </item>
         <item type="0" key="pgsql.dbstat.blks_hit" value_type="3">
-          <description>PgSQL: blocks hit / sec</description>
+          <description>PostgreSQL dbstat: Blocks hit per sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>60</delay>
           <history>7</history>
@@ -910,7 +910,7 @@
           </applications>
         </item>
         <item type="0" key="pgsql.dbstat.blks_read" value_type="3">
-          <description>PgSQL: blocks read / sec</description>
+          <description>PostgreSQL dbstat: Blocks read per sec</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>60</delay>
           <history>7</history>
@@ -1323,7 +1323,7 @@
           <percent_left>0.0000</percent_left>
           <percent_right>0.0000</percent_right>
           <graph_elements>
-            <graph_element item="Template_app_PostgreSQL_slave:pgsql.tnxage.idle_tnx">
+            <graph_element item="Template_app_PostgreSQL_slave:pgsql.tnx.idle_tnx">
               <drawtype>2</drawtype>
               <sortorder>1</sortorder>
               <color>EE0000</color>
@@ -1332,7 +1332,7 @@
               <type>0</type>
               <periods_cnt>5</periods_cnt>
             </graph_element>
-            <graph_element item="Template_app_PostgreSQL_slave:pgsql.tnxage.running">
+            <graph_element item="Template_app_PostgreSQL_slave:pgsql.tnx.running">
               <drawtype>0</drawtype>
               <sortorder>0</sortorder>
               <color>009900</color>
