@@ -17,7 +17,7 @@ import sys
 from ztc.vm.memory import Memory
 from ztc import notsupported
 
-if len(sys.argv) <> 2:
+if len(sys.argv) != 2:
     notsupported("not enough arguments")
 
 metric = sys.argv[1]

@@ -33,9 +33,9 @@ class HTTP(ZTCCheck):
     def get_ping(self, url):
         s = time.time()
         try:
-            u = urllib2.urlopen(url, None, self.timeout)
+            urllib2.urlopen(url, None, self.timeout)
         except TypeError:
             # Changed in version 2.6: timeout was added, versions < 2.6 does not
             # have last param
-            u = urllib2.urlopen(url, None)
+            urllib2.urlopen(url, None)
         return time.time()- s        

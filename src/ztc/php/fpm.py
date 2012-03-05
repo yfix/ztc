@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable = W0613
 """
 <description>
 
@@ -15,6 +16,7 @@ import ztc.lib.flup_fcgi_client as fcgi_client
 
 
 class PHPFPMCheck(ZTCCheck):
+    """ PHP FPM (FastCGI Process Manager) check class """
     name = "php-fpm"
 
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1

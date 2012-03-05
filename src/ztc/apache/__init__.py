@@ -2,7 +2,7 @@
 """
     ztc.apache package
     Used in ztc Apache template
-    
+
     Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
     Copyright (c) 2010 Murano Software [http://muranosoft.com/]
     License: GNU GPL v.3
@@ -16,18 +16,19 @@ import socket
 from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
 
+
 class ApacheStatus(ZTCCheck):
     """ Apache status page reader & parser """
-    
+
     name = 'apache'
-    
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
-    
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+
     ping_t = 0
-    
+
     _page_data = None
-    
+
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
         st = time.time()
@@ -35,11 +36,15 @@ class ApacheStatus(ZTCCheck):
             # we've already retrieved it
             return 1
         proto = self.config.get('proto', 'http')
-        url  = "%s://%s:%s%s?auto" % (
+        url = "%s://%s:%s%s?auto" % (
                                       proto,
                                       self.config.get('host', 'localhost'),
-                                      self.config.get('port', socket.getservbyname(proto, 'tcp')),
-                                      self.config.get('resource', '/server-status')
+                                      self.config.get(
+                                        'port',
+                                        socket.getservbyname(proto, 'tcp')),
+                                      self.config.get(
+                                        'resource',
+                                        '/server-status')
                                       )
         self.logger.debug("opening url %s" % url)
         try:
@@ -49,7 +54,7 @@ class ApacheStatus(ZTCCheck):
         self._page_data = u.read()
         u.close()
         self.ping_t = time.time() - st
-    
+
     def _get_info(self, name):
         """ Extracts info from status """
         self._read_status()
@@ -61,13 +66,13 @@ class ApacheStatus(ZTCCheck):
                 ret = l.split()[-1]
                 break
         return ret
-    
+
     def get_scoreboard(self):
         """ Return apache workers scoreboard """
         ret = self._get_info('Scoreboard')
         self.logger.debug("get_scoreboard: %s" % (ret, ))
         return ret
-    
+
     def _get(self, metric=None, *args, **kwargs):
         """ get some metric """
         allowed_metrics = ('ping', 'accesses', 'bytes', 'workers_busy',
@@ -78,10 +83,10 @@ class ApacheStatus(ZTCCheck):
         if metric in allowed_metrics:
             return self.__getattribute__('get_' + metric)()
         else:
-            raise CheckFail("Requested not allowed metric")   
-    
+            raise CheckFail("Requested not allowed metric")
+
     ####################################################################
-    ## Properties ######################################################            
+    ## Properties ######################################################
     def get_ping(self):
         """ Returns time required to load test page """
         try:
@@ -93,35 +98,35 @@ class ApacheStatus(ZTCCheck):
     def get_accesses(self):
         return int(self._get_info('Total Accesses'))
     accesses = property(get_accesses)
-    
+
     def get_bytes(self):
         return int(self._get_info('Total kBytes')) * 1024
     bytes = property(get_bytes)
-    
+
     def get_workers_busy(self):
         return int(self._get_info('BusyWorkers'))
     workers_busy = property(get_workers_busy)
-    
+
     def get_workers_idle(self):
         return int(self._get_info('IdleWorkers'))
-    workers_idle = property(get_workers_idle)    
-    
+    workers_idle = property(get_workers_idle)
+
     def get_workers_closingconn(self):
         return self.get_scoreboard().count('C')
     workers_closingconn = property(get_workers_closingconn)
-    
+
     def get_workers_dns(self):
         return self.get_scoreboard().count('D')
     workers_dns = property(get_workers_dns)
-                
+
     def get_workers_finishing(self):
         return self.get_scoreboard().count('G')
     workers_finishing = property(get_workers_finishing)
-                
+
     def get_workers_idlecleanup(self):
         return self.get_scoreboard().count('I')
     workers_idlecleanup = property(get_workers_idlecleanup)
-    
+
     def get_workers_keepalive(self):
         return self.get_scoreboard().count('K')
     workers_keepalive = property(get_workers_keepalive)
@@ -145,6 +150,7 @@ class ApacheStatus(ZTCCheck):
     def get_workers_writing(self):
         return self.get_scoreboard().count('W')
 
+
 class ApacheTimeLog(ZTCCheck):
     """ Processes Apache time log (LogFormat %D) """
     
@@ -166,13 +172,14 @@ class ApacheTimeLog(ZTCCheck):
         self.log.truncate(0)
     
     def _get_metrics(self):
-        """ Calculates average, max & min request processing time, in seconds """
+        """ Calculates average, max & min request processing time, in
+        seconds """
         total_time = 0
         max_time = 0
         min_time = -1
         total_lines = 0
         self._openlog()
-        ret = {'avg': 0, 'min': 0, 'max': 0 }
+        ret = {'avg': 0, 'min': 0, 'max': 0}
         slowlog_time = int(self.config.get('slowlog', 0))
         slowlog_path = os.path.join(
                                     self.config.get('logdir', '/var/log/apache2/'),

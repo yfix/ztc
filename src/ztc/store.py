@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable = R0201, W0702
 """ ZTC Store class
 Used for storing temporary values & cache
 
@@ -10,13 +11,14 @@ import os
 import time
 import cPickle as pickle
 
+
 class ZTCStore(object):
     """ class for storing data in key files """
-    
+
     ## properties
-    ttl = 7200 # default TTL for entry: 2 hours
-    
-    def __init__(self, name, options, ttl=7200):
+    ttl = 7200  # default TTL for entry: 2 hours
+
+    def __init__(self, name, options, ttl=7200, logger=None):
         """ Args:
         * name - name of store item
         * options = optparse options object. Needed for getting path of tmpdir
@@ -26,12 +28,13 @@ class ZTCStore(object):
         if not os.path.isdir(self.mydir):
             os.makedirs(self.mydir)
         self.ttl = ttl
-    
-    def _mktmpdir(self, dir):
+        self.logger = logger
+
+    def _mktmpdir(self, path):
         """ check & make tmp dir """
-        if not os.path.isdir(dir):
-            os.makedirs(dir)        
-    
+        if not os.path.isdir(path):
+            os.makedirs(path)
+
     def get(self):
         """ retirn stored object """
         ret = None
@@ -39,12 +42,12 @@ class ZTCStore(object):
             if time.time() - os.stat(self.myfile).st_mtime > self.ttl:
                 # do not store for more then ttl seconds
                 self.clear()
-            else:        
+            else:
                 f = open(self.myfile, 'r')
                 ret = pickle.load(f)
                 f.close()
         return ret
-    
+
     def set(self, val):
         """ set value """
         try:
@@ -52,29 +55,10 @@ class ZTCStore(object):
             pickle.dump(val, f)
             f.close()
         except:
-            pass # set should never fail
-    
-    def clear(self):
-        os.unlink(self.myfile)
+            # set should never fail
+            if self.logger:
+                self.logger.exception("set failed")
 
-if __name__ == '__main__':
-    # some tests
-    class C:
-        tmpdir = '/tmp/ztc'
-    c = C()
-    s = ZTCStore('test', c)
-    data = "test data"
-    
-    print "set - get test:"
-    s.set(data)
-    print s.get()
-    
-    print "set - get test, ttl 60"
-    s.ttl = 60
-    print s.get()
-    
-    print "set - get test, ttl 1"
-    s.ttl = 1
-    from time import sleep
-    sleep(2)
-    print s.get()
+    def clear(self):
+        """ clean up """
+        os.unlink(self.myfile)

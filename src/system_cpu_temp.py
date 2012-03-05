@@ -8,8 +8,6 @@ Copyright (c) 2010 Vladimir Rusinov <vladimir@greenmice.info>
 Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 """
 
-import sys
-
 from ztc.hw.cpu import CPUTemperature
 
 c = CPUTemperature()
