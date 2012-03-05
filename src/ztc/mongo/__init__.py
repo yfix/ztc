@@ -53,6 +53,8 @@ class Mongo(ZTCCheck):
             m = args[0]
             db = args[1]
             return self.get_dbstats(db, m)
+        elif metric == 'page_faults':
+            return self.get_page_faults()
         else:
             raise CheckFail("uncknown metric: %s" % metric)
     
@@ -133,4 +135,10 @@ class Mongo(ZTCCheck):
         """ return BackgroundFlushing metrics """
         st = self.get_serverstatus()
         ret = st['backgroundFlushing'][m]
+        return ret
+
+    def get_page_faults(self):
+        """ return number of disk faults """
+        st = self.get_serverstatus()
+        ret = st['extra_info']['page_faults']
         return ret

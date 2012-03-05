@@ -90,6 +90,7 @@ class ZTCCheck(object):
         h.setFormatter(formatter)
         self.logger.addHandler(h)
         self.logger.debug("created")
+        self.logger.debug("config file: %s" % os.path.join(self.options.confdir, self.name+".conf"))
         
         self._myinit()
     
