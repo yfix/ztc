@@ -17,6 +17,7 @@ import optparse
 import ConfigParser
 import logging
 import logging.handlers
+from tempfile import mktemp
 
 import unittest
 
@@ -53,9 +54,10 @@ class ZTCCheck(object):
     OPTPARSE_MAX_NUMBER_OF_ARGS = 0
     
     debug = False
+    test = False
     logger = None
     
-    def __init__(self, name=None):
+    def __init__(self, name=None, test=False):
         if name:
             self.name = name
         if self.name == 'ztccheck':
@@ -66,13 +68,18 @@ class ZTCCheck(object):
         # checking if we are running in debug mode
         if self.config.get('debug', False):
             self.debug = True
+        # checking if we are running inside test
+        if test:
+            self.test = True
+            self.debug = True
+            self.options.logfile = mktemp()
     
         # setup logger
         self.logger = logging.getLogger(self.__class__.__name__)
         formatter = logging.Formatter("[%(name)s] %(asctime)s - %(levelname)s: %(message)s")
         # setting file handler
         h = logging.handlers.RotatingFileHandler(                                                                                                            
-                                                 self.options.logfile,                                                            
+                                                 self.options.logfile,
                                                  "a",                                                                                                        
                                                  1*1024*1024, # max 1 M                                                                                                
                                                  10) # max 10 files
