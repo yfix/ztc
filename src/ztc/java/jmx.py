@@ -26,10 +26,8 @@ class JMXCheck(ZTCCheck):
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 3
     
-    def __init__(self):
+    def _myinit(self):
         """ constructor override """
-        ZTCCheck.__init__(self)
-        # override default url
         self.jmx_url = self.config.get('jmx_url',
                                        'service:jmx:rmi://localhost:123')    
     
