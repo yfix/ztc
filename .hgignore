@@ -1,0 +1,13 @@
+syntax: glob
+
+*.pyc
+build/*
+dist/*
+build.sh
+.project
+.pydevproject
+.settings/*
+*.swp
+*.orig
+*.rej
+*.komodoproject
