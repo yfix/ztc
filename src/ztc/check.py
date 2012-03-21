@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """
-    ZTCCheck class - wrapper for ztc checks
-    provides logging, output formatting and error handling abilities
+ZTCCheck class - wrapper for ztc checks
+provides logging, output formatting and error handling abilities
     
-    This file is part of ZTC and distributed under same license.
+This file is part of ZTC and distributed under same license.
     
-    Copyright (c) 2011 Denis Seleznyov [https://bitbucket.org/xy2/]
-    Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Denis Seleznyov [https://bitbucket.org/xy2/]
+Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2012 Wrike, Inc [http://www.wrike.com/]
 """
 
 import os

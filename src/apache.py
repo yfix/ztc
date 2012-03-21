@@ -2,9 +2,12 @@
 """
 apache.* scripts item
 
-This file is part of ZTC and distributed under GNU GPL v.3
+This file is part of ZTC
+
 Copyright (c) 2010-2011 Vladimir Rusinov
 Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+
+License: GNU GPL3
 
 Params:
     $1 - metric name. Supported:
