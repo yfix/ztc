@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="11.03.12" time="14.58">
+<zabbix_export version="1.0" date="26.03.12" time="14.05">
   <hosts>
     <host name="Template_app_PostgreSQL">
       <proxy_hostid>0</proxy_hostid>
@@ -20,24 +20,6 @@
       </groups>
       <triggers>
         <trigger>
-          <description>PgSQL: tnx is too long in idle state on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.tnxage.idle_tnx.last(0)}&gt;60</expression>
-          <url></url>
-          <status>0</status>
-          <priority>4</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
-          <description>PgSQL: too close to to autovacuum_freeze_max_age on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_app_PostgreSQL:pgsql.autovac.freeze.last(0)}&gt;90</expression>
-          <url></url>
-          <status>0</status>
-          <priority>2</priority>
-          <comments>Run `/opt/ztc/bin/pgsql.py autovac_freeze -d` to chech what databases caused this and vacuum them</comments>
-        </trigger>
-        <trigger>
           <description>PgSQL: long-running transaction (&gt;15 min)</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:pgsql.tnxage.running.last(0)}&gt;900</expression>
@@ -56,7 +38,16 @@
           <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
         </trigger>
         <trigger>
-          <description>PgSQL is down</description>
+          <description>PgSQL: tnx is too long in idle state (&gt; 1 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.tnxage.idle_tnx.last(0)}&gt;60</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments></comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: is down</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:pgsql.ping.last(0)}=0</expression>
           <url></url>
@@ -72,6 +63,15 @@
           <status>0</status>
           <priority>2</priority>
           <comments>Run `/home/zabbix/pgsql_bloat.py someparam`</comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: too close to to autovacuum_freeze_max_age on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.autovac.freeze.last(0)}&gt;90</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Run `/opt/ztc/bin/pgsql.py autovac_freeze -d` to chech what databases caused this and vacuum them</comments>
         </trigger>
         <trigger>
           <description>PgSQL: Too many wal files</description>
