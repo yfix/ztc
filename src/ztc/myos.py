@@ -10,21 +10,21 @@ if sys.version_info >= (2, 6):
     import subprocess
 else:
     import popen2
-import logging    
 
-def popen(cmd, logger, input=None):
+
+def popen(cmd, logger, inp=None):
     """ popen wrapper
     returns: ((int)code, (str)stdout) """
     os.putenv('LC_ALL', 'POSIX')
     logger.debug("popen: executing %s", cmd)
     if input:
-        logger.debug("passing input '%s'" % input)    
+        logger.debug("passing input '%s'" % input)
     if sys.version_info >= (2, 6):
         pipe = subprocess.Popen(cmd, stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 shell=True)
-        (ret, err) = pipe.communicate(input)
+        (ret, err) = pipe.communicate(inp)
         pipe.wait()
         retcode = pipe.returncode
     else:
@@ -41,14 +41,8 @@ def popen(cmd, logger, input=None):
         o.close()
         e.close()
         retcode = pipe.wait()
-        
-    if err:
-        logger.warn("Stderr while executing '%s': '%s'" % (cmd, err.strip()))        
-    return retcode, ret
 
-def mypopen(cmd, logger=None, input=None):
-    if not logger:
-        logger = logging.getLogger('mypopen')
-        logger.setLevel(logging.FATAL)
-    logger.warn("mypopen is deprecated, please use ztc.myos.popen instead")
-    return popen(cmd, logger, input)[1]
+    if err:
+        logger.warn("Stderr while executing '%s': '%s'" % \
+                    (cmd, str(err).strip()))
+    return retcode, ret

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """
-terracotta.* scripts item
+jmx.* scripts item
 
-This file is part of ZTC and distributed under GNU GPL v.3
 Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+License: GNU GPL3
+This file is part of ZTC
 """
 
 from ztc.java.jmx import JMXCheck

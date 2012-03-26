@@ -22,7 +22,7 @@ http://bitbucket.org/rvs/ztc/
 Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 """
 
-from ztc.check import ZTCCheck, CheckFail
+from ztc.check import ZTCCheck
 from ztc.store import ZTCStore
 
 class NginxTimeLog(ZTCCheck):
@@ -53,26 +53,29 @@ class NginxTimeLog(ZTCCheck):
         n = 0
         
         fn = self.config.get('timelog', '/var/log/nginx/time.log')
-        f = open(fn, 'a+')
+        try:
+            f = open(fn, 'a+')
         
-        for l in f.readlines():
-            if l.startswith('-'):
-                # skip non-upstream lines with no $upstream_response_time
-                continue
-            r = l.split()[0] # response time should be in first col
-            r = float(r)
-            if mn < 0:
-                mn = r
-            else:
-                mn = min(r, mn)
-            mx = max(r, mx)
-            self.logger.debug("step %i: avg=%.2f, max=%.2f, min=%.2f" %
-                              (n, avg, mx, mn))
-            avg += r
-            n += 1
+            for l in f.readlines():
+                if l.startswith('-'):
+                    # skip non-upstream lines with no $upstream_response_time
+                    continue
+                r = l.split()[0] # response time should be in first col
+                r = float(r)
+                if mn < 0:
+                    mn = r
+                else:
+                    mn = min(r, mn)
+                mx = max(r, mx)
+                self.logger.debug("step %i: avg=%.2f, max=%.2f, min=%.2f" %
+                                  (n, avg, mx, mn))
+                avg += r
+                n += 1
             
-        f.truncate(0)
-        f.close()            
+            f.truncate(0)
+            f.close()
+        except IOError:
+            self.logger.exception("I/O error on time log")
         
         if n > 0:
             avg = avg / n

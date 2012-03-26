@@ -299,7 +299,7 @@ class FCGIApp(object):
         content_length = int(environ.get('CONTENT_LENGTH') or 0)
         s = ''
         while True:
-            chunk_size = min(content_length, 4096)
+            #chunk_size = min(content_length, 4096)
             #s = environ['wsgi.input'].read(chunk_size)
             content_length -= len(s)
             rec = Record(FCGI_STDIN, requestId)

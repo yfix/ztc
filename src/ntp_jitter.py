@@ -10,6 +10,6 @@ License: GNU GPL v3
 """
 
 from ztc.system.ntp import Ntpq
-    
+
 n = Ntpq()
 n.get('jitter')

@@ -8,6 +8,7 @@
 Use jboss-remoting.sar from server/all/deploy/ to enable remote jmx support
 """
 
+from ztc.check import CheckFail
 from ztc.java.jmx import JMXCheck
 
 class JMXJboss(JMXCheck):
