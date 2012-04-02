@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# pylint: disable=W0622
+
 # Copyright (c) 2006 Allan Saddi <allan@saddi.com>
 # Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 # All rights reserved.
@@ -90,6 +93,7 @@ if __debug__:
     DEBUGLOG = '/tmp/fcgi_app.log'
 
     def _debug(level, msg):
+        # pylint: disable=W0702
         if DEBUG < level:
             return
 
@@ -154,9 +158,9 @@ class Record(object):
 
     Used for encoding/decoding records.
     """
-    def __init__(self, type=FCGI_UNKNOWN_TYPE, requestId=FCGI_NULL_REQUEST_ID):
+    def __init__(self, typ=FCGI_UNKNOWN_TYPE, requestId=FCGI_NULL_REQUEST_ID):
         self.version = FCGI_VERSION_1
-        self.type = type
+        self.type = typ
         self.requestId = requestId
         self.contentLength = 0
         self.paddingLength = 0
@@ -295,12 +299,12 @@ class FCGIApp(object):
         self._fcgiParams(sock, requestId, {})
 
         # Transfer wsgi.input to FCGI_STDIN
-        content_length = int(environ.get('CONTENT_LENGTH') or 0)
+        #content_length = int(environ.get('CONTENT_LENGTH') or 0)
         s = ''
         while True:
             #chunk_size = min(content_length, 4096)
             #s = environ['wsgi.input'].read(chunk_size)
-            content_length -= len(s)
+            #content_length -= len(s)
             rec = Record(FCGI_STDIN, requestId)
             rec.contentData = s
             rec.contentLength = len(s)
@@ -397,7 +401,7 @@ class FCGIApp(object):
         # To be done when I have more time...
         raise NotImplementedError, 'Launching and managing FastCGI programs not yet implemented'
 
-    def _fcgiGetValues(self, sock, vars):
+    def _fcgiGetValues(self, sock, vars):  #@ReservedAssignment
         # Construct FCGI_GET_VALUES record
         outrec = Record(FCGI_GET_VALUES)
         data = []

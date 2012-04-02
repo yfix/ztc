@@ -16,19 +16,19 @@ import ztc.pgsql.queries as pgq
 
 class PgCluster(ZTCCheck):
     """ Class represent database cluster """
-    
+
     name = 'pgsql'
-    
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    
+
     dbs = []
-    
+
     def _get(self, metric, *args, **kwargs):
         if metric == 'bloat':
             return self.get_bloat()
         else:
             raise CheckFail('uncknown metric')
-        
+
     def get_bloat(self):
         """ get max database bloat of all databases of cluster """
         q = pgq.BLOAT
@@ -44,7 +44,7 @@ class PgCluster(ZTCCheck):
                 otta += r[5]
                 if pages > 1000:
                     # add to list of bloatest tables
-                    bloat = 100 - 100*(pages-otta) / pages
+                    bloat = 100 - 100 * (pages - otta) / pages
                     item = (bloat, "%s.%s.%s->%s" % (db, r[0], r[1], r[2]))
                     if len(bloatest) < 5:
                         heapq.heappush(bloatest, item)
@@ -53,12 +53,12 @@ class PgCluster(ZTCCheck):
         self.logger.debug("pages: %i, otta: %i" % (pages, otta))
         while len(bloatest):
             b = heapq.heappop(bloatest)
-            self.logger.debug("bloatest: %s: %.2f%%" % (b[1], 100-b[0]))
+            self.logger.debug("bloatest: %s: %.2f%%" % (b[1], 100 - b[0]))
         if pages < 5000: # cluster < then 40 Mb is no serious
             return 0
         else:
-            return 100*(pages - otta) / pages
-    
+            return 100 * (pages - otta) / pages
+
     # lower-level functions
     def get_dblist(self):
         connect_dict = {
@@ -66,12 +66,12 @@ class PgCluster(ZTCCheck):
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')
-        }        
+        }
         d = PgConn(connect_dict, self.logger)
         dbs = d.query("SELECT datname FROM pg_database")
         self.dbs = [x[0] for x in dbs]
-    
-    def query_eachdb(self, sql, exclude=[]):
+
+    def query_eachdb(self, sql, exclude=None):
         """ execure query on each database of the cluster
         Params:
             sql (string): query text
@@ -79,14 +79,14 @@ class PgCluster(ZTCCheck):
         Out:
             { dbname: query_result, ...  }
         """
-        
+
         connect_dict = {
             'host': self.config.get('host', None), # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')
-        }        
-        
+        }
+
         ret = {}
         if not self.dbs: self.get_dblist()
         for db in self.dbs:

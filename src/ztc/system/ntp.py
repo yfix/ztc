@@ -34,7 +34,7 @@ class Ntpq(ZTCCheck):
 
     def _get(self, metric, *args, **kwargs):
         """ Get some ntp mertic. Howewer, only jitter is currently supported """
-        if metric <> 'jitter':
+        if metric != 'jitter':
             raise CheckFail('not supported metric')
         else:
             return self.get_jitter()

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#pylint: disable=W0142
 """
 Helper pgsql connection class
 
@@ -12,16 +13,17 @@ import psycopg2 as pg
 class PgConn(object):
     dbh = None # database handler
     cur = None # database cursor
-    
+
     def __init__(self, connect_dict, logger):
         self.logger = logger
         self._connect(connect_dict)
-    
+        self.lasterr = None
+
     def _connect(self, connect_dict):
         """ Connect to database """
         if self.dbh:
             return True
-        
+
         # filtering connect_dict to remove all Nones:
         connect_dict = dict((k, v) for k, v in connect_dict.iteritems() \
                             if v is not None)
@@ -37,11 +39,11 @@ class PgConn(object):
             self.dbh = None
             self.cur = None
             return False
-    
+
     def query(self, sql):
         #self._connect()
         self.logger.debug("running query '%s'" % sql)
-        if self.cur:        
+        if self.cur:
             self.cur.execute(sql)
             ret = self.cur.fetchall()
         else:
@@ -49,7 +51,7 @@ class PgConn(object):
             ret = None
         #self.logger.debug("result:\n%s" % self.fineprint_results(ret))
         return ret
-        
+
     def fineprint_results(self, rets):
         """ Fine print query results """
         ret = ''
@@ -58,7 +60,7 @@ class PgConn(object):
                 ret += (str(cell) + ' | ')
             ret += "\n"
         return ret
-    
+
     def close(self):
         self.cur.close()
-        self.dbh.close()    
+        self.dbh.close()
