@@ -70,7 +70,7 @@ class ApacheStatus(ZTCCheck):
     def get_scoreboard(self):
         """ Return apache workers scoreboard """
         ret = self._get_info('Scoreboard')
-        self.logger.debug("get_scoreboard: %s" % (ret, ))
+        self.logger.debug("get_scoreboard: %s" % (ret,))
         return ret
 
     def _get(self, metric=None, *args, **kwargs):
@@ -99,9 +99,9 @@ class ApacheStatus(ZTCCheck):
         return int(self._get_info('Total Accesses'))
     accesses = property(get_accesses)
 
-    def get_bytes(self):
+    @property
+    def bytes(self):
         return int(self._get_info('Total kBytes')) * 1024
-    bytes = property(get_bytes)
 
     def get_workers_busy(self):
         return int(self._get_info('BusyWorkers'))
@@ -130,47 +130,47 @@ class ApacheStatus(ZTCCheck):
     def get_workers_keepalive(self):
         return self.get_scoreboard().count('K')
     workers_keepalive = property(get_workers_keepalive)
-    
+
     def get_workers_logging(self):
         return self.get_scoreboard().count('L')
     workers_logging = property(get_workers_logging)
-    
+
     def get_workers_openslot(self):
         return self.get_scoreboard().count('.')
     workers_openslot = property(get_workers_openslot)
-                
+
     def get_workers_reading(self):
         return self.get_scoreboard().count('R')
     workers_reading = property(get_workers_reading)
-            
+
     def get_workers_starting(self):
         return self.get_scoreboard().count('S')
     workers_starting = property(get_workers_starting)
-            
+
     def get_workers_writing(self):
         return self.get_scoreboard().count('W')
 
 
 class ApacheTimeLog(ZTCCheck):
     """ Processes Apache time log (LogFormat %D) """
-    
+
     OPTPARSE_MAX_NUMBER_OF_ARGS = 1
-    
+
     name = 'apache'
-        
+
     def _openlog(self):
         """ Open Log File and save it as self.log file object """
         logdir = self.config.get('logdir', '/var/log/apache2/')
-        logfile = self.config.get('timelog', 'time.log')    
+        logfile = self.config.get('timelog', 'time.log')
         fn = os.path.join(logdir, logfile)
         self.log = open(fn, 'a+')
-    
+
     def _closelog(self):
         self.log.close()
-    
+
     def _truncatelog(self):
         self.log.truncate(0)
-    
+
     def _get_metrics(self):
         """ Calculates average, max & min request processing time, in
         seconds """
@@ -198,7 +198,7 @@ class ApacheTimeLog(ZTCCheck):
             if slowlog_time and (time > slowlog_time):
                 # log slow queries
                 f = open(slowlog_path, 'a')
-                f.write(str(int(time*0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
+                f.write(str(int(time * 0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
                 f.close()
             total_lines += 1
         self._truncatelog()
@@ -216,11 +216,11 @@ class ApacheTimeLog(ZTCCheck):
         """ load page response metrics from ZTCStore key apache_reqtime """
         st = ZTCStore('apache_reqtime', self.options)
         return st.get()
-    
+
     def _save_metrics_to_cache(self, data):
         st = ZTCStore('apache_reqtime', self.options)
         st.set(data)
-        
+
     def _get(self, metric=None, *args, **kwargs):
         """ get some metric """
         if metric == 'avg':
@@ -230,28 +230,18 @@ class ApacheTimeLog(ZTCCheck):
         elif metric == 'max':
             return self.get_max()
         else:
-            raise CheckFail("Uncknown metric: %s" % (metric, ))    
-    
+            raise CheckFail("Uncknown metric: %s" % (metric,))
+
     def get_avg(self):
         """ returns average request processing time """
         metrics = self._get_metrics()
         return metrics['avg']
-    
+
     def get_min(self):
         metrics = self._get_metrics_from_cache()
         return metrics['min']
-    
+
     def get_max(self):
         metrics = self._get_metrics_from_cache()
         return metrics['max']
-    max_request_time = property(get_max)    
-     
-            
-
-if __name__ == '__main__':
-    #st = ApacheStatus()
-    #print "accesses:", st.get_accesses()
-    tl = ApacheTimeLog()
-    print "average time: ", tl.avg_request_time
-    print "max time", tl.max_request_time
-    print 'min time', tl.min_request_time
+    max_request_time = property(get_max)

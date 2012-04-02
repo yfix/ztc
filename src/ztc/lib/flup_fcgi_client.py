@@ -31,7 +31,7 @@
 __author__ = 'Allan Saddi <allan@saddi.com>'
 __version__ = '$Revision$'
 
-import select
+import select  # @UnresolvedImport
 import struct
 import socket
 import errno
@@ -104,6 +104,7 @@ if __debug__:
         except:
             pass
 
+
 def decode_pair(s, pos=0):
     """
     Decodes a name/value pair.
@@ -131,6 +132,7 @@ def decode_pair(s, pos=0):
     pos += valueLength
 
     return (pos, (name, value))
+
 
 def encode_pair(name, value):
     """
@@ -401,7 +403,7 @@ class FCGIApp(object):
         # To be done when I have more time...
         raise NotImplementedError, 'Launching and managing FastCGI programs not yet implemented'
 
-    def _fcgiGetValues(self, sock, vars):  #@ReservedAssignment
+    def _fcgiGetValues(self, sock, vars):  # @ReservedAssignment
         # Construct FCGI_GET_VALUES record
         outrec = Record(FCGI_GET_VALUES)
         data = []
