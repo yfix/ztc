@@ -100,7 +100,7 @@ class ApacheStatus(ZTCCheck):
     accesses = property(get_accesses)
 
     @property
-    def bytes(self):
+    def bytes(self):  # @ReservedAssignment
         return int(self._get_info('Total kBytes')) * 1024
 
     def get_workers_busy(self):
@@ -190,16 +190,16 @@ class ApacheTimeLog(ZTCCheck):
             if not l.strip():
                 # skip empty lines
                 continue
-            time = int(l.split()[0])
-            total_time += time
-            if max_time < time:
-                max_time = time
-            if min_time == -1 or min_time > time:
-                min_time = time
-            if slowlog_time and (time > slowlog_time):
+            c_time = int(l.split()[0])
+            total_time += c_time
+            if max_time < c_time:
+                max_time = c_time
+            if min_time == -1 or min_time > c_time:
+                min_time = c_time
+            if slowlog_time and (c_time > slowlog_time):
                 # log slow queries
                 f = open(slowlog_path, 'a')
-                f.write(str(int(time * 0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
+                f.write(str(int(c_time * 0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
                 f.close()
             total_lines += 1
         self._truncatelog()
