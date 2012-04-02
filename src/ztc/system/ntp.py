@@ -19,7 +19,7 @@ import ztc.myos
 class Ntpq(ZTCCheck):
     name = 'ntp'
     ntpq_vars = None
-    
+
     def _read_ntpq_vars(self):
         ntpq_bin = self.config.get('ntpq', '/usr/sbin/ntpq')
         code, out = ztc.myos.popen("%s -c readvar localhost" % ntpq_bin,
@@ -30,19 +30,19 @@ class Ntpq(ZTCCheck):
             self.ntpq_vars = []
         else:
             self.ntpq_vars = out.splitlines()
-    
+
     def _get(self, metric, *args, **kwargs):
         """ Get some ntp mertic. Howewer, only jitter is currently supported """
         if metric <> 'jitter':
             raise CheckFail('not supported metric')
         else:
             return self.get_jitter()
-    
+
     def get_jitter(self):
         """ Find value jitter= from ntpq output
         Returns: float"""
         j = 999 # jitter value
-        
+
         if not self.ntpq_vars:
             self._read_ntpq_vars()
         for line in self.ntpq_vars:
@@ -60,8 +60,3 @@ class Ntpq(ZTCCheck):
                     j = j[:-1] # j = 3.829
                     j = float(j)
         return j
-    
-if __name__ == '__main__':
-    n = Ntpq()
-    n.get('jitter')
-    print "Jitter = ", n.jitter
