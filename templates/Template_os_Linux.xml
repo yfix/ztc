@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zabbix_export version="1.0" date="09.02.12" time="21.35">
+<zabbix_export version="1.0" date="02.04.12" time="14.07">
   <hosts>
     <host name="Template_os_Linux">
       <proxy_hostid>0</proxy_hostid>
@@ -20,15 +20,6 @@
       </groups>
       <triggers>
         <trigger>
-          <description>Low number of free inodes on {HOSTNAME} volume /</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:vfs.fs.inode[/,pfree].last(0)}&lt;10</expression>
-          <url></url>
-          <status>0</status>
-          <priority>4</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
           <description>Cksum: /usr/sbin/sshd changed</description>
           <type>0</type>
           <expression>{Template_os_Linux:vfs.file.cksum[/usr/sbin/sshd].diff(0)}&gt;0</expression>
@@ -36,6 +27,15 @@
           <status>0</status>
           <priority>3</priority>
           <comments>Checksum of file /usr/sbin/sshd has been changed. This is either because of update or because of some malicious. Please check.</comments>
+        </trigger>
+        <trigger>
+          <description>Low number of free inodes on /</description>
+          <type>0</type>
+          <expression>{Template_os_Linux:vfs.fs.inode[/,pfree].last(0)}&lt;10</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments></comments>
         </trigger>
         <trigger>
           <description>Cron is not running</description>
@@ -107,15 +107,6 @@
           <url></url>
           <status>0</status>
           <priority>1</priority>
-          <comments></comments>
-        </trigger>
-        <trigger>
-          <description>Too many processes running on {HOSTNAME}</description>
-          <type>0</type>
-          <expression>{Template_os_Linux:proc.num[,,run].last(0)}&gt;10</expression>
-          <url></url>
-          <status>0</status>
-          <priority>3</priority>
           <comments></comments>
         </trigger>
         <trigger>
