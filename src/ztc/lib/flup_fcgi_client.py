@@ -1,4 +1,5 @@
 # Copyright (c) 2006 Allan Saddi <allan@saddi.com>
+# Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -23,8 +24,6 @@
 # SUCH DAMAGE.
 #
 # $Id$
-#
-# Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 
 __author__ = 'Allan Saddi <allan@saddi.com>'
 __version__ = '$Revision$'
@@ -110,21 +109,21 @@ def decode_pair(s, pos=0):
     """
     nameLength = ord(s[pos])
     if nameLength & 128:
-        nameLength = struct.unpack('!L', s[pos:pos+4])[0] & 0x7fffffff
+        nameLength = struct.unpack('!L', s[pos:pos + 4])[0] & 0x7fffffff
         pos += 4
     else:
         pos += 1
 
     valueLength = ord(s[pos])
     if valueLength & 128:
-        valueLength = struct.unpack('!L', s[pos:pos+4])[0] & 0x7fffffff
+        valueLength = struct.unpack('!L', s[pos:pos + 4])[0] & 0x7fffffff
         pos += 4
     else:
         pos += 1
 
-    name = s[pos:pos+nameLength]
+    name = s[pos:pos + nameLength]
     pos += nameLength
-    value = s[pos:pos+valueLength]
+    value = s[pos:pos + valueLength]
     pos += valueLength
 
     return (pos, (name, value))
@@ -197,7 +196,7 @@ class Record(object):
 
         if length < FCGI_HEADER_LEN:
             raise EOFError
-        
+
         self.version, self.type, self.requestId, self.contentLength, \
                       self.paddingLength = struct.unpack(FCGI_Header, header)
 
@@ -205,7 +204,7 @@ class Record(object):
                              'contentLength = %d' %
                              (sock.fileno(), self.type, self.requestId,
                               self.contentLength))
-        
+
         if self.contentLength:
             try:
                 self.contentData, length = self._recvall(sock,
@@ -256,18 +255,18 @@ class Record(object):
         if self.contentLength:
             self._sendall(sock, self.contentData)
         if self.paddingLength:
-            self._sendall(sock, '\x00'*self.paddingLength)
+            self._sendall(sock, '\x00' * self.paddingLength)
 
 class FCGIApp(object):
-   
+
     def __init__(self, connect=None, host=None, port=None, filterEnviron=True):
         if host is not None:
             assert port is not None
-            connect=(host, port)
+            connect = (host, port)
 
         self._connect = connect
         self._filterEnviron = filterEnviron
-        
+
     def __call__(self, environ, start_response=None):
         # For sanity's sake, we don't care about FCGI_MPXS_CONN
         # (connection multiplexing). For every request, we obtain a new
@@ -349,13 +348,13 @@ class FCGIApp(object):
         while True:
             eolpos = result.find('\n', pos)
             if eolpos < 0: break
-            line = result[pos:eolpos-1]
+            line = result[pos:eolpos - 1]
             pos = eolpos + 1
 
             # strip in case of CR. NB: This will also strip other
             # whitespace...
             line = line.strip()
-            
+
             # Empty line signifies end of headers
             if not line: break
 
@@ -378,7 +377,7 @@ class FCGIApp(object):
         # Set WSGI status, headers, and return result.
         #start_response(status, headers)
         #return [result]
-        
+
         return status, headers, result, err
 
     def _getConnection(self):
@@ -397,7 +396,7 @@ class FCGIApp(object):
 
         # To be done when I have more time...
         raise NotImplementedError, 'Launching and managing FastCGI programs not yet implemented'
-    
+
     def _fcgiGetValues(self, sock, vars):
         # Construct FCGI_GET_VALUES record
         outrec = Record(FCGI_GET_VALUES)
@@ -424,7 +423,7 @@ class FCGIApp(object):
         #print params
         rec = Record(FCGI_PARAMS, requestId)
         data = []
-        for name,value in params.items():
+        for name, value in params.items():
             data.append(encode_pair(name, value))
         data = ''.join(data)
         rec.contentData = data
@@ -446,7 +445,7 @@ class FCGIApp(object):
                 result[n] = environ[n]
             if n in self._environRenames:
                 result[self._environRenames[n]] = environ[n]
-                
+
         return result
 
     def _lightFilterEnviron(self, environ):
@@ -455,10 +454,3 @@ class FCGIApp(object):
             if n.upper() == n:
                 result[n] = environ[n]
         return result
-
-if __name__ == '__main__':
-    from flup.server.ajp import WSGIServer
-    app = FCGIApp(connect=('localhost', 4242))
-    #import paste.lint
-    #app = paste.lint.middleware(app)
-    WSGIServer(app).run()

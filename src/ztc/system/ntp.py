@@ -24,6 +24,7 @@ class Ntpq(ZTCCheck):
         ntpq_bin = self.config.get('ntpq', '/usr/sbin/ntpq')
         code, out = ztc.myos.popen("%s -c readvar localhost" % ntpq_bin,
                                         self.logger)
+        # pylint: disable=E1103
         if code:
             self.logger.warn('error communicating with ntpq: return code %i' %
                              code)
