@@ -58,13 +58,13 @@ class MyDB(ZTCCheck):
                            connect_timeout=2
                            )
             else:
-                self.conn = MySQLdb.connect (host=host,
+                self.conn = MySQLdb.connect(host=host,
                            user=user,
                            passwd=password,
                            db=database,
                            connect_timeout=2
                            )
-            self.cursor = self.conn.cursor();
+            self.cursor = self.conn.cursor()
             return True
         except MySQLdb.OperationalError:
             self.logger.error("Failed to connect to mysql")

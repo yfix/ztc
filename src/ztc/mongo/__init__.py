@@ -14,6 +14,7 @@ import time
 from ztc.check import ZTCCheck, CheckFail
 from ztc.store import ZTCStore
 
+
 class Mongo(ZTCCheck):
     name = "mongo"
 
@@ -83,7 +84,7 @@ class Mongo(ZTCCheck):
             info = self.connection.server_info()
             if info and 'ok' in info:
                 return time.time() - st
-        except pymongo.errors.AutoReconnect: #@UndefinedVariable
+        except pymongo.errors.AutoReconnect:  # @UndefinedVariable
             self.logger.exception("failed to connect to mongodb")
         return 0
 

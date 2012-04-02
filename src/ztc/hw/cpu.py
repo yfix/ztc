@@ -15,7 +15,7 @@ from ztc.myos import popen
 
 class CPUTemperature(ZTCCheck):
     name = "cputemp"
-    
+
     def _get(self, metric, *arg, **kwarg):
         # metric could be ommited
         t = self.get_temp_acpi()
@@ -25,7 +25,7 @@ class CPUTemperature(ZTCCheck):
         if t:
             return t
         return -1
-    
+
     def get_temp_acpi(self):
         """ get cpu temperature from ACPI thermal zone """
         self.logger.debug("getting cpu temp from acpi")
@@ -36,9 +36,9 @@ class CPUTemperature(ZTCCheck):
             f.close()
             return ret
         except Exception, e:
-            self.logger.debug("failed: %s" % (str(e), ))
+            self.logger.debug("failed: %s" % (str(e),))
             return None
-        
+
     def get_temp_lm_sensors(self):
         """ try to get temperature from lm_sensors file
         example outputs:
@@ -56,16 +56,16 @@ Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)
             temp_re = re.compile('^Core [0-9]+: +\+([0-9]+(\.[0-9]+)?)')
             cmd = 'sensors -A'
             for l in popen(cmd, self.logger)[1].split("\n"):
-                self.logger.debug("lm_sensors line: %s" % (l, ))
+                self.logger.debug("lm_sensors line: %s" % (l,))
                 temps = temp_re.findall(l)
-                self.logger.debug("temps = %s" % (temps, ))
+                self.logger.debug("temps = %s" % (temps,))
                 if temps:
                     temp = float(temps[0][0])
                     tot_temp += temp
-                    n+=1
+                    n += 1
             if n == 0:
                 return None
-            return tot_temp/n
+            return tot_temp / n
         except Exception, e:
-            self.logger.debug("failed: %s" % (str(e), ))
+            self.logger.debug("failed: %s" % (str(e),))
             return None

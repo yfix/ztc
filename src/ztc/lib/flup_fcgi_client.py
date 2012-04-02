@@ -206,7 +206,8 @@ class Record(object):
         self.version, self.type, self.requestId, self.contentLength, \
                       self.paddingLength = struct.unpack(FCGI_Header, header)
 
-        if __debug__: _debug(9, 'read: fd = %d, type = %d, requestId = %d, '
+        if __debug__:
+            _debug(9, 'read: fd = %d, type = %d, requestId = %d, '
                              'contentLength = %d' %
                              (sock.fileno(), self.type, self.requestId,
                               self.contentLength))
@@ -249,7 +250,8 @@ class Record(object):
         """Encode and write a Record to a socket."""
         self.paddingLength = -self.contentLength & 7
 
-        if __debug__: _debug(9, 'write: fd = %d, type = %d, requestId = %d, '
+        if __debug__:
+            _debug(9, 'write: fd = %d, type = %d, requestId = %d, '
                              'contentLength = %d' %
                              (sock.fileno(), self.type, self.requestId,
                               self.contentLength))
@@ -311,8 +313,8 @@ class FCGIApp(object):
             rec.contentData = s
             rec.contentLength = len(s)
             rec.write(sock)
-
-            if not s: break
+            if not s:
+                break
 
         # Empty FCGI_DATA stream
         rec = Record(FCGI_DATA, requestId)
@@ -401,7 +403,7 @@ class FCGIApp(object):
             return sock
 
         # To be done when I have more time...
-        raise NotImplementedError, 'Launching and managing FastCGI programs not yet implemented'
+        raise NotImplementedError('Launching and managing FastCGI programs not yet implemented')
 
     def _fcgiGetValues(self, sock, vars):  # @ReservedAssignment
         # Construct FCGI_GET_VALUES record
