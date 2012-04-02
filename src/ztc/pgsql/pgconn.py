@@ -32,6 +32,7 @@ class PgConn(object):
             self.dbh = pg.connect(**connect_dict)
             self.cur = self.dbh.cursor()
             return True
+        # pylint: disable=W0703
         except  Exception, e:
             #raise
             self.logger.warn("Failed to connect to postgresql: %s" % e)
