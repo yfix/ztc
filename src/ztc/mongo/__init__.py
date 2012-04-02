@@ -39,6 +39,9 @@ class Mongo(ZTCCheck):
         elif metric == 'operations':
             m = args[0]
             return self.get_operations(m)
+        elif metric == 'connections':
+            m = args[0]
+            return self.get_connections(m)
         elif metric == 'globallock':
             m = args[0]
             return self.get_globallock(m)
@@ -78,7 +81,7 @@ class Mongo(ZTCCheck):
             #print dir(self.db)
             #print dir(self.connection)
             info = self.connection.server_info()
-            if info and info.has_key('ok'):
+            if info and 'ok' in info:
                 return time.time() - st
         except pymongo.errors.AutoReconnect: #@UndefinedVariable
             self.logger.exception("failed to connect to mongodb")
@@ -162,3 +165,8 @@ class Mongo(ZTCCheck):
         else:
             ret = data[m]
         return ret
+
+    def get_connections(self, m):
+        """ get number of from db.serverStatus() """
+        data = self.get_serverstatus()['connections']
+        return data[m]

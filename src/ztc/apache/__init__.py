@@ -91,6 +91,7 @@ class ApacheStatus(ZTCCheck):
         """ Returns time required to load test page """
         try:
             self._read_status()
+        # pylint: disable=W0702
         except:
             pass
         return self.ping_t
@@ -183,9 +184,9 @@ class ApacheTimeLog(ZTCCheck):
         ret = {'avg': 0, 'min': 0, 'max': 0}
         slowlog_time = int(self.config.get('slowlog', 0))
         slowlog_path = os.path.join(
-                                    self.config.get('logdir', '/var/log/apache2/'),
-                                    self.config.get('slowlog_file', 'slow.log')
-                                    )
+            self.config.get('logdir', '/var/log/apache2/'),
+            self.config.get('slowlog_file', 'slow.log')
+        )
         for l in self.log.readlines():
             if not l.strip():
                 # skip empty lines
@@ -199,7 +200,8 @@ class ApacheTimeLog(ZTCCheck):
             if slowlog_time and (c_time > slowlog_time):
                 # log slow queries
                 f = open(slowlog_path, 'a')
-                f.write(str(int(c_time * 0.000001)) + ' ' + " ".join(l.split()[1:]) + "\n")
+                f.write(str(int(c_time * 0.000001)) + ' ' + \
+                        " ".join(l.split()[1:]) + "\n")
                 f.close()
             total_lines += 1
         self._truncatelog()
