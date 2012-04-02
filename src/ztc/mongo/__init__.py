@@ -51,6 +51,9 @@ class Mongo(ZTCCheck):
         elif metric == 'bgflushing':
             m = args[0]
             return self.get_bgflushing(m)
+        elif metric == 'mem':
+            m = args[0]
+            return self.get_mem(m)
         elif metric == 'dbstats':
             # per-db metrics
             m = args[0]
@@ -149,4 +152,13 @@ class Mongo(ZTCCheck):
         """ return number of disk faults """
         st = self.get_serverstatus()
         ret = st['extra_info']['page_faults']
+        return ret
+
+    def get_mem(self, m):
+        """ get memory metrics from db.serverStatus() """
+        data = self.get_serverstatus()['mem']
+        if m in ('resident', 'virtual', 'mapped', 'mappedWithJournal'):
+            ret = data[m] * 1024 * 1204
+        else:
+            ret = data[m]
         return ret

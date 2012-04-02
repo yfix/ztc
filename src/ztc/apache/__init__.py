@@ -157,6 +157,7 @@ class ApacheTimeLog(ZTCCheck):
     OPTPARSE_MAX_NUMBER_OF_ARGS = 1
 
     name = 'apache'
+    log = None
 
     def _openlog(self):
         """ Open Log File and save it as self.log file object """
