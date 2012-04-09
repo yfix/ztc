@@ -9,20 +9,23 @@ Created on 17.12.2009
 
 import os
 
-import ztc.commons
-from ztc.cache import Cache, CacheObject
+from ztc.check import ZTCCheck
+from ztc.store import ZTCStore
 
-class Jmap(object):
+class Jmap(ZTCCheck):
     """
         Monitoring using jmap
     """
     pid = 0
     cache = 60 # how long store jmap cache
     jmap_path = '/usr/bin/jmap'
-    
-    def __init__(self, pid):
-        self.pid = int(pid)
-        self.config = ztc.commons.get_config('java')
+
+    def _get(self):
+        raise NotImplementedError("Not implemented")
+
+    def __myinit(self):
+        #self.pid = int(pid)
+        #self.config = ztc.commons.get_config('java')
         self.jmap_path = self.config.get('jmap_path', self.jmap_path)
 
     def _run_jmap_heap(self):
@@ -34,24 +37,22 @@ class Jmap(object):
             ret += l
             l = f.read()
         return ret
-        
+
     def _load_jmap_heap(self):
         """
         Load jmap from cache or runs it
         """
-        key = "jmap_heap_%i" % (self.pid, )
-        c = Cache()
-        jmap_heap = c.load(key)
+        key = "jmap_heap_%i" % (self.pid,)
+        c = ZTCStore(key, self.options, self.logger, ttl=60)
+        jmap_heap = c.get()
         if jmap_heap:
             ret = jmap_heap.data
         else:
             # no data in cache
             jmap_heap_data = self._run_jmap_heap()
             if jmap_heap_data:
-                co = CacheObject()
-                co.data = jmap_heap_data
-                c.save(key, co)
+                c.set(jmap_heap_data)
                 ret = jmap_heap
             else:
                 ret = None
-        return ret            
+        return ret

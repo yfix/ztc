@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable=F0401
 """
 MySQL module for ZTC
 
@@ -20,11 +21,8 @@ class MyDB(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2
 
-    #database='mysql'
-    #host='localhost'
-    #user='root'
-    #password=''
-    #unix_socket = None
+    conn = None  # database connections
+    cursor = None  # database cursor
 
     lasterr = None
     connected = None
@@ -94,6 +92,7 @@ class MyDB(ZTCCheck):
     def _get_status(self, metric):
         if not self._connect():
             self.logger.error("get_status: could not connect to mysql")
+            # pylint: disable=E0702
             raise self.lasterr
         r = self.query('SHOW GLOBAL STATUS LIKE "%s"' % (self.escape(metric)))
         if r:
@@ -101,15 +100,14 @@ class MyDB(ZTCCheck):
         else:
             raise CheckFail('uncknown global status metric: %s' % (metric))
 
-
     def query(self, query):
         """ execute query and return all its results (fetchall) """
         self.logger.debug("running query '%s'" % (query,))
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
-    def escape(self, str):
-        return MySQLdb.escape_string(str)
+    def escape(self, s):
+        return MySQLdb.escape_string(s)
 
 if __name__ == '__main__':
     m = MyDB()

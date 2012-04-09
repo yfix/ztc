@@ -11,14 +11,16 @@ Use jboss-remoting.sar from server/all/deploy/ to enable remote jmx support
 from ztc.check import CheckFail
 from ztc.java.jmx import JMXCheck
 
+
 class JMXJboss(JMXCheck):
     """ Jboss JMX check """
-    
+
     name = 'jboss'
-    
+    jmx_url = None
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
     OPTPARSE_MAX_NUMBER_OF_ARGS = 3
-    
+
     def _myinit(self):
         """ init: override default url """
         self.jmx_url = self.config.get('jmx_url',
@@ -30,18 +32,20 @@ class JMXJboss(JMXCheck):
             return self.get_prop(*args)
         elif metric == 'ds':
             # get datasource info
-            return self.get_ds_info(args[0], *args[1:])
+            ds = args[0]
+            metric = args[1]
+            return self.get_ds_info(ds, metric)
         elif metric == 'heap':
             # get java heap memory info
             return self.get_heap(args[0])
         else:
             raise CheckFail('unsupported metric')
-    
+
     def get_ds_info(self, ds, metric):
         """ Get jboss datasource info """
         mbean = 'jboss.jca:name=%s,service=ManagedConnectionPool' % ds
         return self.get_prop(mbean, metric)
-    
+
     def get_heap(self, metric):
         """ get java heap memory metric: 'free', 'max', 'total' """
         metric = metric.capitalize() + 'Memory'

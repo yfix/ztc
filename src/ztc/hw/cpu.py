@@ -13,9 +13,11 @@ import re
 from ztc.check import ZTCCheck
 from ztc.myos import popen
 
+
 class CPUTemperature(ZTCCheck):
     name = "cputemp"
 
+    # pylint: disable=W0613
     def _get(self, metric, *arg, **kwarg):
         # metric could be ommited
         t = self.get_temp_acpi()
@@ -35,18 +37,19 @@ class CPUTemperature(ZTCCheck):
             ret = int(lines[-1].split()[-2])
             f.close()
             return ret
-        except Exception, e:
-            self.logger.debug("failed: %s" % (str(e),))
+        # pylint: disable=W0702
+        except:
+            self.logger.exception("get_temp_acpi failed")
             return None
 
     def get_temp_lm_sensors(self):
         """ try to get temperature from lm_sensors file
         example outputs:
 coretemp-isa-0000
-Core 0:      +81.0 C  (high = +100.0 C, crit = +100.0 C)  
+Core 0:      +81.0 C  (high = +100.0 C, crit = +100.0 C)
 
 coretemp-isa-0001
-Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)       
+Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)
         """
         self.logger.debug("getting cpu temp from lm_sensors")
         try:
@@ -66,6 +69,7 @@ Core 1:      +82.0 C  (high = +100.0 C, crit = +100.0 C)
             if n == 0:
                 return None
             return tot_temp / n
+        # pylint: disable=W0703
         except Exception, e:
             self.logger.debug("failed: %s" % (str(e),))
             return None

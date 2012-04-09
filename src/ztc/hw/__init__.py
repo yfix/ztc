@@ -13,6 +13,7 @@
 from ztc.check import ZTCCheck, CheckFail
 from ztc.myos import popen
 
+
 class RAID_3Ware(ZTCCheck):
     """
         Class for monitoring 3ware raid.
@@ -20,17 +21,18 @@ class RAID_3Ware(ZTCCheck):
             * tw_cli tool installed
             * run as root, or have permissions to run tw_cli
     """
-    
+
     name = 'hw_raid_3ware'
-    
+
     _tw_out = {}
-    
-    def _get(self, metric):
+
+    # pylint: disable=W0613
+    def _get(self, metric, *arg, **kwarg):
         if metric == 'status':
             return self.get_status()
         else:
             raise CheckFail('uncknown metric')
-    
+
     def _read_tw_status(self, c=0, u=0, cmd='status'):
         key = (c, u, cmd)
         if key in self._tw_out:
@@ -39,13 +41,15 @@ class RAID_3Ware(ZTCCheck):
         else:
             command = "%s info c%i u%i %s" \
                 % (self.config.get('tw_cli_path', '/opt/3ware/tw_cli'), c, u, cmd)
+            # pylint: disable=W0612
             retcode, ret = popen(command, self.logger)
             self._tw_out[key] = ret
             return ret
-    
+
     def get_status(self, c=0, u=0):
         ret = "ZTC_FAIL"
         try:
+            # pylint: disable=E1103
             st = self._read_tw_status(c, u, 'status')
             ret = st.splitlines()[0].split()[3]
         except IndexError:

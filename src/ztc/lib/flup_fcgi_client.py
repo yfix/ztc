@@ -355,7 +355,8 @@ class FCGIApp(object):
         pos = 0
         while True:
             eolpos = result.find('\n', pos)
-            if eolpos < 0: break
+            if eolpos < 0:
+                break
             line = result[pos:eolpos - 1]
             pos = eolpos + 1
 
@@ -364,7 +365,8 @@ class FCGIApp(object):
             line = line.strip()
 
             # Empty line signifies end of headers
-            if not line: break
+            if not line:
+                break
 
             # TODO: Better error handling
             header, value = line.split(':', 1)
