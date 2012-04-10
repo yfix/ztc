@@ -41,6 +41,9 @@ class TomcatJMXProxy(ZTCCheck):
             else:
                 key = None
             return self.get_jmx_attr(bean, attr, key)
+        elif metric == 'threads':
+            m = arg[0]
+            return self.get_threads(m)
         else:
             raise NotImplementedError("Metric %s is not implemented" % metric)
 
@@ -63,10 +66,29 @@ class TomcatJMXProxy(ZTCCheck):
         handler = urllib2.HTTPBasicAuthHandler(password_mgr)
         opener = urllib2.build_opener(handler)
         response = opener.open(url, None, self.timeout)
-        resp_text = response.read()
+        resp_text = response.read().strip()
+        self.logger.debug('got resp_text=%s' % resp_text)
+        # pylint: disable=W0612
         (status, req, resp) = resp_text.split('-')
         if status.strip().lower() != 'ok':
             self.logger.error('Response is not ok')
             return None
-        contents = resp.split('contents=')[-1].strip()[:-1]
+        contents = resp.split('contents=')[-1].strip()
+        if contents[-1] == ')':
+            contents = contents[:-1]
+        self.logger.debug('got contents=%s' % contents)
         return contents
+
+    def get_threads(self, m):
+        """ threads monitoring:
+        bean: java.lang:type=Threading
+        
+        props
+        * PeakThreadCount: 244
+        * DaemonThreadCount: 105
+        * ThreadCount: 244
+        * TotalStartedThreadCount: 295
+        * CurrentThreadCpuTime: 810000000
+        * CurrentThreadUserTime: 780000000 """
+        r = self.get_jmx_attr('java.lang:type=Threading', m)
+        return int(r.split('=')[-1].strip())
