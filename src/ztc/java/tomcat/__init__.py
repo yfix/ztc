@@ -15,6 +15,8 @@ class TomcatJMXProxy(ZTCCheck):
 
     name = "tomcat_jmx_proxy"
 
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 3
+
     proto = 'http'
     host = 'localhost'
     port = 8080
@@ -29,8 +31,9 @@ class TomcatJMXProxy(ZTCCheck):
         self.username = self.config.get('username', self.username)
         self.password = self.config.get('password', self.password)
 
+    # pylint: disable=W0613
     def _get(self, metric, *arg, **kwarg):
-        if metric == 'jmx_attr':
+        if metric == 'get':
             bean = arg[0]
             attr = arg[1]
             if len(arg) > 2:
@@ -39,7 +42,7 @@ class TomcatJMXProxy(ZTCCheck):
                 key = None
             return self.get_jmx_attr(bean, attr, key)
         else:
-            print "boo"
+            raise NotImplementedError("Metric %s is not implemented" % metric)
 
     def get_jmx_attr(self, bean_name, attr, key=None):
         url = "%s://%s:%s/manager/jmxproxy/?get=%s&att=%s" % (
@@ -60,5 +63,10 @@ class TomcatJMXProxy(ZTCCheck):
         handler = urllib2.HTTPBasicAuthHandler(password_mgr)
         opener = urllib2.build_opener(handler)
         response = opener.open(url, None, self.timeout)
-        print response.read()
-        print "aaa"
+        resp_text = response.read()
+        (status, req, resp) = resp_text.split('-')
+        if status.strip().lower() != 'ok':
+            self.logger.error('Response is not ok')
+            return None
+        contents = resp.split('contents=')[-1].strip()[:-1]
+        return contents
