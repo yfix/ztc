@@ -7,8 +7,8 @@ provides logging, output formatting and error handling abilities
 This file is part of ZTC
 
 Copyright (c) 2011 Denis Seleznyov [https://bitbucket.org/xy2/]
-Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
-Copyright (c) 2011 Murano Software [http://muranosoft.com]
+Copyright (c) 2011-2012 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011-2012 Murano Software [http://muranosoft.com]
 
 License: GNU GPL3
 """
@@ -23,6 +23,8 @@ import logging.handlers
 from tempfile import mktemp
 
 import unittest
+
+from ztc.myrotatingfilehandler import MyRotatingFileHandler
 
 
 class CheckFail(Exception):
@@ -70,7 +72,7 @@ class ZTCCheck(object):
             self.name = name
         if self.name == 'ztccheck':
             raise NotImplementedError("Class %s must redefine its name"
-                                            % (self.__class__.__name__, ))
+                                            % (self.__class__.__name__,))
         self._parse_argv()
         self.config = self._get_config()
         # checking if we are running in debug mode
@@ -81,18 +83,18 @@ class ZTCCheck(object):
             self.test = True
             self.debug = True
             self.options.logfile = mktemp()
-    
+
         # setup logger
         self.logger = logging.getLogger(self.__class__.__name__)
         formatter = logging.Formatter(
             "[%(name)s] %(asctime)s - %(levelname)s: %(message)s"
             )
         # setting file handler
-        h = logging.handlers.RotatingFileHandler(
-                                                 self.options.logfile,
-                                                 "a",
-                                                 1 * 1024 * 1024,  # max 1 M
-                                                 10)  # max 10 files
+        h = MyRotatingFileHandler(
+                                  self.options.logfile,
+                                  "a",
+                                  1 * 1024 * 1024, # max 1 M
+                                  10)  # max 10 files
         if self.debug:
             # setting stream handler
             sh = logging.StreamHandler()
@@ -173,7 +175,7 @@ class ZTCCheck(object):
         one of CheckFail or CheckTimeout exceptions. Multiple return values
         are not supported by zabbix yet."""
         raise NotImplementedError("Class %s must reimplement _get method"
-                                            % (self.__class__.__name__, ))
+                                            % (self.__class__.__name__,))
 
     def get_val(self, metric=None, *args, **kwargs):
         """ wrapper above _get to ensure every returned value is in
@@ -199,14 +201,14 @@ class ZTCCheck(object):
             ret = self.get_val(metric, *args, **kwargs)
             print(ret)
         except CheckFail, e:
-            self.logger.exception('Check fail, getting %s' % (metric, ))
+            self.logger.exception('Check fail, getting %s' % (metric,))
             if self.debug:
                 traceback.print_stack()
             for arg in e.args:
                 print(arg)
             sys.exit(1)
         except CheckTimeout, e:
-            self.logger.exception('Check timeout, getting %s' % (metric, ))
+            self.logger.exception('Check timeout, getting %s' % (metric,))
             if self.debug:
                 traceback.print_stack()
             for arg in e.args:
@@ -215,7 +217,7 @@ class ZTCCheck(object):
         except Exception, e:
             # totally unexpected fail: dump all data we know
             self.logger.exception('Check unexpected error, getting %s' % \
-                                  (metric, ))
+                                  (metric,))
             sys.exit(1)
         #sys.exit(0)
 
