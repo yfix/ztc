@@ -69,7 +69,7 @@ class TomcatJMXProxy(ZTCCheck):
         resp_text = response.read().strip()
         self.logger.debug('got resp_text=%s' % resp_text)
         # pylint: disable=W0612
-        (status, req, resp) = resp_text.split('-')
+        (status, req, resp) = resp_text.split('-')  # @UnusedVariable
         if status.strip().lower() != 'ok':
             self.logger.error('Response is not ok')
             return None
