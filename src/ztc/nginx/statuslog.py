@@ -34,6 +34,7 @@ class NginxStatusLog(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2    
     
+    #pylint: W0613
     def _get(self, metric=None, *args, **kwargs):
         """ get metric """
         if metric == 'num':

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#pylint: disable=W0232
 '''
 ZTC JMap class: runs jmap ... <pid>, caches results and parses output
 

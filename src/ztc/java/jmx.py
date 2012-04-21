@@ -8,7 +8,8 @@
 Usage example to jmxterm-*.jar:
 
 java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar \
-    /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l service:jmx:jmxmp://localhost:9520
+    /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l \
+    service:jmx:jmxmp://localhost:9520
 get -b java.lang:type=ClassLoading LoadedClassCount -s
 
 automated version:

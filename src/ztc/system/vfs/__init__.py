@@ -29,6 +29,7 @@ from ztc.check import ZTCCheck, CheckFail
 import ztc.myos
 
 class DiskStats(object):
+    """ disk stats struct """
     major = 0
     minor = 0
     devname = None

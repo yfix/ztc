@@ -37,7 +37,7 @@ setup(
           'ztc.pgsql',
           'ztc.net', 'ztc.net.icmp', 'ztc.net.http',
           'ztc.hw',
-          'ztc.java', 'ztc.php',
+          'ztc.java', 'ztc.java.tomcat', 'ztc.php',
           'ztc.mongo',
           'ztc.ldap'
           ],

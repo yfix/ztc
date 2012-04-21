@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#pylint: disable=W0232
 """
     ZTC Hardware monitoring package
 

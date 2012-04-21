@@ -25,6 +25,7 @@ class NginxStatus(ZTCCheck):
     _page_data = None # data from status page
     ping_time = 0
     
+    #pylint: disable=W0613
     def _get(self, metric=None, *args, **kwargs):
         """ get metric """
         allowed_metrics = ('accepts', 'handled', 'requests',
