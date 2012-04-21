@@ -56,7 +56,8 @@ class RAID_3Ware(ZTCCheck):
             st = self._read_tw_status(c, u, 'status')
             ret = st.splitlines()[0].split()[3]
         except IndexError:
-            self.logger.exception("problem with tw_cli output. Make sure it's installed correctly")
+            self.logger.exception(
+                "problem with tw_cli output. Make sure it's installed correctly")
             ret = "ZTC_FAIL: TW_CLI"
         except AttributeError:
             self.logger.exception("popen returned incorrect type. Please, report a bug")

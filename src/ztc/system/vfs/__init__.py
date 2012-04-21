@@ -47,10 +47,10 @@ class DiskStats(object):
     
     def __repr__(self):
         r = self
-        return str( (r.major, r.minor, r.devname, r.reads, r.reads_merged,
+        return str((r.major, r.minor, r.devname, r.reads, r.reads_merged,
                      r.sectors_read, r.time_read, r.writes, r.writes_merged,
                      r.sectors_written, r.time_write, r.cur_ios, r.time_io,
-                     r.time_io_weidged) )
+                     r.time_io_weidged))
     
     def __str__(self):
         r = self
@@ -314,8 +314,3 @@ class DiskStatsParserTest(unittest.TestCase):
         ds.time_io = 24766012
         ds.time_io_weidged = 58198856
         assert str(dsp._parse_diskstats_line('104 0 cciss/c0d0 12746 1947 208311 37832 2424476 2120977 36390792 58162004 0 24766012 58198856')) == str(ds)
-
-
-
-if __name__ == '__main__':
-    unittest.main()

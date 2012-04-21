@@ -21,6 +21,7 @@ echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endo
 from ztc.check import ZTCCheck, CheckFail
 from ztc.myos import popen
 
+
 class JMXCheck(ZTCCheck):
     """ Generic JMX check """
     
@@ -61,4 +62,4 @@ class JMXCheck(ZTCCheck):
             self.logger.error('jmxterm returned non-zero status')
             raise CheckFail('unable to get jmx propery %s %s' %
                             (mbean_name, attribute_name))
-        return ret.strip()            
+        return ret.strip()

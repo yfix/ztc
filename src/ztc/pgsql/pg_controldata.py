@@ -16,7 +16,7 @@ import ztc.myos
 class PgControldata(ZTCCheck):
     """ pg_controldata related checks """
     
-    name= 'pgsql'
+    name = 'pgsql'
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
     OPTPARSE_MAX_NUMBER_OF_ARGS = 1

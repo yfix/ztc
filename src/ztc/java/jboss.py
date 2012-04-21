@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
     Jboss check class for ZTC. Licensed under the same terms as ZTC.
-    
+
     Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
     
