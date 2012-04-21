@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#pylint: disable=W0232
 """
 Nginx Status Log check class: calculates number of responses in given status
 (since last run)
@@ -34,6 +35,7 @@ class NginxStatusLog(ZTCCheck):
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2    
     
     def _get(self, metric=None, *args, **kwargs):
+        """ get metric """
         if metric == 'num':
             status = args[0]
             return self.get_status_num(status)
@@ -66,7 +68,7 @@ class NginxStatusLog(ZTCCheck):
         for l in f.readlines():
             st = l.split()[0] # response time should be in first col
             st = int(st) 
-            if statuses.has_key(st):
+            if st in statuses:
                 statuses[st] += 1
             else:
                 statuses[st] = 1

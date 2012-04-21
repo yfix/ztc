@@ -7,7 +7,8 @@
 
 Usage example to jmxterm-*.jar:
 
-java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l service:jmx:jmxmp://localhost:9520
+java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar \
+    /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l service:jmx:jmxmp://localhost:9520
 get -b java.lang:type=ClassLoading LoadedClassCount -s
 
 automated version:
@@ -29,7 +30,7 @@ class JMXCheck(ZTCCheck):
     def _myinit(self):
         """ constructor override """
         self.jmx_url = self.config.get('jmx_url',
-                                       'service:jmx:rmi://localhost:123')    
+                                       'service:jmx:rmi://localhost:123')
     
     def _get(self, metric, *args, **kwargs):
         if metric == 'get_prop':

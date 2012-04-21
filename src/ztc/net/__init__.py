@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable=W0232,R0903
 """
 net module for ZTC - contains additional network metrics 
 

@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+#pylint: disable=R0904
+""" Test for ZTCCheck class """
 
 import unittest
 
 from ztc.check import ZTCCheck
 
 class ZTCCheckTest(unittest.TestCase):
+    """ Test for ZTCCheck class """
     class ZTCTestCheck(ZTCCheck):
         name = 'test'
 

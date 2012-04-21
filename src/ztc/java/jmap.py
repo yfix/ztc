@@ -12,12 +12,13 @@ import os
 from ztc.check import ZTCCheck
 from ztc.store import ZTCStore
 
+
 class Jmap(ZTCCheck):
     """
         Monitoring using jmap
     """
     pid = 0
-    cache = 60 # how long store jmap cache
+    cache = 60  # how long store jmap cache
     jmap_path = '/usr/bin/jmap'
 
     def _get(self):

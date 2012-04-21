@@ -17,6 +17,7 @@ import pwd
 
 
 class MyRotatingFileHandler(handlers.RotatingFileHandler):
+    """ RotatingFileHandler with setting custom owner and permissions """
 
     def _open(self):
         st = handlers.RotatingFileHandler._open(self)

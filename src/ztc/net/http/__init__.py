@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable=W0232
 '''
 ZTC HTTP check class - used to query url
 
@@ -15,6 +16,7 @@ import time
 from ztc.check import ZTCCheck, CheckFail
 
 class HTTP(ZTCCheck):
+    """ http checks class """
     name = 'net'
     
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#pylint: disable=W0232
 """
 ztc.nginx package
     
@@ -25,6 +26,7 @@ class NginxStatus(ZTCCheck):
     ping_time = 0
     
     def _get(self, metric=None, *args, **kwargs):
+        """ get metric """
         allowed_metrics = ('accepts', 'handled', 'requests',
             'connections_active', 'connections_reading', 'connections_waiting',
             'connections_writing', 'ping')
@@ -32,7 +34,6 @@ class NginxStatus(ZTCCheck):
             return self.__getattribute__('get_' + metric)()
         else:
             raise CheckFail("Requested not allowed metric")   
-        
     
     def _read_status(self):
         """ urlopen and save to _page_data text of status page """
@@ -101,7 +102,7 @@ class NginxStatus(ZTCCheck):
         """ Number of requests()s since server start """
         self._read_status()
         if self._page_data:
-            my_line= self._page_data[2]
+            my_line = self._page_data[2]
             return int(my_line.split()[2])
         else:
             return 0

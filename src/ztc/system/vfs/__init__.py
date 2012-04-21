@@ -1,9 +1,11 @@
 #!/usr/bin/env python
+# pylint: disable=R0902
 '''
 VFS Device metrics module for ZTC
 
 Copyright (c) 2010-2012 Vladimir Rusinov <vladimir@greenmice.info>
-Copyright (c) Michal Ludvig <michal@logix.cz> http://www.logix.cz/michal/devel/nagios
+Copyright (c) Michal Ludvig <michal@logix.cz>
+    http://www.logix.cz/michal/devel/nagios
 Copyright (c) 2011 Murano Software [http://muranosoft.com]
 Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 Copyright (c) 2011 Artem Silenkov
@@ -44,9 +46,10 @@ class DiskStats(object):
     
     def __repr__(self):
         r = self
-        return str( (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
-            r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
-            r.cur_ios, r.time_io, r.time_io_weidged) )
+        return str( (r.major, r.minor, r.devname, r.reads, r.reads_merged,
+                     r.sectors_read, r.time_read, r.writes, r.writes_merged,
+                     r.sectors_written, r.time_write, r.cur_ios, r.time_io,
+                     r.time_io_weidged) )
     
     def __str__(self):
         r = self

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# pylint: disable=W0232
 """ ZTC net.icmp package
 
 Introduces ping check - can be used to do icmp ping
@@ -19,6 +20,7 @@ from ztc.check import ZTCCheck
 from ztc.myos import popen
 
 class Ping(ZTCCheck):
+    """ ztc ping check """
     name = "icmpping"
     
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2

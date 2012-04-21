@@ -8,8 +8,6 @@
     Copyright (c) 2011 Parchment Inc. [http://www.parchment.com]
 """
 
-#from ztc.commons import mypopen, get_config
-
 from ztc.check import ZTCCheck, CheckFail
 from ztc.myos import popen
 
@@ -40,7 +38,12 @@ class RAID_3Ware(ZTCCheck):
             return self._tw_out[key]
         else:
             command = "%s info c%i u%i %s" \
-                % (self.config.get('tw_cli_path', '/opt/3ware/tw_cli'), c, u, cmd)
+                % (
+                    self.config.get('tw_cli_path', '/opt/3ware/tw_cli'),
+                    c,
+                    u,
+                    cmd
+                )
             # pylint: disable=W0612
             retcode, ret = popen(command, self.logger)
             self._tw_out[key] = ret
