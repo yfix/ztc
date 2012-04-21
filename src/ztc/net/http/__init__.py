@@ -29,7 +29,6 @@ class HTTP(ZTCCheck):
     def _myinit(self):
         self.timeout = self.config.get('timeout', 2)
 
-    
     def get_ping(self, url):
         s = time.time()
         try:

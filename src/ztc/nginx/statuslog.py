@@ -51,7 +51,7 @@ class NginxStatusLog(ZTCCheck):
             self.save_to_store(st)
             
         k = int(status)
-        if st.has_key(k):
+        if k in st:
             return st[k]
         else:
             return 0

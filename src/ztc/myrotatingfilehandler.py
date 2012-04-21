@@ -5,7 +5,7 @@ ability to set owner/permissons on created file
 
 Copyright (c) 2009 Cory Engebretson,
     http://stackoverflow.com/users/3406/cory-engebretson
-    http://stackoverflow.com/questions/1407474/does-python-logging-handlers-rotatingfilehandler-allow-creation-of-a-group-writa 
+    http://stackoverflow.com/questions/1407474/
 """
 
 from logging import handlers
@@ -14,6 +14,7 @@ import os
 import stat
 
 import pwd
+
 
 class MyRotatingFileHandler(handlers.RotatingFileHandler):
 

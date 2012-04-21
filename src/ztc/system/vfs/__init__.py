@@ -156,7 +156,7 @@ class DiskStatus(ZTCCheck):
         device = args[0]
         dev_type = 'auto'
         if len(args) > 1:
-             dev_type = args[1]
+            dev_type = args[1]
         if metric == 'health':
             return self.get_health(device, dev_type)
         else:

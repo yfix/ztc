@@ -20,7 +20,7 @@ class Conn(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 0
     OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
     
-    _tcp_conn_states = [ 'ESTABLISHED', # = 1
+    _tcp_conn_states = ['ESTABLISHED', # = 1
         'SYN_SENT',
         'SYN_RECV',
         'FIN_WAIT1',

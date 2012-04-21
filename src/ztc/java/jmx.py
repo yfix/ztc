@@ -12,7 +12,7 @@ get -b java.lang:type=ClassLoading LoadedClassCount -s
 
 automated version:
 
-echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l service:jmx:jmxmp://localhost:9520 -e -n -v silent 
+echo "get -b java.lang:type=ClassLoading LoadedClassCount -s" | java -Djava.endorsed.dirs=/opt/ztc/lib/ -jar /opt/ztc/lib/jmxterm-1.0-alpha-4-uber.jar -l service:jmx:jmxmp://localhost:9520 -e -n -v silent
 
 """
 

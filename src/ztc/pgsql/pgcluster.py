@@ -88,7 +88,8 @@ class PgCluster(ZTCCheck):
         }
 
         ret = {}
-        if not self.dbs: self.get_dblist()
+        if not self.dbs:
+            self.get_dblist()
         for db in self.dbs:
             if db in exclude:
                 continue

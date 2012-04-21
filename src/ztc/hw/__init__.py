@@ -2,7 +2,7 @@
 
 """
     ZTC Hardware monitoring package
-    
+
     Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
     Copyright (c) 2010 Murano Software [http://muranosoft.com]
     Copyright (c) 2011 Parchment Inc. [http://www.parchment.com]

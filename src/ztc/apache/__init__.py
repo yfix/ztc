@@ -208,7 +208,8 @@ class ApacheTimeLog(ZTCCheck):
         self._closelog()
         if total_lines != 0:
             ret = {
-                   'avg': float(total_time) / total_lines * 0.000001, # convert to seconds
+                   # convert to seconds
+                   'avg': float(total_time) / total_lines * 0.000001,
                    'min': float(min_time) * 0.000001,
                    'max': float(max_time) * 0.000001,
                    }

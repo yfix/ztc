@@ -7,6 +7,7 @@ from ztc.check import ZTCCheck
 class ZTCCheckTest(unittest.TestCase):
     class ZTCTestCheck(ZTCCheck):
         name = 'test'
+
         def _get(self, *args, **kwargs):
             if len(args) == 1:
                 return args[0]
