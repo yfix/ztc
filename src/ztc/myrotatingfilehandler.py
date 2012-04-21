@@ -22,13 +22,13 @@ class MyRotatingFileHandler(handlers.RotatingFileHandler):
         self.chuid()
         return st
 
-    def doRollover(self):
-        """
-        Override base class method to make the new log file group writable.
-        """
-        # Rotate the file first.
-        handlers.RotatingFileHandler.doRollover(self)
-        self.chuid()
+    #def doRollover(self):
+    #    """
+    #    Override base class method to make the new log file group writable.
+    #    """
+    #    # Rotate the file first.
+    #    handlers.RotatingFileHandler.doRollover(self)
+    #    self.chuid()
 
     def chuid(self):
         # Add group write to the current permissions.
