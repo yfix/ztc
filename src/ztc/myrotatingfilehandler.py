@@ -32,8 +32,11 @@ class MyRotatingFileHandler(handlers.RotatingFileHandler):
 
     def chuid(self):
         # Add group write to the current permissions.
-        currMode = os.stat(self.baseFilename).st_mode
-        os.chmod(self.baseFilename, currMode | stat.S_IWGRP)
+        try:
+            currMode = os.stat(self.baseFilename).st_mode
+            os.chmod(self.baseFilename, currMode | stat.S_IWGRP)
+        except OSError:
+            pass
         try:
             if os.getuid() == 0:
                 uid = pwd.getpwnam('zabbix').pw_uid

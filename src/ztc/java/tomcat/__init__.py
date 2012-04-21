@@ -44,6 +44,10 @@ class TomcatJMXProxy(ZTCCheck):
         elif metric == 'threads':
             m = arg[0]
             return self.get_threads(m)
+        elif metric == 'memory':
+            t = arg[0]
+            m = arg[1]
+            return self.get_memory(t, m)
         else:
             raise NotImplementedError("Metric %s is not implemented" % metric)
 
@@ -79,6 +83,27 @@ class TomcatJMXProxy(ZTCCheck):
         self.logger.debug('got contents=%s' % contents)
         return contents
 
+    def _parse_java_dict(self, s):
+        """ parse dict from s.
+        Example:
+        {committed=24576000, init=24313856, max=224395264, used=19720328} ->
+        {
+            'committed': '24576000',
+            'init': '24313856',
+            'max': '224395264',
+            'used': '19720328',
+        }
+        """
+        ret = {}
+        if not (s.startswith('{') and s.endswith('}')):
+            raise ValueError("Invalid dict format: '%s'" % s)
+        s = s[1:-1]
+        items = s.split(", ")
+        for i in items:
+            (key, value) = i.split('=')
+            ret[key] = value
+        return ret
+
     def get_threads(self, m):
         """ threads monitoring:
         bean: java.lang:type=Threading
@@ -92,3 +117,15 @@ class TomcatJMXProxy(ZTCCheck):
         * CurrentThreadUserTime: 780000000 """
         r = self.get_jmx_attr('java.lang:type=Threading', m)
         return int(r.split('=')[-1].strip())
+
+    def get_memory(self, t, m):
+        if t == 'heap':
+            k = 'HeapMemoryUsage'
+        elif t == 'nonheap':
+            k = 'NonHeapMemoryUsage'
+        else:
+            raise NotImplementedError(
+                                "metrics for memory %s is not supported" % t)
+
+        r = self.get_jmx_attr('java.lang:type=Memory', k)
+        return self._parse_java_dict(r)[m]
