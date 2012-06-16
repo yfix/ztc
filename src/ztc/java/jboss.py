@@ -4,7 +4,7 @@
 
     Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
-    
+
 Use jboss-remoting.sar from server/all/deploy/ to enable remote jmx support
 """
 
@@ -24,7 +24,7 @@ class JMXJboss(JMXCheck):
     def _myinit(self):
         """ init: override default url """
         self.jmx_url = self.config.get('jmx_url',
-           'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
+          'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
 
     def _get(self, metric, *args, **kwargs):
         if metric == 'get_prop':

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
-    ztc.apache package
-    Used in ztc Apache template
+ztc.apache package
+Used in ztc Apache template
 
-    Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
-    Copyright (c) 2010 Murano Software [http://muranosoft.com/]
-    License: GNU GPL v.3
+Copyright (c) 2010-2012 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2010 Murano Software [http://muranosoft.com/]
+License: GNU GPL v.3
 """
 
 import os

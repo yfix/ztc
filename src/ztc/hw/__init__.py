@@ -38,14 +38,12 @@ class RAID_3Ware(ZTCCheck):
             return self._tw_out[key]
         else:
             command = "%s info c%i u%i %s" \
-                % (
-                    self.config.get('tw_cli_path', '/opt/3ware/tw_cli'),
+                % (self.config.get('tw_cli_path', '/opt/3ware/tw_cli'),
                     c,
                     u,
-                    cmd
-                )
+                    cmd)
             # pylint: disable=W0612
-            retcode, ret = popen(command, self.logger)
+            retcode, ret = popen(command, self.logger)  # @UnusedVariable
             self._tw_out[key] = ret
             return ret
 
@@ -57,10 +55,12 @@ class RAID_3Ware(ZTCCheck):
             ret = st.splitlines()[0].split()[3]
         except IndexError:
             self.logger.exception(
-                "problem with tw_cli output. Make sure it's installed correctly")
+                "problem with tw_cli output. "
+                "Make sure it's installed correctly")
             ret = "ZTC_FAIL: TW_CLI"
         except AttributeError:
-            self.logger.exception("popen returned incorrect type. Please, report a bug")
+            self.logger.exception("popen returned incorrect type. Please, "
+                                  "report a bug")
             ret = "ZTC_FAIL: popen"
         except:
             self.logger.exception("uncknown exception")

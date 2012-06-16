@@ -18,7 +18,7 @@ import sys
 import traceback
 import optparse
 import ConfigParser
-import logging
+import logging  # @UnusedImport
 import logging.handlers
 from tempfile import mktemp
 
@@ -93,7 +93,7 @@ class ZTCCheck(object):
         h = MyRotatingFileHandler(
                                   self.options.logfile,
                                   "a",
-                                  1 * 1024 * 1024,  # max 1 M
+                                  1 * 1024 * 1024, # max 1 M
                                   10)  # max 10 files
         if self.debug:
             # setting stream handler
