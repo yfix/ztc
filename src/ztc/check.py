@@ -39,6 +39,7 @@ class CheckTimeout(Exception):
 
 class MyConfigParser(ConfigParser.ConfigParser):
     """ Wrapper around ConfigParser to provide nicer API for ztc """
+
     def __init__(self, section='main'):
         self.sectname = section
         ConfigParser.ConfigParser.__init__(self)
@@ -87,8 +88,7 @@ class ZTCCheck(object):
         # setup logger
         self.logger = logging.getLogger(self.__class__.__name__)
         formatter = logging.Formatter(
-            "[%(name)s] %(asctime)s - %(levelname)s: %(message)s"
-            )
+            "[%(name)s] %(asctime)s - %(levelname)s: %(message)s")
         # setting file handler
         h = MyRotatingFileHandler(
                                   self.options.logfile,

@@ -39,8 +39,7 @@ setup(
           'ztc.hw',
           'ztc.java', 'ztc.java.tomcat', 'ztc.php',
           'ztc.mongo',
-          'ztc.ldap'
-          ],
+          'ztc.ldap'],
 
       scripts=glob.glob('src/*.py'),
 

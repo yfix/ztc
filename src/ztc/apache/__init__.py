@@ -44,8 +44,7 @@ class ApacheStatus(ZTCCheck):
                                         socket.getservbyname(proto, 'tcp')),
                                       self.config.get(
                                         'resource',
-                                        '/server-status')
-                                      )
+                                        '/server-status'))
         self.logger.debug("opening url %s" % url)
         try:
             u = urllib2.urlopen(url, None, 1)
@@ -87,6 +86,7 @@ class ApacheStatus(ZTCCheck):
 
     ####################################################################
     ## Properties ######################################################
+
     def get_ping(self):
         """ Returns time required to load test page """
         try:
@@ -185,8 +185,7 @@ class ApacheTimeLog(ZTCCheck):
         slowlog_time = int(self.config.get('slowlog', 0))
         slowlog_path = os.path.join(
             self.config.get('logdir', '/var/log/apache2/'),
-            self.config.get('slowlog_file', 'slow.log')
-        )
+            self.config.get('slowlog_file', 'slow.log'))
         for l in self.log.readlines():
             if not l.strip():
                 # skip empty lines
