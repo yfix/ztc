@@ -27,6 +27,7 @@ class JMXJboss(JMXCheck):
           'service:jmx:rmi://localhost/jndi/rmi://localhost:1090/jmxconnector')
 
     def _get(self, metric, *args, **kwargs):
+        """ get metric - overrides _get from ZTCCheck """
         if metric == 'get_prop':
             # get jmx property
             return self.get_prop(*args)

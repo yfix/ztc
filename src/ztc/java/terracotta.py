@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 """
     Terracotta check class for ZTC. Licensed under the same terms as ZTC.
-    
+
     Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
     Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
-    
+
 Interesing Terracotta beans:
 
 java.lang:name=Code Cache,type=MemoryPool:
   %8   - Type (java.lang.String, r)
     'NON_HEAP'
   %9   - Usage (javax.management.openmbean.CompositeData, r):
-    Usage = { 
+    Usage = {
       committed = 2359296;
       init = 2359296;
       max = 50331648;
@@ -39,36 +39,42 @@ java.lang:type=Threading
 java.util.logging:type=Logging
 #domain = org.terracotta:
 org.terracotta:name=DSO,type=Terracotta Server
-org.terracotta:name=ObjectManagement,subsystem=Object Management,type=Terracotta Server
-org.terracotta:name=Terracotta Statistics Gatherer,subsystem=Statistics,type=Terracotta Server
+org.terracotta:name=ObjectManagement,subsystem=Object Management,\
+    type=Terracotta Server
+org.terracotta:name=Terracotta Statistics Gatherer,subsystem=Statistics,\
+    type=Terracotta Server
 #domain = org.terracotta.internal:
 org.terracotta.internal:name=Application Events,type=Terracotta Server
 org.terracotta.internal:name=L2Dumper,type=Terracotta Server
 org.terracotta.internal:name=Logger,type=Terracotta Server
 org.terracotta.internal:name=Terracotta Lock Statistics,type=Terracotta Server
 org.terracotta.internal:name=Terracotta Server,type=Terracotta Server
-org.terracotta.internal:name=Terracotta Statistics Emitter,subsystem=Statistics,type=Terracotta Agent
-org.terracotta.internal:name=Terracotta Statistics Gateway,subsystem=Statistics,type=Terracotta Server
-org.terracotta.internal:name=Terracotta Statistics Manager,subsystem=Statistics,type=Terracotta Agent    
+org.terracotta.internal:name=Terracotta Statistics Emitter,\
+    subsystem=Statistics,type=Terracotta Agent
+org.terracotta.internal:name=Terracotta Statistics Gateway,\
+    subsystem=Statistics,type=Terracotta Server
+org.terracotta.internal:name=Terracotta Statistics Manager,\
+    subsystem=Statistics,type=Terracotta Agent
 """
 
 from ztc.java.jmx import JMXCheck
 from ztc.check import CheckFail
 from ztc.store import ZTCStore
 
+
 class JMXTerracotta(JMXCheck):
     """ Generic JMX check """
-    
+
     name = 'terracotta'
-    
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
     OPTPARSE_MAX_NUMBER_OF_ARGS = 3
-    
+
     def myinit(self):
         # override default url
         self.jmx_url = self.config.get('jmx_url',
                                        'service:jmx:jmxmp://localhost:9520')
-        
+
     def _get(self, metric, *args, **kwargs):
         if metric == 'get_prop':
             # get jmx property
@@ -84,22 +90,22 @@ class JMXTerracotta(JMXCheck):
             return self.get_codecache(args[0])
         else:
             raise CheckFail('unsupported metric')
-    
+
     def extract_val_from_dict(self, data, metric):
         """ extract value from java dictionary-like sting, like following:
-        { 
+        {
             committed = 257294336;
             init = 268435456;
             max = 257294336;
             used = 59949552;
         }
-        """        
+        """
         for line in data.splitlines():
             line = line.strip()
             if line.startswith(metric):
                 return int(line.split()[-1][:-1])
-        return None                    
-    
+        return None
+
     def get_codecache(self, metric):
         """ get java codecache memory (non-heap) metrics """
         self.logger.debug('in get_codecache')
@@ -115,8 +121,8 @@ class JMXTerracotta(JMXCheck):
         if rt is None:
             raise CheckFail('no such memory mertic')
         else:
-            return rt            
-    
+            return rt
+
     def get_heap(self, metric):
         """ get terracotta heap memory metrics """
         st = ZTCStore('java.terracotta.heap', self.options)
@@ -126,9 +132,9 @@ class JMXTerracotta(JMXCheck):
             # no cache, get from jmx
             data = self.get_prop('java.lang:type=Memory', 'HeapMemoryUsage')
             st.set(data)
-        
+
         rt = self.extract_val_from_dict(data, metric)
         if rt is None:
             raise CheckFail('no such memory mertic')
         else:
-            return rt 
+            return rt

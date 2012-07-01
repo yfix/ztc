@@ -116,6 +116,7 @@ class PgDB(ZTCCheck):
             return 0
     
     def get_ping(self):
+        """get amount of time required to execute trivial query"""
         st = time.time()
         try:
             if self.dbconn.query('SELECT 1'):

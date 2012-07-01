@@ -48,6 +48,16 @@ class RAID_3Ware(ZTCCheck):
             return ret
 
     def get_status(self, c=0, u=0):
+        """ get status of raid
+
+        Args:
+            c: controller numbe
+            u: unit (array) number
+
+        Returns:
+            'OK' if status is in optimal config
+            != 'OK' if it isn't
+        """
         ret = "ZTC_FAIL"
         try:
             # pylint: disable=E1103

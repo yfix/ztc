@@ -11,3 +11,4 @@ build.sh
 *.orig
 *.rej
 *.komodoproject
+.coverage

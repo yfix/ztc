@@ -1,12 +1,14 @@
 #!/usr/bin/env python
-#
-# Tomcat jmx_proxy monitpring class
-#
-# Copyright (c) 2012 Wrike. Inc.
+""" Tomcat jmx_proxy monitpring class
+
+Copyright (c) 2012 Wrike. Inc.
+Copyright (c) 2012 Vladimir Rusinov <vladimir@greenmice.info>
+"""
 
 import urllib2
 
 from ztc.check import ZTCCheck
+
 
 class TomcatJMXProxy(ZTCCheck):
     """ tomcat jmx_proxy monitoring class
@@ -57,8 +59,7 @@ class TomcatJMXProxy(ZTCCheck):
             self.host,
             self.port,
             bean_name,
-            attr
-            )
+            attr)
         if key:
             url = url + "&key=%s" % key
 
@@ -107,7 +108,7 @@ class TomcatJMXProxy(ZTCCheck):
     def get_threads(self, m):
         """ threads monitoring:
         bean: java.lang:type=Threading
-        
+
         props
         * PeakThreadCount: 244
         * DaemonThreadCount: 105

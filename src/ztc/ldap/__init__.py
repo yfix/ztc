@@ -16,6 +16,7 @@ import ldap
 
 from ztc.check import ZTCCheck
 
+
 class LDAPCheck(ZTCCheck):
     name = "ldap"
 
@@ -25,11 +26,13 @@ class LDAPCheck(ZTCCheck):
 
     def _connect(self):
         """ connect to ldap server """
-        self.con = ldap.initialize(self.config.get('ldap_url', 'ldap://localhost'))
+        self.con = ldap.initialize(self.config.get('ldap_url',
+                                                   'ldap://localhost'))
         self.con.simple_bind_s()
 
     def ping(self):
-        """ ping ldap server - execute simple query and calculate time required """
+        """ping ldap server - execute simple query and calculate time
+        required"""
         st = time.time()
         try:
             self._connect()

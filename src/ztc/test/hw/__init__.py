@@ -11,6 +11,7 @@ Copyright (c) 2012 Wrike, Inc. [http://www.wrike.com/]
 import unittest
 from ztc.hw import RAID_3Ware
 
+
 class TestRAID_3Ware(unittest.TestCase):
     """ Tests for RAID_3Ware class """
 

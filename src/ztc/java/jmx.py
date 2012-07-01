@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-    JMX Check class for ZTC. Licensed under the same terms as ZTC.
+JMX Check class for ZTC. Licensed under the same terms as ZTC.
 
-    Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
-    Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
+Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
+Copyright (c) 2011-2012 Vladimir Rusinov <vladimir@greenmice.info>
 
 Usage example to jmxterm-*.jar:
 

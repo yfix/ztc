@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# pylint: disable = W0221, W0702, W0201
+# pylint: disable = W0221, W0702, W0201, E261
 """
 ZTCCheck class - wrapper for ztc checks
 provides logging, output formatting and error handling abilities
@@ -19,7 +19,7 @@ import traceback
 import optparse
 import ConfigParser
 import logging  # @UnusedImport
-import logging.handlers
+import logging.handlers  # @UnusedImport
 from tempfile import mktemp
 
 import unittest
@@ -93,7 +93,7 @@ class ZTCCheck(object):
         h = MyRotatingFileHandler(
                                   self.options.logfile,
                                   "a",
-                                  1 * 1024 * 1024, # max 1 M
+                                  1 * 1024 * 1024,  # max 1 M
                                   10)  # max 10 files
         if self.debug:
             # setting stream handler
