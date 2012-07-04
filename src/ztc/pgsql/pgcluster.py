@@ -25,19 +25,14 @@ class PgCluster(ZTCCheck):
 
     dbs = []
 
-    def _get(self, metric, *args, **kwargs):
-        if metric == 'bloat':
-            return self.get_bloat()
-        else:
-            raise CheckFail('uncknown metric')
-
-    def get_bloat(self):
+    @property
+    def bloat(self):
         """ get max database bloat of all databases of cluster """
-        q = pgq.BLOAT
+        query = pgq.BLOAT
         pages = 0
         otta = 0
         bloatest = [] # list of bloatest tables
-        ret = self.query_eachdb(q, exclude=['template0'])
+        ret = self.query_eachdb(query, exclude=['template0'])
         for db in ret.keys():
             # loop through all databases
             for r in ret[db]:

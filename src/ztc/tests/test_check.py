@@ -5,6 +5,10 @@
 import unittest
 
 from ztc.check import ZTCCheck
+from ztc.tests import setup_no_logging
+
+ZTCCheck._setup_logging = setup_no_logging
+
 
 class ZTCCheckTest(unittest.TestCase):
     """ Test for ZTCCheck class """

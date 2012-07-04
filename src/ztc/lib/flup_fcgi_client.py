@@ -154,12 +154,14 @@ def encode_pair(name, value):
 
     return s + name + value
 
+
 class Record(object):
     """
     A FastCGI Record.
 
     Used for encoding/decoding records.
     """
+
     def __init__(self, typ=FCGI_UNKNOWN_TYPE, requestId=FCGI_NULL_REQUEST_ID):
         self.version = FCGI_VERSION_1
         self.type = typ
@@ -248,7 +250,7 @@ class Record(object):
 
     def write(self, sock):
         """Encode and write a Record to a socket."""
-        self.paddingLength = -self.contentLength & 7
+        self.paddingLength = - self.contentLength & 7
 
         if __debug__:
             _debug(9, 'write: fd = %d, type = %d, requestId = %d, '
@@ -264,6 +266,7 @@ class Record(object):
             self._sendall(sock, self.contentData)
         if self.paddingLength:
             self._sendall(sock, '\x00' * self.paddingLength)
+
 
 class FCGIApp(object):
 
@@ -405,7 +408,8 @@ class FCGIApp(object):
             return sock
 
         # To be done when I have more time...
-        raise NotImplementedError('Launching and managing FastCGI programs not yet implemented')
+        raise NotImplementedError(
+            'Launching and managing FastCGI programs not yet implemented')
 
     def _fcgiGetValues(self, sock, vars):  # @ReservedAssignment
         # Construct FCGI_GET_VALUES record

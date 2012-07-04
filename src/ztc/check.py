@@ -20,7 +20,6 @@ import optparse
 import ConfigParser
 import logging  # @UnusedImport
 import logging.handlers  # @UnusedImport
-from tempfile import mktemp
 
 import unittest
 
@@ -68,7 +67,7 @@ class ZTCCheck(object):
     test = False
     logger = None
 
-    def __init__(self, name=None, test=False):
+    def __init__(self, name=None):
         if name:
             self.name = name
         if self.name == 'ztccheck':
@@ -79,12 +78,12 @@ class ZTCCheck(object):
         # checking if we are running in debug mode
         if self.config.get('debug', False):
             self.debug = True
-        # checking if we are running inside test
-        if test:
-            self.test = True
-            self.debug = True
-            self.options.logfile = mktemp()
 
+        self._setup_logging()
+        self._myinit()
+
+    def _setup_logging(self):
+        """Setup logging - self.logger"""
         # setup logger
         self.logger = logging.getLogger(self.__class__.__name__)
         formatter = logging.Formatter(
@@ -112,7 +111,6 @@ class ZTCCheck(object):
         self.logger.debug("config file: %s" % \
                           os.path.join(self.options.confdir,
                           self.name + ".conf"))
-        self._myinit()
 
     def _myinit(self):
         """ To be overriden by subclasses, executes just after __init__ -
@@ -152,10 +150,11 @@ class ZTCCheck(object):
         self.args = args
         if self.OPTPARSE_MIN_NUMBER_OF_ARGS > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
             self.OPTPARSE_MAX_NUMBER_OF_ARGS = self.OPTPARSE_MIN_NUMBER_OF_ARGS
-        if len(self.args) < self.OPTPARSE_MIN_NUMBER_OF_ARGS:
-            raise CheckFail("Not enough arguments")
-        if len(self.args) > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
-            raise CheckFail("Too many arguments")
+        #number_of_args = len(self.args)
+        #if number_of_args < self.OPTPARSE_MIN_NUMBER_OF_ARGS:
+        #    raise CheckFail("Not enough arguments")
+        #if number_of_args > self.OPTPARSE_MAX_NUMBER_OF_ARGS:
+        #    raise CheckFail("Not enough arguments")
 
     def version(self):
         """ print version information """
@@ -170,12 +169,12 @@ class ZTCCheck(object):
         config.read(os.path.join(self.options.confdir, self.name + ".conf"))
         return config
 
-    def _get(self, *args, **kwargs):
+    def _get(self, metric, *args, **kwargs):
         """This method MUST return exactly one string or integer or raise
         one of CheckFail or CheckTimeout exceptions. Multiple return values
-        are not supported by zabbix yet."""
-        raise NotImplementedError("Class %s must reimplement _get method"
-                                            % (self.__class__.__name__,))
+        are not supported by zabbix yet. Default behavour is to return
+        attribute name. Should be overriden if more params needed"""
+        return self.__getattribute__(metric)
 
     def get_val(self, metric=None, *args, **kwargs):
         """ wrapper above _get to ensure every returned value is in
