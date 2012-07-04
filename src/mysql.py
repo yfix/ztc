@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 '''
 MySQL script for ztc (mysql.ping item)
 Connects to db and executes trivial query

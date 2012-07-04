@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 """
 vfs.mdstat.failed_devs scripts item
 

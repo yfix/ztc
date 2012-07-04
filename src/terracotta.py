@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # pylint: disable=W0142
 """
 terracotta.* scripts item

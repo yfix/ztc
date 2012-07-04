@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 """
 This file is part of ZTC and distributed under the same license.
 http://bitbucket.org/rvs/ztc/

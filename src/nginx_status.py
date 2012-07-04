@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 """
 Nginx TimeLog check script: calculates min/avg/max upstream response times.
 
