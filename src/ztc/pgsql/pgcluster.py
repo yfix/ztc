@@ -12,9 +12,10 @@ Copyright (c) 2011 Wrike, Inc. [http://www.wrike.com]
 
 import heapq
 
-from ztc.check import ZTCCheck, CheckFail
+from ztc.check import ZTCCheck
 from ztc.pgsql.pgconn import PgConn
 import ztc.pgsql.queries as pgq
+
 
 class PgCluster(ZTCCheck):
     """ Class represent database cluster """
@@ -31,7 +32,7 @@ class PgCluster(ZTCCheck):
         query = pgq.BLOAT
         pages = 0
         otta = 0
-        bloatest = [] # list of bloatest tables
+        bloatest = []  # list of bloatest tables
         ret = self.query_eachdb(query, exclude=['template0'])
         for db in ret.keys():
             # loop through all databases
@@ -51,7 +52,7 @@ class PgCluster(ZTCCheck):
         while len(bloatest):
             b = heapq.heappop(bloatest)
             self.logger.debug("bloatest: %s: %.2f%%" % (b[1], 100 - b[0]))
-        if pages < 5000: # cluster < then 40 Mb is no serious
+        if pages < 5000:  # cluster < then 40 Mb is no serious
             return 0
         else:
             return 100 * (pages - otta) / pages
@@ -59,7 +60,7 @@ class PgCluster(ZTCCheck):
     # lower-level functions
     def get_dblist(self):
         connect_dict = {
-            'host': self.config.get('host', None), # none = connect via socket
+            'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')
@@ -78,7 +79,7 @@ class PgCluster(ZTCCheck):
         """
 
         connect_dict = {
-            'host': self.config.get('host', None), # none = connect via socket
+            'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')

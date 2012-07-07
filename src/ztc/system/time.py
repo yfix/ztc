@@ -48,16 +48,13 @@ class TimeCheck(ZTCCheck):
             return self._ntp_response
 
         try:
-            old_timeout = socket.getdefaulttimeout()
-            socket.setdefaulttimeout(self._timeout)
+            self.logger.debug("connecting to ntp server %s" % self._ntp_addr)
             c = ntplib.NTPClient()
-            response = c.request(self._ntp_addr, version=3)
+            response = c.request(self._ntp_addr, version=3)  # TODO: add timeout param
             self._ntp_response = response
         except socket.timeout:
             self.logger.exception("Failed to read from ntp server")
             response = DumbNtpResponse()
-        finally:
-            socket.setdefaulttimeout(old_timeout)
         self._ntp_response = response
         return response
 

@@ -15,19 +15,20 @@ import time
 
 from ztc.check import ZTCCheck, CheckFail
 
+
 class HTTP(ZTCCheck):
     """ http checks class """
     name = 'net'
-    
+
     OPTPARSE_MAX_NUMBER_OF_ARGS = 2
-    
+
     def _get(self, metric, *arg):
         if metric == 'ping':
             url = arg[0]
             return self.get_ping(url)
         else:
             raise CheckFail("uncknown metric: %s" % metric)
-    
+
     def _myinit(self):
         self.timeout = self.config.get('timeout', 2)
 
@@ -36,7 +37,7 @@ class HTTP(ZTCCheck):
         try:
             urllib2.urlopen(url, None, self.timeout)
         except TypeError:
-            # Changed in version 2.6: timeout was added, versions < 2.6 does not
-            # have last param
+            # Changed in version 2.6: timeout was added, versions < 2.6 does
+            # not have last param
             urllib2.urlopen(url, None)
-        return time.time()- s        
+        return time.time() - s

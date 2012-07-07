@@ -15,6 +15,7 @@ import MySQLdb
 #import ztc.commons
 from ztc.check import ZTCCheck, CheckFail
 
+
 class MyDB(ZTCCheck):
     name = 'mysql'
 
@@ -34,8 +35,8 @@ class MyDB(ZTCCheck):
     #    self.user = self.config.get('user', self.user)
     #    self.password = self.config.get('password', self.password)
     #    self.unix_socket = self.config.get('unix_socket', self.unix_socket)
-    #    
-    #    self._connect()        
+    #
+    #    self._connect()
 
     def _connect(self):
         if self.connected:
@@ -53,15 +54,13 @@ class MyDB(ZTCCheck):
                            passwd=password,
                            db=database,
                            unix_socket=unix_socket,
-                           connect_timeout=2
-                           )
+                           connect_timeout=2)
             else:
                 self.conn = MySQLdb.connect(host=host,
                            user=user,
                            passwd=password,
                            db=database,
-                           connect_timeout=2
-                           )
+                           connect_timeout=2)
             self.cursor = self.conn.cursor()
             return True
         except MySQLdb.OperationalError:
