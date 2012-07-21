@@ -28,6 +28,7 @@ import unittest
 from ztc.check import ZTCCheck, CheckFail
 import ztc.myos
 
+
 class DiskStats(object):
     """ disk stats struct """
     major = 0
@@ -44,14 +45,14 @@ class DiskStats(object):
     cur_ios = 0
     time_io = 0
     time_io_weidged = 0
-    
+
     def __repr__(self):
         r = self
         return str((r.major, r.minor, r.devname, r.reads, r.reads_merged,
                      r.sectors_read, r.time_read, r.writes, r.writes_merged,
                      r.sectors_written, r.time_write, r.cur_ios, r.time_io,
                      r.time_io_weidged))
-    
+
     def __str__(self):
         r = self
         ret = """major number: %i
@@ -69,18 +70,18 @@ I/Os currently in progress: %i
 time spent doing I/Os (ms): %i
 weighted time spent doing I/Os (ms): %i
 """ % (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
-            r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
-            r.cur_ios, r.time_io, r.time_io_weidged)
-        return ret                 
-        
+            r.time_read, r.writes, r.writes_merged, r.sectors_written,
+            r.time_write, r.cur_ios, r.time_io, r.time_io_weidged)
+        return ret
+
 
 class DiskStatsParser(object):
     """ Class to read and parse /proc/diskstats """
-    
+
     def __init__(self, device, logger):
         self.device = device
         self.logger = logger
-    
+
     def parse(self):
         """ Parse /proc/diskstats file and return DiskStats object """
         # check if device exists
@@ -88,15 +89,16 @@ class DiskStatsParser(object):
             return self._read_diskstats()
         elif os.path.exists('/sys/block/%s' % (self.device + '1')):
             # ...and if it does not exists, look for 1st device partion
-            # some installations may have for example /dev/sda1, but not /dev/sda
-            # first seen on amazon ec2 instance with device attached as /dev/sda1, not /dev/sda
+            # some installations may have for example /dev/sda1, but not
+            # /dev/sda first seen on amazon ec2 instance with device attached
+            # as /dev/sda1, not /dev/sda
             self.device = self.device + '1'
             return self._read_diskstats()
         else:
             # there is probably no such device
             self.logger.warn("%s: no such device in /sys/block" % self.device)
             return self._read_diskstats()
-    
+
     def _read_diskstats(self):
         f = open('/proc/diskstats', 'r')
         ret = None
@@ -106,7 +108,7 @@ class DiskStatsParser(object):
                 ret = d
         f.close()
         return ret
-    
+
     def _parse_diskstats_line(self, l):
         """ Parse line from /proc/diskstats
                 The /proc/diskstats file displays the I/O statistics
@@ -127,12 +129,13 @@ class DiskStatsParser(object):
                 13 - time spent doing I/Os (ms)
                 14 - weighted time spent doing I/Os (ms)
                 For more details refer to Documentation/iostats.txt
-        (for kernel 2.6)        
+        (for kernel 2.6)
         """
         r = DiskStats()
         t = l.split()
         if len(t) == 7:
-            # some 2.6 kernels (e.g. with old openvz patches) have 7 params, like in 2.4
+            # some 2.6 kernels (e.g. with old openvz patches) have 7 params,
+            # like in 2.4
             # fix by Artem Silenkov - not best, but working
             #t = t + [0, 0, 0, 0, 0, 0, 0]
             # different format:
@@ -140,21 +143,21 @@ class DiskStatsParser(object):
             # Field  2 -- # of sectors read
             # Field  3 -- # of writes issued
             # Field  4 -- # of sectors written
-            t = t[:2] + [t[2], t[3], 0, t[4], 0, t[5], 0, t[6], 0, 0, 0, 0] 
+            t = t[:2] + [t[2], t[3], 0, t[4], 0, t[5], 0, t[6], 0, 0, 0, 0]
         (r.major, r.minor, r.devname, r.reads, r.reads_merged, r.sectors_read,
-            r.time_read, r.writes, r.writes_merged, r.sectors_written, r.time_write,
-            r.cur_ios, r.time_io, r.time_io_weidged) = \
-            map(int, t[:2]) + [t[2], ] + map(int, t[3:])
-        
+            r.time_read, r.writes, r.writes_merged, r.sectors_written,
+            r.time_write, r.cur_ios, r.time_io,
+            r.time_io_weidged) = map(int, t[:2]) + [t[2], ] + map(int, t[3:])
+
         return r
 
 
 class DiskStatus(ZTCCheck):
     OPTPARSE_MIN_NUMBER_OF_ARGS = 2
     OPTPARSE_MAX_NUMBER_OF_ARGS = 3
-    
+
     name = 'DiskStatus'
-    
+
     def _get(self, metric, *args, **kwargs):
         #print args
         device = args[0]
@@ -169,7 +172,7 @@ class DiskStatus(ZTCCheck):
             ds = p.parse()
             return ds.__getattribute__(metric)
             raise CheckFail('uncknown metric')
-    
+
     def get_health(self, dev, dev_type='auto'):
         """ get device health (from SMART) """
         dev = '/dev/%s' % (dev, )
@@ -180,26 +183,30 @@ class DiskStatus(ZTCCheck):
         if dev_type != 'auto':
             cmd += " -d %s" % dev_type
         retcode, c = ztc.myos.popen(cmd, self.logger)
+        if retcode != 0:
+            return 'smartctl failed'
         c = c.strip().splitlines()
         ret = c[-1].split()[-1]
         if ret == '/dev/tweN':
             # this is 3ware raid device;
             # health should be handled in 3ware template
             ret = 'OK'
-        return ret         
+        return ret
+
 
 class MDStatus(ZTCCheck):
     """ Staus of linux software RAID
     Sample /proc/mdstat output:
-    
+
     Personalities : [raid1] [raid5]
     md0 : active (read-only) raid1 sdc1[1]
           2096384 blocks [2/1] [_U]
-    
+
     md1 : active raid5 sdb3[2] sdb4[3] sdb2[4](F) sdb1[0] sdb5[5](S)
           995712 blocks level 5, 64k chunk, algorithm 2 [3/2] [U_U]
-          [=================>...]  recovery = 86.0% (429796/497856) finish=0.0min speed=23877K/sec
-    
+          [=================>...]  recovery = 86.0% (429796/497856) \
+              finish=0.0min speed=23877K/sec
+
     unused devices: <none>
     """
 
@@ -212,24 +219,27 @@ class MDStatus(ZTCCheck):
                 return str(failed_devs)
             else:
                 return 'OK'
-    
+
     def get_failed_devs(self):
         failed_devs = []
         active_devs = []
         spare_devs = []
-        
-        md_re = re.compile('^(md\d+)+\s*:') # pattern to detect md1: bla-bla-bla lines
-        dev_re = re.compile('(\w+)\[\d+\](\(.\))*') # pattern to detect sda1[1] (F) in bla-bla-bla md descriptions
-        
+
+        md_re = re.compile('^(md\d+)+\s*:')     # pattern to detect md1:
+                                                # bla-bla-bla lines
+
+        # pattern to detect sda1[1] (F) in bla-bla-bla md descriptions:
+        dev_re = re.compile('(\w+)\[\d+\](\(.\))*')
+
         f = open('/proc/mdstat', 'r')
         for l in f.readlines():
             if not md_re.match(l):
-                continue # skipping lines which are not md status
+                continue  # skipping lines which are not md status
             #print l
             for d in l.split():
                 st = dev_re.match(d)
                 if not st:
-                    continue # skip 'active', ':' and other
+                    continue  # skip 'active', ':' and other
                 (dev, status) = st.groups()
                 if status == "(F)":
                     failed_devs.append(dev)
@@ -238,16 +248,17 @@ class MDStatus(ZTCCheck):
                 else:
                     active_devs.append(dev)
         return failed_devs
-            
+
+
 class MountStatus(object):
     """ class for checing mount points and mounted filesystems """
-    
+
     def __init__(self, mount):
         """
             Params: mount - path to mount point
         """
         self.mount = mount
-    
+
     def checkmount(self, required_fs=None):
         """ Chechs if required_fs mounted to mountpoint """
         if (required_fs is None):
@@ -258,7 +269,8 @@ class MountStatus(object):
         f = open('/proc/mounts', 'r')
         mounts = f.readlines()
         for m in mounts:
-            (dev, mountpoint, fs, flags, dump, pas) = m.split()
+            (dev, mountpoint, fs, flags, dump,   # @UnusedVariable
+                pas) = m.split()  # @UnusedVariable
             try:
                 if os.path.samefile(self.mount, mountpoint):
                     if fs.lower() == required_fs.lower():
@@ -268,49 +280,3 @@ class MountStatus(object):
                 pass
         f.close()
         return ret
-
-class DiskStatsParserTest(unittest.TestCase):
-
-    def setUp(self):
-        import logging
-        self.logger = logging.getLogger('test')
-
-    def test_diskstats_line_parser(self):
-        """ Test parsing of /proc/diskstats file """
-        dsp = DiskStatsParser('sda', self.logger)
-        ds = DiskStats()
-
-        # 1: simple sda line from 3.1.x kernel
-        ds.major = 8
-        ds.minor = 0
-        ds.devname = 'sda'
-        ds.reads = 148516
-        ds.reads_merged = 118319
-        ds.sectors_read = 7024128
-        ds.time_read = 1863284
-        ds.writes = 116304
-        ds.writes_merged = 375629
-        ds.sectors_written = 11643968
-        ds.time_write = 17513572
-        ds.cur_ios = 0
-        ds.time_io = 1429389
-        ds.time_io_weidged = 19461480
-        assert str(dsp._parse_diskstats_line('   8       0 sda 148516 118319 7024128 1863284 116304 375629 11643968 17513572 0 1429389 19461480')) == str(ds)
-
-        # 2: test for device with '/' in name
-        # 104 0 cciss/c0d0 12746 1947 208311 37832 2424476 2120977 36390792 58162004 0 24766012 58198856
-        ds.major = 104
-        ds.minor = 0
-        ds.devname = 'cciss/c0d0'
-        ds.reads = 12746
-        ds.reads_merged = 1947
-        ds.sectors_read = 208311
-        ds.time_read = 37832
-        ds.writes = 2424476
-        ds.writes_merged = 2120977
-        ds.sectors_written = 36390792
-        ds.time_write = 58162004
-        ds.cur_ios = 0
-        ds.time_io = 24766012
-        ds.time_io_weidged = 58198856
-        assert str(dsp._parse_diskstats_line('104 0 cciss/c0d0 12746 1947 208311 37832 2424476 2120977 36390792 58162004 0 24766012 58198856')) == str(ds)

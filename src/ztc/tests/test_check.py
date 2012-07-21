@@ -12,6 +12,7 @@ ZTCCheck._setup_logging = setup_no_logging
 
 class ZTCCheckTest(unittest.TestCase):
     """ Test for ZTCCheck class """
+
     class ZTCTestCheck(ZTCCheck):
         name = 'test'
 

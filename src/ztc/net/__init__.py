@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# pylint: disable=W0232,R0903
+# pylint: disable-msg=W0232,R0903
 """
 net module for ZTC - contains additional network metrics
 
@@ -61,13 +61,14 @@ class Conn(ZTCCheck):
                 'Getting field /proc/net/$proto field number for %s' % status)
             # get numeric representation of status text
             status_num = self._tcp_conn_states.index(status) + 1
-        f = open(os.path.join('/proc/net/', proto), 'r')
-        for l in f.readlines():
-            l = l.strip()
+        proc_filename = os.path.join('/proc/net/', proto)
+        f = open(proc_filename, 'r')  # pylint: disable-msg=C0103
+        for l in f.readlines():  # pylint: disable-msg=C0103
+            l = l.strip()  # pylint: disable-msg=C0103
             if l.startswith('sl'):
                 continue  # skip first line
             if status:
-                l = l.split()
+                l = l.split()  # pylint: disable-msg=C0103
                 if int(l[3], 16) != status_num:
                     # skip statuses we are not looking for
                     continue
@@ -76,16 +77,10 @@ class Conn(ZTCCheck):
         return cnt
 
     def _get(self, attr):
+        """ Get number of sockets in given state """
         attr = attr.upper()
         if attr == 'ALL':
             attr = None
         return self._get_num_sockets('tcp', attr) + \
             self._get_num_sockets('udp', attr) + \
             self._get_num_sockets('raw', attr)
-
-# test
-if __name__ == '__main__':
-    c = Conn()
-    print c.all
-    print c.established
-    print c.syn_sent
