@@ -10,9 +10,10 @@ Copyright (c) 2010-2011 Vladimir Rusinov <vladimir@greenmice.info>
 
 import psycopg2 as pg
 
+
 class PgConn(object):
-    dbh = None # database handler
-    cur = None # database cursor
+    dbh = None  # database handler
+    cur = None  # database cursor
 
     def __init__(self, connect_dict, logger):
         self.logger = logger

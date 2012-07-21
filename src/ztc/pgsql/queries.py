@@ -130,8 +130,7 @@ BUFFER = {
           'dirty': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='t'",
           'used': """SELECT COUNT(*) FROM pg_buffercache
                 WHERE reldatabase IS NOT NULL;""",
-           'total': "SELECT count(*) FROM pg_buffercache"
-          }
+           'total': "SELECT count(*) FROM pg_buffercache"}
 
 # number of connections
 CONN_NUMBER = {

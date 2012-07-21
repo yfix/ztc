@@ -30,8 +30,7 @@ class PgDB(ZTCCheck):
             'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
-            'database': self.config.get('database', 'postgres')
-        }
+            'database': self.config.get('database', 'postgres')}
         self.dbconn = PgConn(connect_dict, self.logger)
 
     def _get(self, metric, *args, **kwargs):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#pylint: disable=W0232
+#pylint: disable-msg=W0232
 """PgCluster ZTCCheck
 Used to perform database-wide checks (like querying each database of the
 cluster)
@@ -33,24 +33,28 @@ class PgCluster(ZTCCheck):
         otta = 0
         bloatest = []  # list of bloatest tables
         ret = self.query_eachdb(query, exclude=['template0'])
-        for db in ret.keys():
+        for db in ret.keys():  # pylint:disable-msg=C0103
             # loop through all databases
-            for r in ret[db]:
+            for table in ret[db]:
                 # and its tables
-                pages += r[4]
-                otta += r[5]
+                pages += table[4]
+                otta += table[5]
                 if pages > 1000:
                     # add to list of bloatest tables
                     bloat = 100 - 100 * (pages - otta) / pages
-                    item = (bloat, "%s.%s.%s->%s" % (db, r[0], r[1], r[2]))
+                    item = (bloat, "%s.%s.%s->%s" % (db, table[0], table[1],
+                                                     table[2]))
                     if len(bloatest) < 5:
                         heapq.heappush(bloatest, item)
                     else:
                         heapq.heapreplace(bloatest, item)
         self.logger.debug("pages: %i, otta: %i" % (pages, otta))
+
+        # print out list of tables with higest bloat
         while len(bloatest):
-            b = heapq.heappop(bloatest)
-            self.logger.debug("bloatest: %s: %.2f%%" % (b[1], 100 - b[0]))
+            table = heapq.heappop(bloatest)
+            self.logger.debug("bloatest: %s: %.2f%%" % (table[1],
+                                                        100 - table[0]))
         if pages < 5000:  # cluster < then 40 Mb is no serious
             return 0
         else:
@@ -58,13 +62,18 @@ class PgCluster(ZTCCheck):
 
     # lower-level functions
     def get_dblist(self):
+        """ Get list of all databases
+
+        Returns: list of strings - names of all databases of postgresql
+            cluster
+        """
         connect_dict = {
             'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
             'database': self.config.get('database', 'postgres')}
-        d = PgConn(connect_dict, self.logger)
-        dbs = d.query("SELECT datname FROM pg_database")
+        db = PgConn(connect_dict, self.logger)  # pylint: disable-msg=C0103
+        dbs = db.query("SELECT datname FROM pg_database")
         self.dbs = [x[0] for x in dbs]
 
     def query_eachdb(self, sql, exclude=None):
@@ -85,7 +94,7 @@ class PgCluster(ZTCCheck):
         ret = {}
         if not self.dbs:
             self.get_dblist()
-        for db in self.dbs:
+        for db in self.dbs:  # pylint: disable-msg=C0103
             if db in exclude:
                 continue
             connect_dict['database'] = db
