@@ -59,8 +59,7 @@ class PHPFPMCheck(ZTCCheck):
                'REMOTE_PORT': '123',
                'SERVER_ADDR': self.fcgi_host,
                'SERVER_PORT': str(self.fcgi_port),
-               'SERVER_NAME': self.fcgi_host
-               }
+               'SERVER_NAME': self.fcgi_host}
             ret = fcgi(env)
             return ret
         except:
@@ -71,7 +70,7 @@ class PHPFPMCheck(ZTCCheck):
     def ping(self):
         """ calls php-fpm ping resource """
         st = time.time()
-        code, headers, out, err = self._load_page('/ping')
+        code, headers, out, err = self._load_page('/ping')  # @UnusedVariable
         if code.startswith('200') and out == 'pong':
             return time.time() - st
         else:
@@ -93,7 +92,7 @@ class PHPFPMCheck(ZTCCheck):
 
     def get_status_page(self):
         """ return php-ftm status page text """
-        code, headers, out, err = self._load_page('/status')
+        code, headers, out, err = self._load_page('/status')  # @UnusedVariable
         if code.startswith('200'):
             return out
         else:

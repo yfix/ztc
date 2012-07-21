@@ -141,8 +141,7 @@ CONN_NUMBER = {
     'total': "SELECT COUNT(*) FROM pg_stat_activity",
     'running': """SELECT COUNT(*) FROM pg_stat_activity
         WHERE current_query NOT LIKE '<IDLE%'""",
-    'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"
-    }
+    'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"}
 
 FSM = {
        'pages': """SELECT
@@ -170,20 +169,17 @@ FSM = {
         FROM (SELECT
               (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
               (SELECT setting::NUMERIC FROM pg_settings WHERE
-              name='max_fsm_relations') AS maxx) x"""
-       }
+              name='max_fsm_relations') AS maxx) x"""}
 
 LOCKS = {
          'all': "SELECT COUNT(*) FROM pg_locks",
          'granted': "SELECT COUNT(*) FROM pg_locks WHERE granted='t'",
-         'waiting': "SELECT COUNT(*) FROM pg_locks WHERE granted<>'t'"
-         }
+         'waiting': "SELECT COUNT(*) FROM pg_locks WHERE granted<>'t'"}
 
 LOCKS_BY_MODE = {
                  'accessexclusivelock':
                     """SELECT COUNT(*) FROM pg_locks
-                    WHERE mode='AccessExclusiveLock'"""
-                 }
+                    WHERE mode='AccessExclusiveLock'"""}
 
 WAL_NUMBER = """SELECT count(*) FROM pg_ls_dir('pg_xlog')
     WHERE pg_ls_dir ~ E'^[0-9A-F]{24}$'"""
