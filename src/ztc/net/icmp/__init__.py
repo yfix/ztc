@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# pylint: disable=W0232
+# pylint: disable-msg=W0232
 """ ZTC net.icmp package
 
 Introduces ping check - can be used to do icmp ping
@@ -47,10 +47,11 @@ class Ping(ZTCCheck):
         retcode, ret = popen(cmd, self.logger)
         if retcode == 0:
             # ping succeed
-            ret = ret.strip().split("\n")[-1]
+            ret = ret.strip().split("\n")[-1]  # pylint: disable-msg=E1103
             # ret is something like
             # rtt min/avg/max/mdev = 33.843/33.843/33.843/0.000 ms
-            ret = ret.split('=')[1].strip()
+            ret = ret.split('=')[1]
+            ret = ret.strip()
             ret = float(ret.split('/')[0])
             return ret / 1000
         else:

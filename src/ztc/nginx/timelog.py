@@ -86,11 +86,9 @@ class NginxTimeLog(ZTCCheck):
         mn = max(0, mn)
         mx = max(0, mx)
 
-        return {
-                'min': mn,
+        return {'min': mn,
                 'max': mx,
-                'avg': avg
-                }
+                'avg': avg}
 
     def save_to_store(self, data):
         st = ZTCStore('nginx_reqtime', self.options)

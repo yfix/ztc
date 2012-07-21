@@ -62,8 +62,7 @@ class PgCluster(ZTCCheck):
             'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
-            'database': self.config.get('database', 'postgres')
-        }
+            'database': self.config.get('database', 'postgres')}
         d = PgConn(connect_dict, self.logger)
         dbs = d.query("SELECT datname FROM pg_database")
         self.dbs = [x[0] for x in dbs]
@@ -81,8 +80,7 @@ class PgCluster(ZTCCheck):
             'host': self.config.get('host', None),  # none = connect via socket
             'user': self.config.get('user', 'postgres'),
             'password': self.config.get('password', None),
-            'database': self.config.get('database', 'postgres')
-        }
+            'database': self.config.get('database', 'postgres')}
 
         ret = {}
         if not self.dbs:
