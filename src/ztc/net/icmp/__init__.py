@@ -32,12 +32,17 @@ class Ping(ZTCCheck):
         return self.icmpping(args[0])
 
     def icmpping(self, host):
-        """ Does icmp ping using ping command
-        Native python solution possible, but would require it to run
-        under root user. ping is suid on most systems
+        """Performs icmp ping using ping command
 
-        @returns: (float)time to ping in seconds, (int)0 if failed
-        """
+        Native python solution is possible, but would require it to run
+        under root user. ping is suid on most systems, so no root required
+
+        Args:
+            host: string - hostname (or ip address)
+
+        Returns:
+            float - time to ping in seconds,
+            int - 0 if failed"""
         cmd = "/bin/ping %s -c 1 -U -W 5" % host
         retcode, ret = popen(cmd, self.logger)
         if retcode == 0:

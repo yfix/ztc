@@ -50,7 +50,8 @@ class TimeCheck(ZTCCheck):
         try:
             self.logger.debug("connecting to ntp server %s" % self._ntp_addr)
             c = ntplib.NTPClient()
-            response = c.request(self._ntp_addr, version=3)  # TODO: add timeout param
+            # TODO: add timeout param
+            response = c.request(self._ntp_addr, version=3)
             self._ntp_response = response
         except socket.timeout:
             self.logger.exception("Failed to read from ntp server")

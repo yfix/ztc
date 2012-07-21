@@ -21,7 +21,8 @@ FROM
         FROM
             pg_database d
         JOIN
-            (SELECT setting AS freez FROM pg_settings WHERE name = 'autovacuum_freeze_max_age') AS foo
+            (SELECT setting AS freez FROM pg_settings WHERE
+                name = 'autovacuum_freeze_max_age') AS foo
             ON (true)
             WHERE d.datallowconn
     ) AS foo2
@@ -34,23 +35,44 @@ BLOAT = """SELECT
   reltuples::bigint,
   relpages::bigint,
   otta,
-  ROUND(CASE WHEN otta=0 THEN 0.0 ELSE sml.relpages/otta::numeric END,1) AS tbloat,
-  CASE WHEN relpages < otta THEN 0 ELSE relpages::bigint - otta END AS wastedpages,
-  CASE WHEN relpages < otta THEN 0 ELSE bs*(sml.relpages-otta)::bigint END AS wastedbytes,
-  CASE WHEN relpages < otta THEN '0 bytes'::text ELSE (bs*(relpages-otta))::bigint || ' bytes' END AS wastedsize,
+  ROUND(CASE WHEN otta=0 THEN 0.0 ELSE sml.relpages/otta::numeric END,1)
+      AS tbloat,
+  CASE WHEN relpages < otta THEN 0 ELSE relpages::bigint - otta END
+      AS wastedpages,
+  CASE WHEN relpages < otta
+      THEN 0
+      ELSE bs*(sml.relpages-otta)::bigint
+      END AS wastedbytes,
+  CASE WHEN relpages < otta
+      THEN '0 bytes'::text
+      ELSE (bs*(relpages-otta))::bigint || ' bytes' END AS wastedsize,
   ituples::bigint, ipages::bigint, iotta
 FROM (
   SELECT
     schemaname, tablename, cc.reltuples, cc.relpages, bs,
     CEIL((cc.reltuples*((datahdr+ma-
-      (CASE WHEN datahdr%ma=0 THEN ma ELSE datahdr%ma END))+nullhdr2+4))/(bs-20::float)) AS otta,
-    COALESCE(c2.relname,'?') AS iname, COALESCE(c2.reltuples,0) AS ituples, COALESCE(c2.relpages,0) AS ipages,
-    COALESCE(CEIL((c2.reltuples*(datahdr-12))/(bs-20::float)),0) AS iotta -- very rough approximation, assumes all cols
+      (CASE WHEN datahdr%ma=0
+          THEN ma
+          ELSE datahdr%ma
+        END))+nullhdr2+4))/(bs-20::float)) AS otta,
+    COALESCE(c2.relname,'?') AS iname, COALESCE(c2.reltuples,0) AS ituples,
+    COALESCE(c2.relpages,0) AS ipages,
+    COALESCE(CEIL((c2.reltuples*(datahdr-12))/(bs-20::float)),0)
+        AS iotta -- very rough approximation, assumes all cols
   FROM (
     SELECT
       ma,bs,schemaname,tablename,
-      (datawidth+(hdr+ma-(case when hdr%ma=0 THEN ma ELSE hdr%ma END)))::numeric AS datahdr,
-      (maxfracsum*(nullhdr+ma-(case when nullhdr%ma=0 THEN ma ELSE nullhdr%ma END))) AS nullhdr2
+      (datawidth +
+          (hdr+ma -
+              (case when hdr%ma=0
+                  THEN ma
+                  ELSE hdr%ma
+                  END)))::numeric AS datahdr,
+      (maxfracsum * (nullhdr + ma - (
+          case when nullhdr%ma=0
+              THEN ma
+              ELSE nullhdr%ma
+          END))) AS nullhdr2
     FROM (
       SELECT
         schemaname, tablename, hdr, ma, bs,
@@ -59,12 +81,16 @@ FROM (
         hdr+(
           SELECT 1+count(*)/8
           FROM pg_stats s2
-          WHERE null_frac<>0 AND s2.schemaname = s.schemaname AND s2.tablename = s.tablename
+          WHERE null_frac<>0 AND s2.schemaname = s.schemaname
+              AND s2.tablename = s.tablename
         ) AS nullhdr
       FROM pg_stats s, (
         SELECT
           (SELECT current_setting('block_size')::numeric) AS bs,
-          CASE WHEN substring(v,12,3) IN ('8.0','8.1','8.2') THEN 27 ELSE 23 END AS hdr,
+          CASE WHEN substring(v,12,3) IN ('8.0','8.1','8.2')
+              THEN 27
+              ELSE 23
+              END AS hdr,
           CASE WHEN v ~ 'mingw32' THEN 8 ELSE 4 END AS ma
         FROM (SELECT version() AS v) AS foo
       ) AS constants
@@ -72,14 +98,21 @@ FROM (
     ) AS foo
   ) AS rs
   JOIN pg_class cc ON cc.relname = rs.tablename
-  JOIN pg_namespace nn ON cc.relnamespace = nn.oid AND nn.nspname = rs.schemaname AND nn.nspname <> 'information_schema'
+  JOIN pg_namespace nn ON cc.relnamespace = nn.oid AND
+      nn.nspname = rs.schemaname AND nn.nspname <> 'information_schema'
   LEFT JOIN pg_index i ON indrelid = cc.oid
   LEFT JOIN pg_class c2 ON c2.oid = i.indexrelid
 ) AS sml
 """
 
-TNX_AGE_IDLE_TNX = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query='<IDLE> in transaction'"
-TNX_AGE_RUNNING_ALL = "SELECT EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d FROM pg_stat_activity WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"
+TNX_AGE_IDLE_TNX = """SELECT
+    EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
+    FROM pg_stat_activity
+    WHERE current_query='<IDLE> in transaction'"""
+TNX_AGE_RUNNING_ALL = """SELECT
+    EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
+    FROM pg_stat_activity
+    WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"""
 TNX_AGE_RUNNING = """
 SELECT
     EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
@@ -122,18 +155,23 @@ FSM = {
                 (sumrequests+numrels)*chunkpages AS pages
             FROM
                 (SELECT
-                    SUM(CASE WHEN avgrequest IS NULL THEN interestingpages/32 ELSE interestingpages/16 END) AS sumrequests,
-                    COUNT(relfilenode) AS numrels, 16 AS chunkpages FROM pg_freespacemap_relations
+                    SUM(CASE WHEN avgrequest IS NULL
+                        THEN interestingpages/32
+                        ELSE interestingpages/16 END) AS sumrequests,
+                    COUNT(relfilenode) AS numrels, 16 AS chunkpages
+                FROM pg_freespacemap_relations
                 ) AS foo
             ) AS foo2,
-            (SELECT setting::NUMERIC AS maxx FROM pg_settings WHERE name = 'max_fsm_pages') AS foo3""",
+            (SELECT setting::NUMERIC AS maxx FROM pg_settings WHERE
+                name = 'max_fsm_pages') AS foo3""",
         'relations': """ SELECT
             maxx,
             cur,
             ROUND(100*(cur/maxx))
         FROM (SELECT
               (SELECT COUNT(*) FROM pg_freespacemap_relations) AS cur,
-              (SELECT setting::NUMERIC FROM pg_settings WHERE name='max_fsm_relations') AS maxx) x"""
+              (SELECT setting::NUMERIC FROM pg_settings WHERE
+              name='max_fsm_relations') AS maxx) x"""
        }
 
 LOCKS = {
@@ -144,7 +182,8 @@ LOCKS = {
 
 LOCKS_BY_MODE = {
                  'accessexclusivelock':
-                    "SELECT COUNT(*) FROM pg_locks WHERE mode='AccessExclusiveLock'"
+                    """SELECT COUNT(*) FROM pg_locks
+                    WHERE mode='AccessExclusiveLock'"""
                  }
 
 WAL_NUMBER = """SELECT count(*) FROM pg_ls_dir('pg_xlog')

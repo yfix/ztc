@@ -25,16 +25,17 @@ Copyright (c) 2011 Vladimir Rusinov <vladimir@greenmice.info>
 from ztc.check import ZTCCheck
 from ztc.store import ZTCStore
 
+
 class NginxTimeLog(ZTCCheck):
     """ Nginx upsteam response min/avg/max calculation """
     name = 'nginx'
-    
+
     OPTPARSE_MIN_NUMBER_OF_ARGS = 1
-    OPTPARSE_MAX_NUMBER_OF_ARGS = 1    
-    
+    OPTPARSE_MAX_NUMBER_OF_ARGS = 1
+
     def _get(self, metric=None, *args, **kwargs):
         return self.get_resptime(metric)
-        
+
     def get_resptime(self, metric):
         """ get min/avg/max response time """
         data = None
@@ -51,16 +52,16 @@ class NginxTimeLog(ZTCCheck):
         mx = -1.0
         avg = 0.0
         n = 0
-        
+
         fn = self.config.get('timelog', '/var/log/nginx/time.log')
         try:
             f = open(fn, 'a+')
-        
+
             for l in f.readlines():
                 if l.startswith('-'):
                     # skip non-upstream lines with no $upstream_response_time
                     continue
-                r = l.split()[0] # response time should be in first col
+                r = l.split()[0]  # response time should be in first col
                 r = float(r)
                 if mn < 0:
                     mn = r
@@ -71,12 +72,12 @@ class NginxTimeLog(ZTCCheck):
                                   (n, avg, mx, mn))
                 avg += r
                 n += 1
-            
+
             f.truncate(0)
             f.close()
         except IOError:
             self.logger.exception("I/O error on time log")
-        
+
         if n > 0:
             avg = avg / n
         else:
@@ -84,17 +85,17 @@ class NginxTimeLog(ZTCCheck):
         # set mn, mx = 0 if no avg data present
         mn = max(0, mn)
         mx = max(0, mx)
-            
+
         return {
                 'min': mn,
                 'max': mx,
                 'avg': avg
                 }
-    
+
     def save_to_store(self, data):
         st = ZTCStore('nginx_reqtime', self.options)
-        st.set(data)        
-    
+        st.set(data)
+
     def read_from_store(self):
         st = ZTCStore('nginx_reqtime', self.options)
-        return st.get()        
+        return st.get()

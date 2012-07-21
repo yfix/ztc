@@ -34,7 +34,7 @@ class Conn(ZTCCheck):
         'LAST_ACK',
         'LISTEN',
         'CLOSING']  # use indexof('ESTABLISHED' +1 )
-    # ^^^ should be a list, because tuples does not have .index() method til
+    # ^^^ should be a list, because tuples does not have .index() method till
     # 2.6
 
     def _get_num_sockets(self, proto='tcp', status=None):

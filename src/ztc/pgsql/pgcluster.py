@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #pylint: disable=W0232
-"""
-PgCluster ZTCCheck
+"""PgCluster ZTCCheck
 Used to perform database-wide checks (like querying each database of the
 cluster)
 

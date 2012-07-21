@@ -27,7 +27,7 @@ class HTTP(ZTCCheck):
             url = arg[0]
             return self.get_ping(url)
         else:
-            raise CheckFail("uncknown metric: %s" % metric)
+            raise CheckFail("unknown metric: %s" % metric)
 
     def _myinit(self):
         self.timeout = self.config.get('timeout', 2)

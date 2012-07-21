@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-"""
-Memory check class for ztc.
+"""Memory check class for ztc.
 
 This file is part of ZTC and distributed under the same license
 

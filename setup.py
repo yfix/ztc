@@ -6,7 +6,6 @@ Copyright (c) 2009-2012 Vladimir Rusinov <vladimir.rusinov@muransofot.com>
 Copyright (c) 2012 Murano Software [http://www.muranosoft.com]
 """
 
-import os
 import glob
 import sys
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Tomcat jmx_proxy monitpring class
+"""Tomcat jmx_proxy monitpring class
 
 Copyright (c) 2012 Wrike. Inc.
 Copyright (c) 2012 Vladimir Rusinov <vladimir@greenmice.info>
