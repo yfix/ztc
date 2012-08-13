@@ -11,6 +11,7 @@ Licensed under GPL v.3
 '''
 
 import urllib2
+import socket
 import time
 
 from ztc.check import ZTCCheck, CheckFail
@@ -50,4 +51,7 @@ class HTTP(ZTCCheck):
             # Changed in version 2.6: timeout was added, versions < 2.6 does
             # not have last param
             urllib2.urlopen(url, None)
+        except socket.timeout:
+            #if timeout, return 0 (same behaviour as net.tcp.service.perf)
+            return 0
         return time.time() - start_time
