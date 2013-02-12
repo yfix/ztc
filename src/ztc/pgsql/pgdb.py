@@ -60,6 +60,9 @@ class PgDB(ZTCCheck):
             m = args[0]
             mm = args[1]
             return self.get_locks(m, mm)
+        elif metric == 'bgwriter':
+            bgw_metric = args[0]
+            return self.get_bgwriter(bgw_metric)
         elif metric == 'wal':
             m = args[0]
             if m == 'num':
@@ -159,3 +162,13 @@ class PgDB(ZTCCheck):
         q = pgq.WAL_NUMBER
         ret = self.dbconn.query(q)[0][0]
         return ret
+
+    def get_bgwriter(self, m):
+        """ Get stats for bgwriter. Currently used metrics are:
+        'checkpoints_timed', 'checkpoints_req', 
+        'buffers_checkpoint', 'buffers_clean', 'maxwritten_clean',
+        'buffers_backend', 'buffers_alloc' """
+        q = "select %s from pg_stat_bgwriter" % m
+        ret = self.dbconn.query(q)[0][0]
+        return ret
+ 
