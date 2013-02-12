@@ -106,16 +106,16 @@ FROM (
 """
 
 TNX_AGE_IDLE_TNX = """SELECT
-    EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
+    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
     FROM pg_stat_activity
     WHERE current_query='<IDLE> in transaction'"""
 TNX_AGE_RUNNING_ALL = """SELECT
-    EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
+    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
     FROM pg_stat_activity
     WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"""
 TNX_AGE_RUNNING = """
 SELECT
-    EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))) as d
+    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
 FROM pg_stat_activity
 WHERE
     current_query<>'<IDLE> in transaction'
