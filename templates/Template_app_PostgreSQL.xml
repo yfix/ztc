@@ -38,6 +38,24 @@
           <comments>Check pg_stat_activity view. If it is non-OLTP database, feel free to ignore.</comments>
         </trigger>
         <trigger>
+          <description>PgSQL: prepared transaction exists for too long (&gt;15 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.tnxage.prepared.last(0)}&gt;900</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments>Check pg_prepared_xacts view. If it is non-OLTP database, feel free to ignore.</comments>
+        </trigger>
+        <trigger>
+          <description>PgSQL: prepared transaction exists for too long (&gt;5 min)</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.tnxage.prepared.last(0)}&gt;300</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments>Check pg_prepared_xacts view. If it is non-OLTP database, feel free to ignore.</comments>
+        </trigger>
+        <trigger>
           <description>PgSQL: tnx is too long in idle state (&gt; 1 min)</description>
           <type>0</type>
           <expression>{Template_app_PostgreSQL:pgsql.tnxage.idle_tnx.last(0)}&gt;60</expression>
@@ -843,6 +861,40 @@
         </item>
         <item type="0" key="pgsql.tnxage.running" value_type="0">
           <description>PgSQL: max age of running query</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>60</delay>
+          <history>90</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units>s</units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params></params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community>public</snmp_community>
+          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>PostgreSQL</application>
+          </applications>
+        </item>
+        <item type="0" key="pgsql.tnxage.prepared" value_type="0">
+          <description>PgSQL: max age of prepared transaction</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>60</delay>
           <history>90</history>

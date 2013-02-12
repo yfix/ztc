@@ -107,6 +107,8 @@ class PgDB(ZTCCheck):
             q = pgq.TNX_AGE_IDLE_TNX
         elif state == 'running':
             q = pgq.TNX_AGE_RUNNING
+        elif state == 'prepared':
+            q = pgq.TNX_AGE_PREPARED
         else:
             raise CheckFail("uncknown transaction state requested")
 

@@ -124,6 +124,15 @@ WHERE
     AND current_query NOT LIKE 'COPY%'
 """
 
+TNX_AGE_PREPARED = """
+SELECT
+    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), prepared))),0) as d
+FROM pg_prepared_xacts
+"""
+
+
+
+
 # buffer queries:
 BUFFER = {
           'clear': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'",
