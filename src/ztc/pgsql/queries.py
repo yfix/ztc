@@ -105,30 +105,57 @@ FROM (
 ) AS sml
 """
 
-TNX_AGE_IDLE_TNX = """SELECT
-    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
-    FROM pg_stat_activity
-    WHERE current_query='<IDLE> in transaction'"""
-TNX_AGE_RUNNING_ALL = """SELECT
-    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
-    FROM pg_stat_activity
-    WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"""
-TNX_AGE_RUNNING = """
-SELECT
-    COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
-FROM pg_stat_activity
-WHERE
-    current_query<>'<IDLE> in transaction'
-    AND current_query<>'<IDLE>'
-    AND current_query NOT LIKE 'autovacuum%'
-    AND current_query NOT LIKE 'COPY%'
-"""
+TNX_AGE = {
+    'pre92':{
+        # in 'idle_tnx' we are actually interested in knowing how long a transaction 
+        # is staying in idle state, that's why we measure age(now(), query_start). 
+        # it's a little bit wrong becuase it gives us time in idle state + duration of previous query, but 
+        # there's no other way to calculate it in PostgreSQL < 9.2.0
+        'idle_tnx':"""SELECT
+                        COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                        FROM pg_stat_activity
+                        WHERE current_query='<IDLE> in transaction'""",
+        # in 'running' we measure how long a query is running,
+        'running': """SELECT
+                        COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                        FROM pg_stat_activity
+                        WHERE
+                            current_query<>'<IDLE> in transaction'
+                            AND current_query<>'<IDLE>'
+                            AND current_query NOT LIKE 'autovacuum%'
+                            AND current_query NOT LIKE 'COPY%'""",
+        'running_all':  """SELECT
+                            COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                            FROM pg_stat_activity
+                            WHERE current_query<>'<IDLE> in transaction' AND current_query<>'<IDLE>'"""
+    },
+    'post92':{
+        # in 9.2 we have state_change column, which will give us time in idle state precisely.
+        # still we use query_start to get results which are consistent with pre-9.2..
+        'idle_tnx':"""SELECT
+                        COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                        FROM pg_stat_activity
+                        WHERE state LIKE 'idle in transaction%'""",
+        'running': """SELECT
+                        COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                        FROM pg_stat_activity
+                        WHERE
+                            (state='active' OR state='fastpath function call')
+                            AND query NOT LIKE 'autovacuum%'
+                            AND query NOT LIKE 'COPY%'""",
+        'running_all':  """SELECT
+                            COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), query_start))),0) as d
+                            FROM pg_stat_activity
+                            WHERE state = 'active' OR state = 'fastpath function call'"""
+    }
+}
 
 TNX_AGE_PREPARED = """
 SELECT
     COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), prepared))),0) as d
 FROM pg_prepared_xacts
 """
+
 # buffer queries:
 BUFFER = {
           'clear': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'",

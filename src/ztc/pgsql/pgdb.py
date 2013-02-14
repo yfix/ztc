@@ -107,30 +107,38 @@ class PgDB(ZTCCheck):
             insuff_priv=self.dbconn.query(q)
             if insuff_priv:
                 raise CheckFail("Insufficient privileges to read queries from pg_stat_activity")
-        q=pgq.CONN_NUMBER[vtag][state]
+        try:
+            q=pgq.CONN_NUMBER[vtag][state]
+        except KeyError:
+                raise CheckFail("Unknown connection state requested")
+
         ret = self.dbconn.query(q)[0][0]
         return ret
 
     def get_tnx_age(self, state):
         """ Get max age of transactions in given state.
-        Supported states are: 'running', 'idle_tnx'
+        Supported states are: 'running', 'idle_tnx', 'prepared'
         """
-        if state == 'idle_tnx':
-            q = pgq.TNX_AGE_IDLE_TNX
-        elif state == 'running':
-            q = pgq.TNX_AGE_RUNNING
-        elif state == 'prepared':
-            q = pgq.TNX_AGE_PREPARED
+        v=self._get_version()
+        if v >='9.2.0':
+            vtag='post92'
         else:
-            raise CheckFail("uncknown transaction state requested")
+            vtag='pre92'
+        if state == 'prepared':
+            q=pgq.TNX_AGE_PREPARED
+        else:
+            q=pgq.CHECK_INSUFF_PRIV[vtag]
+            insuff_priv=self.dbconn.query(q)
+            if insuff_priv:
+                raise CheckFail("Insufficient privileges to read queries from pg_stat_activity")
+            try:
+                q=pgq.TNX_AGE[vtag][state]
+            except KeyError:
+                raise CheckFail("Unknown transaction state requested")
 
-        ret = self.dbconn.query(q)
-        if ret:
-            ret = ret[0][0]
-            return abs(ret)
-        else:
-            # no rows returned => no transactions in given state
-            return 0
+        ret = self.dbconn.query(q)[0][0] # it always returns something becuase of COALESCE in queries,
+                                         # even if there's no transactions in given state
+        return abs(ret)
 
     def get_ping(self):
         """get amount of time required to execute trivial query"""
