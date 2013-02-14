@@ -10,6 +10,7 @@ Requirements:
 """
 
 import time
+import re
 
 from ztc.check import ZTCCheck, CheckFail
 import ztc.pgsql.queries as pgq
@@ -95,7 +96,18 @@ class PgDB(ZTCCheck):
 
     def get_conn_nr(self, state):
         """ Get number of connections in given state """
-        q = pgq.CONN_NUMBER[state]
+        v=self._get_version()
+        if v >='9.2.0':
+            vtag='post92'
+        else:
+            vtag='pre92'
+
+        if state not in ('total', 'max'): # we don't need to be able to read queries to get total and max
+            q=pgq.CHECK_INSUFF_PRIV[vtag]
+            insuff_priv=self.dbconn.query(q)
+            if insuff_priv:
+                raise CheckFail("Insufficient privileges to read queries from pg_stat_activity")
+        q=pgq.CONN_NUMBER[vtag][state]
         ret = self.dbconn.query(q)[0][0]
         return ret
 
@@ -173,4 +185,18 @@ class PgDB(ZTCCheck):
         q = "select %s from pg_stat_bgwriter" % m
         ret = self.dbconn.query(q)[0][0]
         return ret
- 
+
+    def _get_version(self):
+        """ Get postgresql version. Result returned as x.y.z string.
+        Functions returns 0.0.0 if fails to obtain or parse version string.
+        """
+        q = 'SELECT version()'
+        v_str=self.dbconn.query(q)[0][0]
+        if not v_str:
+            self.logger.warning("Failed to fetch version with query %s" % q);
+            return '0.0.0'
+        version=re.sub(r'PostgreSQL (\d+\.\d+\.\d+).+', r'\1', v_str)
+        if version==v_str:
+            self.logger.warning("Failed to parse version string: %s" % v_str);
+            return '0.0.0'
+        return version

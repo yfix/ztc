@@ -129,10 +129,6 @@ SELECT
     COALESCE(EXTRACT (EPOCH FROM MAX(age(NOW(), prepared))),0) as d
 FROM pg_prepared_xacts
 """
-
-
-
-
 # buffer queries:
 BUFFER = {
           'clear': "SELECT COUNT(*) FROM pg_buffercache WHERE isdirty='f'",
@@ -141,16 +137,33 @@ BUFFER = {
                 WHERE reldatabase IS NOT NULL;""",
            'total': "SELECT count(*) FROM pg_buffercache"}
 
+# query to check if we can read pg_stat_activity properly
+CHECK_INSUFF_PRIV = {
+            'pre92': "SELECT 1 WHERE EXISTS (SELECT 1 FROM pg_stat_activity WHERE current_query = '<insufficient privilege>')",
+            'post92': "SELECT 1 WHERE EXISTS (SELECT 1 FROM pg_stat_activity WHERE query = '<insufficient privilege>')"
+}
+
 # number of connections
 CONN_NUMBER = {
-    'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
-        WHERE current_query = '<IDLE> in transaction'""",
-    'idle': """SELECT COUNT(*) FROM pg_stat_activity
-        WHERE current_query = '<IDLE>'""",
-    'total': "SELECT COUNT(*) FROM pg_stat_activity",
-    'running': """SELECT COUNT(*) FROM pg_stat_activity
-        WHERE current_query NOT LIKE '<IDLE%'""",
-    'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"}
+    'pre92': { # queries for PostgreSQL version < 9.2.0
+        'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE current_query = '<IDLE> in transaction'""",
+        'idle': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE current_query = '<IDLE>'""",
+        'total': "SELECT COUNT(*) FROM pg_stat_activity",
+        'running': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE current_query NOT LIKE '<IDLE%'""",
+        'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"},
+    'post92': { # queries for PostgreSQL version >= 9.2.0
+        'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE state = 'idle in transaction'""",
+        'idle': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE state = 'idle'""",
+        'total': "SELECT COUNT(*) FROM pg_stat_activity",
+        'running': """SELECT COUNT(*) FROM pg_stat_activity
+            WHERE state = 'active'""",
+        'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"}
+    }
 
 FSM = {
        'pages': """SELECT
