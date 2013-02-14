@@ -156,12 +156,12 @@ CONN_NUMBER = {
         'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"},
     'post92': { # queries for PostgreSQL version >= 9.2.0
         'idle_tnx': """SELECT COUNT(*) FROM pg_stat_activity
-            WHERE state = 'idle in transaction'""",
+            WHERE state LIKE 'idle in transaction%'""",
         'idle': """SELECT COUNT(*) FROM pg_stat_activity
             WHERE state = 'idle'""",
         'total': "SELECT COUNT(*) FROM pg_stat_activity",
         'running': """SELECT COUNT(*) FROM pg_stat_activity
-            WHERE state = 'active'""",
+            WHERE state = 'active' OR state = 'fastpath function call'""",
         'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"}
     }
 
