@@ -100,7 +100,7 @@ class PgDB(ZTCCheck):
     def get_conn_nr(self, state):
         """ Get number of connections in given state """
         v=self._get_version()
-        if v >='9.2.0':
+        if v >=(9,2,0):
             vtag='post92'
         else:
             vtag='pre92'
@@ -122,7 +122,7 @@ class PgDB(ZTCCheck):
         Supported states are: 'running', 'idle_tnx', 'prepared'
         """
         v=self._get_version()
-        if v >='9.2.0':
+        if v >=(9,2,0):
             vtag='post92'
         else:
             vtag='pre92'
@@ -197,18 +197,23 @@ class PgDB(ZTCCheck):
         return ret
 
     def _get_version(self):
-        """ Get postgresql version. Result returned as x.y.z string.
-        Functions returns 0.0.0 if fails to obtain or parse version string.
+        """ Get postgresql version. Result returned as (x,y,z) tuple, each member 
+            of which is an integer. Functions returns (0,0,0) if fails to obtain 
+            or parse version string.
         """
+        dummy_version=(0,0,0)
         q = 'SELECT version()'
         v_str=self.dbconn.query(q)[0][0]
         if not v_str:
             self.logger.warning("Failed to fetch version with query %s" % q);
-            return '0.0.0'
-        version=re.sub(r'PostgreSQL (\d+\.\d+\.\d+).+', r'\1', v_str)
-        if version==v_str:
+            return dummy_version
+        m=re.search(r'PostgreSQL (\d+)\.(\d+)\.(\d+).+', v_str)
+        if not m:
             self.logger.warning("Failed to parse version string: %s" % v_str);
-            return '0.0.0'
+            return dummy_version
+        version=tuple(int(k) for k in m.groups()) # convert every element of resulting tuple to integer
+                                                  # there's np way it can cause ValueError, becuase 
+                                                  # search regexp matches only digits.
         return version
     
     def get_setting(self, parameter):
