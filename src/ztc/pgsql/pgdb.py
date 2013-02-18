@@ -81,8 +81,7 @@ class PgDB(ZTCCheck):
         return ret
 
     def get_buffers(self, metric):
-        """ PostgreSQL buffer metrics: number of clear/dirty/used/total
-        buffers.
+        """ PostgreSQL buffer metrics: number of clear/dirty/used/total buffers.
         Requirements: pg_buffercache contrib """
         q = pgq.BUFFER[metric]
         ret = self.dbconn.query(q)[0][0]
@@ -102,7 +101,8 @@ class PgDB(ZTCCheck):
         else:
             vtag = 'pre92'
 
-        if state not in ('total', 'max'):  # we don't need to be able to read queries to get total and max
+        # we don't need to be able to read queries to get total and max
+        if state not in ('total', 'max'):
             q = pgq.CHECK_INSUFF_PRIV[vtag]
             insuff_priv = self.dbconn.query(q)
             if insuff_priv:
@@ -138,12 +138,9 @@ class PgDB(ZTCCheck):
             except KeyError:
                 raise CheckFail("Unknown transaction state requested")
 
-        ret = self.dbconn.query(
-            q)[
-                0][
-                    0]  # it always returns something becuase of COALESCE in queries,
-                                         # even if there's no transactions in
-                                         # given state
+        # the query always returns something becuase of COALESCE(..., 0),
+        # even if there's no transactions in given state
+        ret = self.dbconn.query(q)[0][0]
         return abs(ret)
 
     def get_ping(self):
