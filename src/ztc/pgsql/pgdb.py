@@ -64,6 +64,9 @@ class PgDB(ZTCCheck):
         elif metric == 'bgwriter':
             bgw_metric = args[0]
             return self.get_bgwriter(bgw_metric)
+        elif metric == 'settings':
+            param = args[0]
+            return self.get_setting(param)
         elif metric == 'wal':
             m = args[0]
             if m == 'num':
@@ -102,7 +105,7 @@ class PgDB(ZTCCheck):
             vtag = 'pre92'
 
         # we don't need to be able to read queries to get total and max
-        if state not in ('total', 'max'):
+        if state!='total':
             q = pgq.CHECK_INSUFF_PRIV[vtag]
             insuff_priv = self.dbconn.query(q)
             if insuff_priv:
@@ -217,3 +220,11 @@ class PgDB(ZTCCheck):
         # only digits.
         version = tuple(int(k) for k in m.groups())
         return version
+
+    def get_setting(self, parameter):
+        """ Get arbitrary postgresql user configurable parameter """
+        q = pgq.GET_SETTING % (parameter)
+        res = self.dbconn.query(q)
+        if res:
+            return res[0][0]
+        raise CheckFail("The requested parameter %s does not exist in pg_settings" % parameter)

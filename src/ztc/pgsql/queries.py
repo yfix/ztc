@@ -193,6 +193,8 @@ CONN_NUMBER = {
         'waiting': "SELECT COUNT(*) FROM pg_stat_activity WHERE waiting<>'f'"}
 }
 
+GET_SETTING = """SELECT setting FROM pg_settings WHERE name='%s'"""
+
 FSM = {
     'pages': """SELECT
             pages,

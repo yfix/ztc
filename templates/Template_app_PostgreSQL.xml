@@ -109,6 +109,24 @@
           <priority>2</priority>
           <comments></comments>
         </trigger>
+      <trigger>
+          <description>PgSQL: more than 90% of available connections are in use on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.conn.num.last(0)}/({Template_app_PostgreSQL:pgsql.conn.max.last(0)}+0.000001)&gt;0.9</expression>
+          <url></url>
+          <status>0</status>
+          <priority>2</priority>
+          <comments></comments>
+        </trigger>
+      <trigger>
+          <description>PgSQL: more than 80% of available connections used on {HOSTNAME}</description>
+          <type>0</type>
+          <expression>{Template_app_PostgreSQL:pgsql.conn.num.last(0)}/({Template_app_PostgreSQL:pgsql.conn.max.last(0)}+0.000001)&gt;0.8</expression>
+          <url></url>
+          <status>0</status>
+          <priority>4</priority>
+          <comments></comments>
+        </trigger>
       </triggers>
       <items>
         <item type="0" key="pgsql.last_checkpoint_age" value_type="0">
@@ -383,7 +401,41 @@
             <application>PostgreSQL</application>
           </applications>
         </item>
-        <item type="0" key="pgsql.conn.idle_in_transaction" value_type="3">
+        <item type="0" key="pgsql.conn.num" value_type="3">
+          <description>PgSQL: nr of connections established to postgresql server</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>90</delay>
+          <history>7</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units></units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params>DSN=database source name\nuser=user name\npassword=password\nsql=query</params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community>public</snmp_community>
+          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>PostgreSQL</application>
+          </applications>
+        </item>
+       <item type="0" key="pgsql.conn.idle_in_transaction" value_type="3">
           <description>PgSQL: nr of connections idle in transaction</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>90</delay>
@@ -691,6 +743,40 @@
         </item>
         <item type="0" key="pgsql.wal.num" value_type="3">
           <description>PgSQL: nr of wal files</description>
+          <ipmi_sensor></ipmi_sensor>
+          <delay>300</delay>
+          <history>7</history>
+          <trends>365</trends>
+          <status>0</status>
+          <data_type>0</data_type>
+          <units></units>
+          <multiplier>0</multiplier>
+          <delta>0</delta>
+          <formula>1</formula>
+          <lastlogsize>0</lastlogsize>
+          <logtimefmt></logtimefmt>
+          <delay_flex></delay_flex>
+          <authtype>0</authtype>
+          <username></username>
+          <password></password>
+          <publickey></publickey>
+          <privatekey></privatekey>
+          <params>DSN=&lt;database source name&gt;\nuser=&lt;user name&gt;\npassword=&lt;password&gt;\nsql=&lt;query&gt;</params>
+          <trapper_hosts></trapper_hosts>
+          <snmp_community>public</snmp_community>
+          <snmp_oid>interfaces.ifTable.ifEntry.ifInOctets.1</snmp_oid>
+          <snmp_port>161</snmp_port>
+          <snmpv3_securityname></snmpv3_securityname>
+          <snmpv3_securitylevel>0</snmpv3_securitylevel>
+          <snmpv3_authpassphrase></snmpv3_authpassphrase>
+          <snmpv3_privpassphrase></snmpv3_privpassphrase>
+          <valuemapid>0</valuemapid>
+          <applications>
+            <application>PostgreSQL</application>
+          </applications>
+        </item>
+        <item type="0" key="pgsql.conn.max" value_type="3">
+          <description>PgSQL: max number of possible connections</description>
           <ipmi_sensor></ipmi_sensor>
           <delay>300</delay>
           <history>7</history>
